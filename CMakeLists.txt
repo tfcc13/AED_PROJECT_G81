@@ -14,4 +14,5 @@ add_executable(AED_PROJECT main.cpp
         LeicClass.h
         LeicClass.cpp
         Schedule.h
-        Schedule.cpp)
+        Schedule.cpp
+)

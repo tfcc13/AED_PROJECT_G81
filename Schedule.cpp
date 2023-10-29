@@ -6,7 +6,6 @@
 
 Schedule::Schedule() {
     schedule =  {
-
             {"Monday", {}},
             {"Tuesday",{}},
             {"Wednesday",{}},
@@ -14,6 +13,7 @@ Schedule::Schedule() {
             {"Friday",{}}
     };
 }
+
 Schedule::Schedule(const Schedule &other) {
     schedule = other.schedule;
 }

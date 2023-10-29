@@ -4,14 +4,14 @@
 		"generator" : 
 		{
 			"multiConfig" : false,
-			"name" : "Ninja"
+			"name" : "Unix Makefiles"
 		},
 		"paths" : 
 		{
-			"cmake" : "/home/tiago/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake",
-			"cpack" : "/home/tiago/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cpack",
-			"ctest" : "/home/tiago/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/ctest",
-			"root" : "/home/tiago/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-3.26"
+			"cmake" : "/opt/CLion/clion-2023.2.2/bin/cmake/linux/x64/bin/cmake",
+			"cpack" : "/opt/CLion/clion-2023.2.2/bin/cmake/linux/x64/bin/cpack",
+			"ctest" : "/opt/CLion/clion-2023.2.2/bin/cmake/linux/x64/bin/ctest",
+			"root" : "/opt/CLion/clion-2023.2.2/bin/cmake/linux/x64/share/cmake-3.26"
 		},
 		"version" : 
 		{
@@ -26,7 +26,7 @@
 	"objects" : 
 	[
 		{
-			"jsonFile" : "codemodel-v2-634efd2e32f85e5ce337.json",
+			"jsonFile" : "codemodel-v2-f87743f35809185135a8.json",
 			"kind" : "codemodel",
 			"version" : 
 			{
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cache-v2-e3265feb75b230f97e1d.json",
+			"jsonFile" : "cache-v2-ecdc0f20c33b3fce2266.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -44,7 +44,7 @@
 			}
 		},
 		{
-			"jsonFile" : "cmakeFiles-v1-55f5856e19e370e97105.json",
+			"jsonFile" : "cmakeFiles-v1-417314e388430fe98867.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -66,7 +66,7 @@
 	{
 		"cache-v2" : 
 		{
-			"jsonFile" : "cache-v2-e3265feb75b230f97e1d.json",
+			"jsonFile" : "cache-v2-ecdc0f20c33b3fce2266.json",
 			"kind" : "cache",
 			"version" : 
 			{
@@ -76,7 +76,7 @@
 		},
 		"cmakeFiles-v1" : 
 		{
-			"jsonFile" : "cmakeFiles-v1-55f5856e19e370e97105.json",
+			"jsonFile" : "cmakeFiles-v1-417314e388430fe98867.json",
 			"kind" : "cmakeFiles",
 			"version" : 
 			{
@@ -86,7 +86,7 @@
 		},
 		"codemodel-v2" : 
 		{
-			"jsonFile" : "codemodel-v2-634efd2e32f85e5ce337.json",
+			"jsonFile" : "codemodel-v2-f87743f35809185135a8.json",
 			"kind" : "codemodel",
 			"version" : 
 			{

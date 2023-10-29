@@ -10,7 +10,6 @@
 #include <cstring>
 
 
-
 std::set<UC> populateUcSet(const std::string& filename) {
     std::set<UC> uc_classes;
     std::ifstream dataFile(filename);
@@ -173,13 +172,12 @@ std::set<Student> populateStudentSet(const std::string& filename) {
     std::set<Student> students;
     std::ifstream dataFile(filename);
 
-
-
     if(dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
         return students;
     }
+
     std::string header;
     getline(dataFile, header);
     std::string line;

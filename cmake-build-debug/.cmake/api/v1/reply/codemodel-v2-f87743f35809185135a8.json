@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "AED_PROJECT::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-AED_PROJECT-Debug-112f31e16c6980db948d.json",
+					"jsonFile" : "target-AED_PROJECT-Debug-176d9be678f557707301.json",
 					"name" : "AED_PROJECT",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/tiago/Desktop/FEUP/2Ano/1Semestre/AED/AED_PROJECT/cmake-build-debug",
-		"source" : "/home/tiago/Desktop/FEUP/2Ano/1Semestre/AED/AED_PROJECT"
+		"build" : "/home/francisco/Desktop/FEUP/2\u00ba Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug",
+		"source" : "/home/francisco/Desktop/FEUP/2\u00ba Ano/AED/Project_1/AED_PROJECT_G81"
 	},
 	"version" : 
 	{

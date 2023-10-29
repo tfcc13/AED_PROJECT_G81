@@ -4,24 +4,24 @@
 
 #include "Student.h"
 
-
-
-//Constructor
-Student::Student( int id_number, std::string& st_name) {
-    this->id_number = id_number;
-    this->st_name = st_name;
-}
+// Constructor
+Student::Student(int id_number, std::string& st_name) :
+        id_number_(id_number),
+        st_name_(st_name),
+        st_enrolled_UC_and_classes_(),
+        st_number_of_UCs_(0),
+        st_schedule_() {}
 
 int Student::getIdNumber() const {
-    return id_number;
+    return id_number_;
 }
 
 const std::string& Student::getStudentName() const {
-    return st_name;
+    return st_name_;
 }
 
 bool Student::operator<(const Student& other) const {
-    return id_number < other.id_number;
+    return id_number_ < other.id_number_;
 }
 
 /*void Student::insertUcCode(const std::string &UcCode) {
