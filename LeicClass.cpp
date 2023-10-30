@@ -11,16 +11,17 @@ LeicClass::LeicClass(const string& class_name) :
 
 LeicClass::LeicClass(const LeicClass& other) {
     LEIC_class_name_ = other.LEIC_class_name_;
-    LEIC_UC_classes_ = other.LEIC_UC_classes_;
+    for (const UC_class& uc : other.LEIC_UC_classes_) {
+        LEIC_UC_classes_.insert(uc);
+    }
     LEIC_class_schedule_ = other.LEIC_class_schedule_;
 }
 
-const string &LeicClass::getClassName() const {
+ const string &LeicClass::getClassName() const {
     return LEIC_class_name_;
 }
 
 void LeicClass::getClassUc() const {
-    cout << "This class has the following UC's:" << std::endl;
     for (const UC_class& uc : LEIC_UC_classes_) {
         cout << uc.getUcName() << std::endl;
     }

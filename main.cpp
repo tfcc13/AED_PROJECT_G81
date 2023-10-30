@@ -10,6 +10,8 @@
 #include <cstring>
 
 
+
+
 std::set<UC_class> populateUcSet(const std::string& filename) {
     std::set<UC_class> uc_classes;
     std::ifstream dataFile(filename);
@@ -71,6 +73,8 @@ std::set<UC_class> populateUcSet(const std::string& filename) {
 
 
 }
+
+
 
 /*
 std::set<UC> populateUcSet(const std::string& filename) {
@@ -140,6 +144,7 @@ std::set<LeicClass> populateLeicSet(const std::string& filename) {
     std::string line;
 
     while (std::getline(dataFile,line)) {
+        line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
         std::string uccode;
         std::string classcode;
@@ -151,13 +156,14 @@ std::set<LeicClass> populateLeicSet(const std::string& filename) {
         std::set<LeicClass>::iterator classIt;
         classIt = leicClasses.find(tempClass);
         if (classIt != leicClasses.end()) {
-            LeicClass classCopy = *classIt;
+            LeicClass classCopy = LeicClass(*classIt);
             leicClasses.erase(classIt);
             classCopy.addUcClass(UC_class(uccode));
             leicClasses.insert(classCopy);
         } else {
             tempClass.addUcClass(uccode);
             leicClasses.insert(tempClass);
+
 
         }
     }
@@ -216,9 +222,10 @@ std::set<Student> populateStudentSet(const std::string& filename) {
 int main() {
 
 
-    std::set<Student> result = populateStudentSet("input/students_classes.csv");
-    std::set<UC_class> totalUc = populateUcSet("input/classes.csv");
+
+   std::set<UC_class> totalUc = populateUcSet("input/classes.csv");
     std::set<LeicClass> allClasses = populateLeicSet("input/classes_per_uc.csv");
+    std::set<Student> result = populateStudentSet("input/students_classes.csv");
 
     int counter = 1;
     for (const Student& student : result) {
@@ -230,19 +237,17 @@ int main() {
     counter = 1;
     for (const UC_class& uc : totalUc) {
         std::cout << counter << " - " << "UC name: " << uc.getUcName() << std::endl;
-        uc.getUcWeekSchedule();
+        uc.getEnrolledStudents();
         counter++;
     }
 
     counter = 1;
 
     for (const LeicClass& classes : allClasses) {
-        std::cout << counter << " - " << "Class name: "<< std::endl;
-        std::cout << "Class UC's " << std::endl;
+        std::cout << counter << " - " << "Class name: "<<  classes.getClassName() << std::endl;
         classes.getClassUc() ;
         counter++;
     }
-
 
     return 0;
 }
