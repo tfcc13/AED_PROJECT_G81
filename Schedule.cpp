@@ -62,7 +62,7 @@ bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const daySc
     return false;
 }
 
-void Schedule::addScheduleEntry(const Schedule& s){
+void Schedule::addSchedule(const Schedule& s){
     for(const auto & it_map_elem : s.schedule_){
         for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
             this->addDayScheduleEntry(it_map_elem.first, *it_schedule_entry);
@@ -70,7 +70,7 @@ void Schedule::addScheduleEntry(const Schedule& s){
     }
 }
 
-void Schedule::removeScheduleEntry(const Schedule& s){
+void Schedule::removeSchedule(const Schedule& s){
     for(const auto & it_map_elem : s.schedule_){
         for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
             this->removeDayScheduleEntry(it_map_elem.first, *it_schedule_entry);
@@ -78,7 +78,7 @@ void Schedule::removeScheduleEntry(const Schedule& s){
     }
 }
 
-bool Schedule::checkScheduleEntryConflict(const Schedule& s){
+bool Schedule::checkScheduleConflict(const Schedule& s){
     for(const auto & it_map_elem : s.schedule_){
         for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
             this->checkDayScheduleEntryConflict(it_map_elem.first, *it_schedule_entry);
@@ -86,18 +86,25 @@ bool Schedule::checkScheduleEntryConflict(const Schedule& s){
     }
 }
 
-void Schedule::getDaySchedule(const std::string &weekDay) const {
-    std::cout << std::left << weekDay << std::endl;
-    std::cout << std::left << std::setw(15) << "Start Time" << std::setw(15) << "Duration" << std::setw(15) << "Type" << std::endl;
-    for (const auto& classSchedule : schedule_.at(weekDay)) {
-        std::cout << std::left << std::setw(15) << classSchedule.start_hour
-                  << std::setw(15) << classSchedule.duration
-                  << std::setw(15) << classSchedule.class_type << std::endl;
+void Schedule::PrintDaySchedule(const string &week_day){
+    cout << left << week_day << endl;
+    if (schedule_[week_day].empty()){
+        cout << left << "No classes on this day" << endl;
+    } else{
+        cout << left  << setw(15) << "UC code" << setw(15) << "Class code" << setw(15) << "Start Time" << std::setw(15) << "Duration" << std::setw(15) << "Type" << std::endl;
+        for (const auto& classSchedule : schedule_.at(week_day)) {
+            cout << left << setw(15) << classSchedule.UC_code
+                 << setw(15) << classSchedule.class_code
+                 << setw(15) << classSchedule.start_hour
+                 << setw(15) << classSchedule.duration
+                 << setw(15) << classSchedule.class_type << endl;
+        }
     }
 }
 
-void Schedule::getWeekSchedule()  const {
+void Schedule::PrintWeekSchedule(){
     for (const auto& daySchedule : schedule_) {
-        getDaySchedule(daySchedule.first);
+        this->PrintDaySchedule(daySchedule.first);
     }
 }
+
