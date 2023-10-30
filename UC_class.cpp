@@ -9,7 +9,7 @@ UC_class::UC_class(string& UC_name) :
         enrolled_students_(),
         number_of_enrolled_students_(0),
         number_of_vacancies_(27),
-        UC_class_schedule_(){}
+        UC_class_schedule_() {}
 
 UC_class::UC_class(const UC_class &other) {
     UC_name_ = other.UC_name_;
