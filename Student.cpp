@@ -24,7 +24,6 @@ int Student::getNumberOfUCs() const {
     return st_number_of_UCs_;
 }
 
-
 bool Student::operator<(const Student& other) const {
     return id_number_ < other.id_number_;
 }

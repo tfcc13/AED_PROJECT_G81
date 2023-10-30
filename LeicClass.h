@@ -6,23 +6,25 @@
 #define AED_PROJECT_LEICCLASS_H
 
 #include <string>
-#include "UC_class.h"
 #include <iostream>
 #include <iomanip>
+#include "UC_class.h"
 #include "Schedule.h"
+
+using namespace std;
 
 class LeicClass {
 private:
-    std::string leic_class_name;
-    std::set<UC_class> leic_uc_classes;
-    Schedule leicClassSchedule;
+    string LEIC_class_name_;
+    set<UC_class> LEIC_UC_classes_;
+    Schedule LEIC_class_schedule_;
 
 public:
-    LeicClass(const std::string& class_name);
+    LeicClass(const string& class_name);
 
     LeicClass(const LeicClass& other);
 
-    const std::string& getClassName() const;
+    const string& getClassName() const;
 
     void getClassUc() const;
 
