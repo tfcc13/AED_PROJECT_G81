@@ -26,33 +26,43 @@ void Schedule::addDayScheduleEntry(const string &week_day, const dayScheduleEntr
 }
 
 void Schedule::removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
-
-
-
+    for(auto it = schedule_[week_day].begin(); it != schedule_[week_day].end(); it++){
+        if(*it == entry){
+            schedule_[week_day].erase(it);
+        }
+    }
     sort(schedule_[week_day].begin(), schedule_[week_day].end(), [](const dayScheduleEntry& a, const dayScheduleEntry& b) {
         return a.start_hour < b.start_hour;
     });
 }
 
-void Schedule::addClassSchedule(const string &weekDay, const dayScheduleEntry& someSchedule) {
-    dayScheduleEntry[weekDay].emplace_back(someSchedule);
-    sort(dayScheduleEntry[weekDay].begin(), dayScheduleEntry[weekDay].end(), [](const dayScheduleEntry& a, const dayScheduleEntry& b) {
-        return a.startHour < b.startHour;
-    });
+bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry){
+    double e1_beginning_time = entry.start_hour;
+    double e1_finishing_time = entry.start_hour + entry.duration;
+    double e2_beginning_time, e2_finishing_time;
+
+    for(auto it = schedule_[week_day].begin(); it != schedule_[week_day].end(); it++){
+        e2_beginning_time = it->start_hour;
+        e2_finishing_time = it->start_hour + it->duration;
+        if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Schedule::getDaySchedule(const std::string &weekDay) const {
     std::cout << std::left << weekDay << std::endl;
     std::cout << std::left << std::setw(15) << "Start Time" << std::setw(15) << "Duration" << std::setw(15) << "Type" << std::endl;
-    for (const auto& classSchedule : schedule.at(weekDay)) {
-        std::cout << std::left << std::setw(15) << classSchedule.startHour
+    for (const auto& classSchedule : schedule_.at(weekDay)) {
+        std::cout << std::left << std::setw(15) << classSchedule.start_hour
                   << std::setw(15) << classSchedule.duration
-                  << std::setw(15) << classSchedule.classType << std::endl;
+                  << std::setw(15) << classSchedule.class_type << std::endl;
     }
 }
 
 void Schedule::getWeekSchedule()  const {
-    for (const auto& daySchedule : schedule) {
+    for (const auto& daySchedule : schedule_) {
         getDaySchedule(daySchedule.first);
     }
 }

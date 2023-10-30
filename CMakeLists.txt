@@ -9,8 +9,8 @@ add_executable(AED_PROJECT main.cpp
         Student.cpp
         Student.h
         main.cpp
-        UC.h
-        UC.cpp
+        UC_class.h
+        UC_class.cpp
         LeicClass.h
         LeicClass.cpp
         Schedule.h

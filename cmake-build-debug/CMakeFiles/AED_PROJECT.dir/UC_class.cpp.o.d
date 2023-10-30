@@ -1,6 +1,8 @@
-CMakeFiles/AED_PROJECT.dir/main.cpp.o: \
- /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/main.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o: \
+ /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp \
+ /usr/include/stdc-predef.h \
+ /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC_class.h \
+ /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -186,11 +188,4 @@ CMakeFiles/AED_PROJECT.dir/main.cpp.o: \
  /usr/include/c++/11/bits/locale_conv.h \
  /usr/include/c++/11/bits/unique_ptr.h \
  /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc \
- /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC_class.h \
- /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/LeicClass.h \
- /usr/include/c++/11/fstream \
- /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/cstring \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/c++/11/bits/sstream.tcc

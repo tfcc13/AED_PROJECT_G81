@@ -11,7 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/LeicClass.cpp" "CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o.d"
   "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/Schedule.cpp" "CMakeFiles/AED_PROJECT.dir/Schedule.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/Schedule.cpp.o.d"
   "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/Student.cpp" "CMakeFiles/AED_PROJECT.dir/Student.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/Student.cpp.o.d"
-  "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC.cpp" "CMakeFiles/AED_PROJECT.dir/UC.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/UC.cpp.o.d"
+  "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp" "CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o.d"
   "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/main.cpp" "CMakeFiles/AED_PROJECT.dir/main.cpp.o" "gcc" "CMakeFiles/AED_PROJECT.dir/main.cpp.o.d"
   )
 

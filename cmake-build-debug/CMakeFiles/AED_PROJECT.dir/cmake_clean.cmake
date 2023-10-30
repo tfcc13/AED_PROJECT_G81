@@ -7,8 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/AED_PROJECT.dir/Schedule.cpp.o.d"
   "CMakeFiles/AED_PROJECT.dir/Student.cpp.o"
   "CMakeFiles/AED_PROJECT.dir/Student.cpp.o.d"
-  "CMakeFiles/AED_PROJECT.dir/UC.cpp.o"
-  "CMakeFiles/AED_PROJECT.dir/UC.cpp.o.d"
+  "CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o"
+  "CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o.d"
   "CMakeFiles/AED_PROJECT.dir/main.cpp.o"
   "CMakeFiles/AED_PROJECT.dir/main.cpp.o.d"
 )

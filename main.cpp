@@ -2,7 +2,7 @@
 
 #include <cstdio>
 #include"Student.h"
-#include "UC.h"
+#include "UC_class.h"
 #include "LeicClass.h"
 #include <iostream>
 #include <fstream>

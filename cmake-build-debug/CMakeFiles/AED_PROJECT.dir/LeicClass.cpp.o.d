@@ -130,7 +130,7 @@ CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC.h \
+ /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC_class.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/exception \
  /usr/include/c++/11/bits/exception_ptr.h \

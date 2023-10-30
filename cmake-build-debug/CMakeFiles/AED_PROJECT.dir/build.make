@@ -97,19 +97,19 @@ CMakeFiles/AED_PROJECT.dir/Student.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AED_PROJECT.dir/Student.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/Student.cpp" -o CMakeFiles/AED_PROJECT.dir/Student.cpp.s
 
-CMakeFiles/AED_PROJECT.dir/UC.cpp.o: CMakeFiles/AED_PROJECT.dir/flags.make
-CMakeFiles/AED_PROJECT.dir/UC.cpp.o: /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC.cpp
-CMakeFiles/AED_PROJECT.dir/UC.cpp.o: CMakeFiles/AED_PROJECT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/AED_PROJECT.dir/UC.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/AED_PROJECT.dir/UC.cpp.o -MF CMakeFiles/AED_PROJECT.dir/UC.cpp.o.d -o CMakeFiles/AED_PROJECT.dir/UC.cpp.o -c "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC.cpp"
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o: CMakeFiles/AED_PROJECT.dir/flags.make
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o: /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o: CMakeFiles/AED_PROJECT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o -MF CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o.d -o CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o -c "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp"
 
-CMakeFiles/AED_PROJECT.dir/UC.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AED_PROJECT.dir/UC.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC.cpp" > CMakeFiles/AED_PROJECT.dir/UC.cpp.i
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/AED_PROJECT.dir/UC_class.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp" > CMakeFiles/AED_PROJECT.dir/UC_class.cpp.i
 
-CMakeFiles/AED_PROJECT.dir/UC.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AED_PROJECT.dir/UC.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC.cpp" -o CMakeFiles/AED_PROJECT.dir/UC.cpp.s
+CMakeFiles/AED_PROJECT.dir/UC_class.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/AED_PROJECT.dir/UC_class.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/UC_class.cpp" -o CMakeFiles/AED_PROJECT.dir/UC_class.cpp.s
 
 CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o: CMakeFiles/AED_PROJECT.dir/flags.make
 CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o: /home/francisco/Desktop/FEUP/2º\ Ano/AED/Project_1/AED_PROJECT_G81/LeicClass.cpp
@@ -143,7 +143,7 @@ CMakeFiles/AED_PROJECT.dir/Schedule.cpp.s: cmake_force
 AED_PROJECT_OBJECTS = \
 "CMakeFiles/AED_PROJECT.dir/main.cpp.o" \
 "CMakeFiles/AED_PROJECT.dir/Student.cpp.o" \
-"CMakeFiles/AED_PROJECT.dir/UC.cpp.o" \
+"CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o" \
 "CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o" \
 "CMakeFiles/AED_PROJECT.dir/Schedule.cpp.o"
 
@@ -152,7 +152,7 @@ AED_PROJECT_EXTERNAL_OBJECTS =
 
 AED_PROJECT: CMakeFiles/AED_PROJECT.dir/main.cpp.o
 AED_PROJECT: CMakeFiles/AED_PROJECT.dir/Student.cpp.o
-AED_PROJECT: CMakeFiles/AED_PROJECT.dir/UC.cpp.o
+AED_PROJECT: CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o
 AED_PROJECT: CMakeFiles/AED_PROJECT.dir/LeicClass.cpp.o
 AED_PROJECT: CMakeFiles/AED_PROJECT.dir/Schedule.cpp.o
 AED_PROJECT: CMakeFiles/AED_PROJECT.dir/build.make

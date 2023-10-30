@@ -5,9 +5,8 @@
 #ifndef AED_PROJECT_LEICCLASS_H
 #define AED_PROJECT_LEICCLASS_H
 
-
 #include <string>
-#include "UC.h"
+#include "UC_class.h"
 #include <iostream>
 #include <iomanip>
 #include "Schedule.h"
@@ -15,9 +14,8 @@
 class LeicClass {
 private:
     std::string leic_class_name;
-    std::set<UC> leic_uc_classes;
+    std::set<UC_class> leic_uc_classes;
     Schedule leicClassSchedule;
-
 
 public:
     LeicClass(const std::string& class_name);
@@ -28,7 +26,7 @@ public:
 
     void getClassUc() const;
 
-    void addUcClass(const UC& ucClass);
+    void addUcClass(const UC_class& ucClass);
 
     bool operator<(const LeicClass& other) const;
 };

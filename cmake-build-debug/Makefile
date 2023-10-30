@@ -201,29 +201,29 @@ Student.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/Student.cpp.s
 .PHONY : Student.cpp.s
 
-UC.o: UC.cpp.o
-.PHONY : UC.o
+UC_class.o: UC_class.cpp.o
+.PHONY : UC_class.o
 
 # target to build an object file
-UC.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC.cpp.o
-.PHONY : UC.cpp.o
+UC_class.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC_class.cpp.o
+.PHONY : UC_class.cpp.o
 
-UC.i: UC.cpp.i
-.PHONY : UC.i
+UC_class.i: UC_class.cpp.i
+.PHONY : UC_class.i
 
 # target to preprocess a source file
-UC.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC.cpp.i
-.PHONY : UC.cpp.i
+UC_class.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC_class.cpp.i
+.PHONY : UC_class.cpp.i
 
-UC.s: UC.cpp.s
-.PHONY : UC.s
+UC_class.s: UC_class.cpp.s
+.PHONY : UC_class.s
 
 # target to generate assembly for a file
-UC.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC.cpp.s
-.PHONY : UC.cpp.s
+UC_class.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/AED_PROJECT.dir/build.make CMakeFiles/AED_PROJECT.dir/UC_class.cpp.s
+.PHONY : UC_class.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -267,9 +267,9 @@ help:
 	@echo "... Student.o"
 	@echo "... Student.i"
 	@echo "... Student.s"
-	@echo "... UC.o"
-	@echo "... UC.i"
-	@echo "... UC.s"
+	@echo "... UC_class.o"
+	@echo "... UC_class.i"
+	@echo "... UC_class.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
