@@ -31,7 +31,7 @@ void LeicClass::addUcClass(const UC_class& UC_class) {
 }
 
 void LeicClass::AddDayScheduleEntryLEICClass(const string &week_day, const dayScheduleEntry& entry){
-    LEIC_class_schedule_.addClassSchedule(week_day, entry);
+    LEIC_class_schedule_.addDayScheduleEntry(week_day, entry);
 }
 
 bool LeicClass::operator<(const LeicClass &other) const {
