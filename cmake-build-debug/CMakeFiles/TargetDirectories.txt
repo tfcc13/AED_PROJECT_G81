@@ -1,3 +1,0 @@
-/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug/CMakeFiles/AED_PROJECT.dir
-/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/francisco/Desktop/FEUP/2º Ano/AED/Project_1/AED_PROJECT_G81/cmake-build-debug/CMakeFiles/rebuild_cache.dir
