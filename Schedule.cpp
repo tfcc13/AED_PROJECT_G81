@@ -5,7 +5,7 @@
 #include "Schedule.h"
 
 Schedule::Schedule() {
-    schedule =  {
+    schedule_ =  {
             {"Monday", {}},
             {"Tuesday",{}},
             {"Wednesday",{}},
@@ -15,12 +15,28 @@ Schedule::Schedule() {
 }
 
 Schedule::Schedule(const Schedule &other) {
-    schedule = other.schedule;
+    schedule_ = other.schedule_;
 }
 
-void Schedule::addClassSchedule(const std::string &weekDay, const classSchedule& someSchedule) {
-    schedule[weekDay].emplace_back(someSchedule);
-    std::sort(schedule[weekDay].begin(), schedule[weekDay].end(), [](const classSchedule& a, const classSchedule& b) {
+void Schedule::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+    schedule_[week_day].emplace_back(entry);
+    sort(schedule_[week_day].begin(), schedule_[week_day].end(), [](const dayScheduleEntry& a, const dayScheduleEntry& b) {
+        return a.start_hour < b.start_hour;
+    });
+}
+
+void Schedule::removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+
+
+
+    sort(schedule_[week_day].begin(), schedule_[week_day].end(), [](const dayScheduleEntry& a, const dayScheduleEntry& b) {
+        return a.start_hour < b.start_hour;
+    });
+}
+
+void Schedule::addClassSchedule(const string &weekDay, const dayScheduleEntry& someSchedule) {
+    dayScheduleEntry[weekDay].emplace_back(someSchedule);
+    sort(dayScheduleEntry[weekDay].begin(), dayScheduleEntry[weekDay].end(), [](const dayScheduleEntry& a, const dayScheduleEntry& b) {
         return a.startHour < b.startHour;
     });
 }

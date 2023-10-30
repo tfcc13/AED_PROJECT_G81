@@ -12,22 +12,27 @@
 #include <iostream>
 #include <iomanip>
 
-struct classSchedule {
-    double startHour;
-    double duration;
-    std::string classType;
+using namespace std;
 
+struct dayScheduleEntry {
+    string UC_code;
+    string class_code;
+    double start_hour;
+    double duration;
+    string class_type;
 };
 
 class Schedule {
 private:
-    std::map<std::string , std::vector<classSchedule>> schedule;
+    map<string , vector<dayScheduleEntry>> schedule_;
 
 public:
     Schedule();
     Schedule(const Schedule& other);
 
-    void addClassSchedule(const std::string& weekDay, const classSchedule& someSchedule);
+    void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
+
+    void addClassSchedule(const std::string& weekDay, const dayScheduleEntry& someSchedule);
     void getDaySchedule(const std::string& weekDay) const ;
     void getWeekSchedule() const;
 

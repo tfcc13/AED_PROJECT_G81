@@ -31,7 +31,6 @@ private:
 public:
     //Constructor
     Student(int id_number, std::string& st_name);
-
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
