@@ -24,6 +24,12 @@ int Student::getNumberOfUCs() const {
     return st_number_of_UCs_;
 }
 
+void Student::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+    st_enrolled_UC_and_classes_.insert(make_pair(entry.class_code, entry.UC_code));
+    st_schedule_.addDayScheduleEntry(week_day, entry);
+    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
+}
+
 bool Student::operator<(const Student& other) const {
     return id_number_ < other.id_number_;
 }

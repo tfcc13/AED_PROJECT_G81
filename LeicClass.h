@@ -28,7 +28,9 @@ public:
 
     void getClassUc() const;
 
-    void addUcClass(const UC_class& ucClass);
+    void addUcClass(const UC_class& UC_class);
+
+    void AddDayScheduleEntryLEICClass(const string &week_day, const dayScheduleEntry& entry);
 
     bool operator<(const LeicClass& other) const;
 };

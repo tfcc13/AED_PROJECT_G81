@@ -44,3 +44,4 @@ void UC_class::getUcWeekSchedule() const {
 void UC_class::addUcSchedule(const string &weekDay, const dayScheduleEntry &someSchedule) {
     UC_class_schedule_.addClassSchedule(weekDay, someSchedule);
 }
+

@@ -24,7 +24,7 @@ class Student {
 private:
     int id_number_;
     string st_name_;
-    set<pair<string, string>, pair_compare> st_enrolled_UC_and_classes_; // <UC_code, classe_code> ordenados pelo UC_code
+    set<pair<string, string>, pair_compare> st_enrolled_UC_and_classes_; // <classe_code, UC_code> ordenados pelo UC_code
     int st_number_of_UCs_; // Para depois contar alunos inscritos em x cadeiras
     Schedule st_schedule_;
 
@@ -34,6 +34,7 @@ public:
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
+    void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
     //void addUCAndClass(const pair<string, string> UC_and_Class);
     //void removeUCAndClass(const pair<string, string> UC_and_Class);
     //void switchUCAndClass(const pair<string, string> old_UC_and_Class, const pair<string, string> new_UC_and_Class);
