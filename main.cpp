@@ -10,8 +10,8 @@
 #include <cstring>
 
 
-std::set<UC> populateUcSet(const std::string& filename) {
-    std::set<UC> uc_classes;
+std::set<UC_class> populateUcSet(const std::string& filename) {
+    std::set<UC_class> uc_classes;
     std::ifstream dataFile(filename);
 
     if(dataFile.fail()) {
@@ -47,11 +47,11 @@ std::set<UC> populateUcSet(const std::string& filename) {
         duration = std::stod(temp2);
         std::getline(ss, type, spacer);
 
-        classSchedule curr_schedule =  {startHour, duration, type};
+        dayScheduleEntry curr_schedule =  {ucCode,classCode, startHour, duration, type};
 
-        UC uc_temp = UC(ucCode);
+        UC_class uc_temp = UC_class(ucCode);
         if(uc_classes.find(uc_temp) != uc_classes.end()) {
-            UC uc_temp2 = *uc_classes.find(uc_temp);
+            UC_class uc_temp2 = *uc_classes.find(uc_temp);
             uc_classes.erase(uc_temp);
             uc_temp2.addUcSchedule(weekDay, curr_schedule);
             uc_classes.insert(uc_temp2);
@@ -153,7 +153,7 @@ std::set<LeicClass> populateLeicSet(const std::string& filename) {
         if (classIt != leicClasses.end()) {
             LeicClass classCopy = *classIt;
             leicClasses.erase(classIt);
-            classCopy.addUcClass(UC(uccode));
+            classCopy.addUcClass(UC_class(uccode));
             leicClasses.insert(classCopy);
         } else {
             tempClass.addUcClass(uccode);
@@ -217,7 +217,7 @@ int main() {
 
 
     std::set<Student> result = populateStudentSet("input/students_classes.csv");
-    std::set<UC> totalUc = populateUcSet("input/classes.csv");
+    std::set<UC_class> totalUc = populateUcSet("input/classes.csv");
     std::set<LeicClass> allClasses = populateLeicSet("input/classes_per_uc.csv");
 
     int counter = 1;
@@ -228,7 +228,7 @@ int main() {
 
 
     counter = 1;
-    for (const UC& uc : totalUc) {
+    for (const UC_class& uc : totalUc) {
         std::cout << counter << " - " << "UC name: " << uc.getUcName() << std::endl;
         uc.getUcWeekSchedule();
         counter++;
