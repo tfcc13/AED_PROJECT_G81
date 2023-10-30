@@ -49,14 +49,41 @@ bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const daySc
     double e1_finishing_time = entry.start_hour + entry.duration;
     double e2_beginning_time, e2_finishing_time;
 
-    for(auto it = schedule_[week_day].begin(); it != schedule_[week_day].end(); it++){
-        e2_beginning_time = it->start_hour;
-        e2_finishing_time = it->start_hour + it->duration;
-        if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
-            return true;
+    if(entry.class_type != "T"){
+        for(auto & it : schedule_[week_day]){
+            e2_beginning_time = it.start_hour;
+            e2_finishing_time = it.start_hour + it.duration;
+            if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
+                return true;
+            }
         }
     }
+
     return false;
+}
+
+void Schedule::addScheduleEntry(const Schedule& s){
+    for(const auto & it_map_elem : s.schedule_){
+        for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
+            this->addDayScheduleEntry(it_map_elem.first, *it_schedule_entry);
+        }
+    }
+}
+
+void Schedule::removeScheduleEntry(const Schedule& s){
+    for(const auto & it_map_elem : s.schedule_){
+        for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
+            this->removeDayScheduleEntry(it_map_elem.first, *it_schedule_entry);
+        }
+    }
+}
+
+bool Schedule::checkScheduleEntryConflict(const Schedule& s){
+    for(const auto & it_map_elem : s.schedule_){
+        for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
+            this->checkDayScheduleEntryConflict(it_map_elem.first, *it_schedule_entry);
+        }
+    }
 }
 
 void Schedule::getDaySchedule(const std::string &weekDay) const {
