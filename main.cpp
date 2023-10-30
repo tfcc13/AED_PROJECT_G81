@@ -8,10 +8,10 @@
 #include <fstream>
 #include <sstream>
 #include <cstring>
+#include "Script.h"
 
 
-
-
+/*
 std::set<UC_class> populateUcSet(const std::string& filename) {
     std::set<UC_class> uc_classes;
     std::ifstream dataFile(filename);
@@ -26,6 +26,7 @@ std::set<UC_class> populateUcSet(const std::string& filename) {
     std::string line;
 
     while (std::getline(dataFile,line)) {
+        line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
 
         std::string classCode;
@@ -126,7 +127,7 @@ std::set<UC> populateUcSet(const std::string& filename) {
 
 
 }
-*/
+
 
 std::set<LeicClass> populateLeicSet(const std::string& filename) {
     std::set<LeicClass> leicClasses;
@@ -151,6 +152,7 @@ std::set<LeicClass> populateLeicSet(const std::string& filename) {
         char spacer = ',';
         std::getline(ss, uccode, spacer);
         std::getline(ss, classcode, spacer);
+
 
         LeicClass tempClass = LeicClass(classcode);
         std::set<LeicClass>::iterator classIt;
@@ -189,6 +191,7 @@ std::set<Student> populateStudentSet(const std::string& filename) {
     std::string line;
 
     while (std::getline(dataFile,line)) {
+        line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
         int idNumber;
         std::string studentName;
@@ -202,10 +205,10 @@ std::set<Student> populateStudentSet(const std::string& filename) {
         std::getline(ss, UcCode, ',');
         std::getline(ss, classCode, ',');
 
+
         std::set<Student>::iterator studentIt;
 
         Student tempStudent = Student(idNumber, studentName);
-
         studentIt = students.find(tempStudent);
 
         if(studentIt == students.end()) {
@@ -218,12 +221,16 @@ std::set<Student> populateStudentSet(const std::string& filename) {
     return students;
 
 }
+*/
+
+
 
 int main() {
 
 
+/*
 
-   std::set<UC_class> totalUc = populateUcSet("input/classes.csv");
+    std::set<UC_class> totalUc = populateUcSet("input/classes.csv");
     std::set<LeicClass> allClasses = populateLeicSet("input/classes_per_uc.csv");
     std::set<Student> result = populateStudentSet("input/students_classes.csv");
 
@@ -233,12 +240,13 @@ int main() {
         counter++;
     }
 
+    std::vector<string>  weekdays = {"Monday","Tuesday","Wednesday","Thursday","Friday",};
+
 
     counter = 1;
     for (const UC_class& uc : totalUc) {
         std::cout << counter << " - " << "UC name: " << uc.getUcName() << std::endl;
-        uc.getEnrolledStudents();
-        counter++;
+        uc.getUcWeekSchedule();
     }
 
     counter = 1;
@@ -248,6 +256,6 @@ int main() {
         classes.getClassUc() ;
         counter++;
     }
-
+*/
     return 0;
 }
