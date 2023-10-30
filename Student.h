@@ -29,8 +29,8 @@ private:
     Schedule st_schedule_;
 
 public:
-    //Constructor
     Student(int id_number, std::string& st_name);
+    Student(Student& const);
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
