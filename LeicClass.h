@@ -33,6 +33,7 @@ public:
     void addUcClass(const UC_class& UC_class);
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
+    void addSchedule(const Schedule& s);
 
 };
 

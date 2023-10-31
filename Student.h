@@ -24,7 +24,7 @@ class Student {
 private:
     int id_number_;
     string st_name_;
-    set<pair<string, string>, pair_compare> st_enrolled_UC_and_classes_; // <classe_code, UC_code> ordenados pelo UC_code
+    set<pair<string, string>, pair_compare> st_enrolled_UC_and_classes_; // <class_code, UC_code> ordenados pelo UC_code
     int st_number_of_UCs_; // Para depois contar alunos inscritos em x cadeiras
     Schedule st_schedule_;
 
@@ -40,12 +40,9 @@ public:
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
 
-    void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
-
-    void addSchedule(const Schedule& s);
-    void removeSchedule(const Schedule& s);
+    void addSchedule(const string& class_code, const string& UC_code, const Schedule& s);
+    void removeSchedule(const string& class_code, const string& UC_code, const Schedule& s);
     bool checkScheduleConflict(const Schedule& s);
-
 
     //void addUCAndClass(const pair<string, string> UC_and_Class);
     //void removeUCAndClass(const pair<string, string> UC_and_Class);
