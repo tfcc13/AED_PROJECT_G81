@@ -10,7 +10,6 @@
 #include <cstring>
 #include "Script.h"
 
-
 /*
 std::set<UC_class> populateUcSet(const std::string& filename) {
     std::set<UC_class> uc_classes;
@@ -226,7 +225,8 @@ std::set<Student> populateStudentSet(const std::string& filename) {
 
 
 int main() {
-
+    Script new_script = Script("database");
+    new_script.loadData("input/classes.csv","input/classes_per_uc.csv","input/classes_per_uc.csv");
 
 /*
 

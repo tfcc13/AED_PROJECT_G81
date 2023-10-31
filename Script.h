@@ -23,15 +23,17 @@ class Script {
 
 public:
 
-    std::set<UC_class> populateUcSet(const std::string& filename);
-    std::set<LeicClass> populateLeicSet(const std::string& filename);
-    std::set<Student> populateStudentSet(const std::string& filename);
+    Script(const string& database);
+    void loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3);
+    void populateUcSet(const std::string& filename);
+    void populateLeicSet(const std::string& filename);
+    void populateStudentSet(const std::string& filename);
 
 private:
-    std::set<UC_class> all_ucs;// = populateUcSet("input/classes.csv");
+    std::set<UC_class> all_UCs;// = populateUcSet("input/classes.csv");
     std::set<LeicClass> all_classes;// = populateLeicSet("input/classes_per_uc.csv");
-    std::set<Student> student_set; //= populateStudentSet("input/students_classes.csv");
-
+    std::set<Student> all_students; //= populateStudentSet("input/students_classes.csv");
+    std::string  database_;
 
 };
 

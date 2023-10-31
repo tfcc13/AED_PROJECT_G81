@@ -5,13 +5,22 @@
 #include "Script.h"
 
 
-std::set<UC_class> Script::populateUcSet(const string &filename) {
+
+
+Script::Script(const string &database) {
+    database_ = database;
+}
+
+
+
+
+void Script::populateUcSet(const string &filename) {
     std::ifstream dataFile(filename);
 
     if(dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
-        return all_ucs;
+        return;
     }
     std::string header;
     getline(dataFile, header);
@@ -45,26 +54,22 @@ std::set<UC_class> Script::populateUcSet(const string &filename) {
         dayScheduleEntry curr_schedule =  {ucCode,classCode, startHour, duration, type};
 
         UC_class uc_temp = UC_class(ucCode);
-        if(all_ucs.find(uc_temp) != all_ucs.end()) {
-            UC_class uc_temp2 = *all_ucs.find(uc_temp);
-            all_ucs.erase(uc_temp);
+        if(all_UCs.find(uc_temp) != all_UCs.end()) {
+            UC_class uc_temp2 = *all_UCs.find(uc_temp);
+            all_UCs.erase(uc_temp);
             uc_temp2.addUcSchedule(weekDay, curr_schedule);
-            all_ucs.insert(uc_temp2);
+            all_UCs.insert(uc_temp2);
         }
 
         uc_temp.addUcSchedule(weekDay, curr_schedule);
 
-        all_ucs.insert(uc_temp);
+        all_UCs.insert(uc_temp);
 
 
 
     }
 
     dataFile.close();
-    return all_ucs;
-
-
-
 }
 
 
@@ -116,13 +121,13 @@ std::set<LeicClass> Script::populateLeicSet(const string &filename) {
 
     }
 
-std::set<Student> Script::populateStudentSet(const string &filename) {
+void Script::populateStudentSet(const string &filename) {
     std::ifstream dataFile(filename);
 
     if(dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
-        return student_set;
+        return;
     }
 
     std::string header;
@@ -148,17 +153,20 @@ std::set<Student> Script::populateStudentSet(const string &filename) {
         std::set<Student>::iterator studentIt;
 
         Student tempStudent = Student(idNumber, studentName);
-        studentIt = student_set.find(tempStudent);
+        studentIt = all_students.find(tempStudent);
 
-        if(studentIt == student_set.end()) {
-            student_set.insert(tempStudent);
+        if(studentIt == all_students.end()) {
+            all_students.insert(tempStudent);
         }
 
     }
 
     dataFile.close();
-    return student_set;
-
 }
 
+void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
+    populateUcSet(filename_1);
+    populateLeicSet(filename_2);
+    populateStudentSet(filename_3);
 
+}
