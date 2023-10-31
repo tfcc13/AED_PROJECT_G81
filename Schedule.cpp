@@ -104,9 +104,13 @@ void Schedule::PrintDaySchedule(const string &week_day){
 
 void Schedule::PrintWeekSchedule(){
     this->PrintDaySchedule("Monday");
+    cout << endl;
     this->PrintDaySchedule("Tuesday");
+    cout << endl;
     this->PrintDaySchedule("Wednesday");
+    cout << endl;
     this->PrintDaySchedule("Thursday");
+    cout << endl;
     this->PrintDaySchedule("Friday");
 }
 
