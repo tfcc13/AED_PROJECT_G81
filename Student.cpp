@@ -45,12 +45,15 @@ void Student::PrintUcWeekSchedule(){
 }
 
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
-    st_enrolled_UC_and_classes_.insert(make_pair())
+    st_enrolled_UC_and_classes_.insert(make_pair(class_code, UC_code));
     st_schedule_.addSchedule(s);
+    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
 }
 
 void Student::removeSchedule(const string& class_code, const string& UC_code, const Schedule& s){
+    st_enrolled_UC_and_classes_.erase(make_pair(class_code, UC_code));
     st_schedule_.removeSchedule(s);
+    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
 }
 
 bool Student::checkScheduleConflict(const Schedule& s){
