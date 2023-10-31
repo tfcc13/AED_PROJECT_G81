@@ -29,7 +29,7 @@ void displayStudentMenu(Script& script){
 
         int input;
         std::cin >> input;
-
+        std::cout << std::endl;
         switch (input) {
             case 1:
                 std::cout << "Prints the student schedule" << std::endl;
@@ -72,7 +72,7 @@ void displayUcMenu(Script& script){
 
         int input;
         std::cin >> input;
-
+        std::cout << std::endl;
         switch (input) {
             case 1:
                 std::cout << "Write the UC name" << std::endl ;
@@ -130,6 +130,7 @@ void displayClassMenu(Script& script){
 
         int input;
         std::cin >> input;
+        std::cout << std::endl;
 
         switch (input) {
             case 1:
@@ -146,6 +147,7 @@ void displayClassMenu(Script& script){
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
                 script.PrintWeekScheduleClass(class_name);
+                std::cout <<  std::endl;
                 break;
             case 4:
                 std::cout << "Write the amount of classes you want to see" << std::endl;
@@ -187,6 +189,7 @@ void displayDataConsultationMenu(Script& script){
 
         int input;
         std::cin >> input;
+        std::cout << std::endl;
 
         switch (input) {
             case 1:
@@ -228,6 +231,7 @@ void displayInterfaceMenu(Script& script) {
         std::cout << "Please choose an option" << std::endl;
         int input;
         std::cin >> input;
+        std::cout << std::endl;
 
         switch (input) {
             case 1:
