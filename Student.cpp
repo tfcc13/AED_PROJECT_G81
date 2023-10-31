@@ -20,6 +20,10 @@ Student::Student(const Student& other){
     st_schedule_ = other.st_schedule_;
 }
 
+bool Student::operator<(const Student& other) const {
+    return id_number_ < other.id_number_;
+}
+
 int Student::getIdNumber() const {
     return id_number_;
 }
@@ -32,14 +36,16 @@ int Student::getNumberOfUCs() const {
     return st_number_of_UCs_;
 }
 
-void Student::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
-    st_enrolled_UC_and_classes_.insert(make_pair(entry.class_code, entry.UC_code));
-    st_schedule_.addDayScheduleEntry(week_day, entry);
-    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
+void Student::addSchedule(const Schedule& s){
+    st_schedule_.addSchedule(s);
 }
 
-bool Student::operator<(const Student& other) const {
-    return id_number_ < other.id_number_;
+void Student::removeSchedule(const Schedule& s){
+    st_schedule_.removeSchedule(s);
+}
+
+bool Student::checkScheduleConflict(const Schedule& s){
+    st_schedule_.checkScheduleConflict(s);
 }
 
 /*void Student::insertUcCode(const std::string &UcCode) {
