@@ -36,8 +36,8 @@ public:
     Schedule getUCClassSchedule() const;
 
     void PrintEnrolledStudents() const;
-    void PrintUcDaySchedule(const string& week_day);
-    void PrintUcWeekSchedule();
+    void PrintUcDaySchedule(const string& week_day) const;
+    void PrintUcWeekSchedule() const;
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
 

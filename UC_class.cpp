@@ -37,11 +37,11 @@ void UC_class::PrintEnrolledStudents() const {
     }
 }
 
-void UC_class::PrintUcDaySchedule(const string& week_day){
+void UC_class::PrintUcDaySchedule(const string& week_day) const {
     UC_class_schedule_.PrintDaySchedule(week_day);
 }
 
-void UC_class::PrintUcWeekSchedule() {
+void UC_class::PrintUcWeekSchedule() const {
     UC_class_schedule_.PrintWeekSchedule();
 }
 

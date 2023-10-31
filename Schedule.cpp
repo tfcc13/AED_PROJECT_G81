@@ -5,10 +5,10 @@
 #include "Schedule.h"
 
 bool operator==(const dayScheduleEntry& d1, const dayScheduleEntry& d2) {
-    return (d1.UC_code == d2.UC_code &&
-            d1.class_code == d2.class_code &&
-            d1.start_hour == d2.start_hour &&
-            d1.duration == d2.duration &&
+    return (d1.UC_code == d2.UC_code and
+            d1.class_code == d2.class_code and
+            d1.start_hour == d2.start_hour and
+            d1.duration == d2.duration and
             d1.class_type == d2.class_type);
 }
 
@@ -86,7 +86,7 @@ bool Schedule::checkScheduleConflict(const Schedule& s){
     }
 }
 
-void Schedule::PrintDaySchedule(const string &week_day){
+void Schedule::PrintDaySchedule(const string &week_day) const{
     cout << left  << week_day << endl;
     if (schedule_[week_day].empty()){
         cout << left << "No classes on this day" << endl;
@@ -102,7 +102,7 @@ void Schedule::PrintDaySchedule(const string &week_day){
     }
 }
 
-void Schedule::PrintWeekSchedule(){
+void Schedule::PrintWeekSchedule() const{
     this->PrintDaySchedule("Monday");
     cout << endl;
     this->PrintDaySchedule("Tuesday");

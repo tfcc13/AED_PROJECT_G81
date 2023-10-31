@@ -38,8 +38,8 @@ public:
     void removeSchedule(const Schedule& s); // Dar split de um objeto horário de entrada com o objeto horário atual
     bool checkScheduleConflict(const Schedule& s); // Verificar se existem conflitos entre o objeto horário atual com outro objeto horário de entrada. Se houver conflito, return true
 
-    void PrintDaySchedule(const std::string& week_day);
-    void PrintWeekSchedule();
+    void PrintDaySchedule(const std::string& week_day) const;
+    void PrintWeekSchedule() const;
 
 };
 
