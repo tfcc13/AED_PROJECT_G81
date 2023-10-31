@@ -29,6 +29,12 @@ public:
     bool operator<(const UC_class& other) const;
 
     const string& getUcName() const;
+    void addStudent(const Student& s);
+    void removeStudent(const Student& s);
+    const int getNumberOfEnrolledStudents() const;
+    const int getNumberOfVacancies() const;
+    const Schedule& getUCClassSchedule() const;
+
     void PrintEnrolledStudents() const;
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
