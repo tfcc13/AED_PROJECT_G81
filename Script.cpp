@@ -62,7 +62,12 @@ void Script::populateUcSet(const string &filename) {
         LeicClass classCopy = LeicClass(*classIt);
         all_classes.erase(classIt);
         classCopy.addDayScheduleEntry(weekDay, curr_schedule);
+        auto UC_class_it = classCopy.getUCClass(ucCode);
+        UC_class_it.addDayScheduleEntry()
+
+
         all_classes.insert(classCopy);
+
 
 
 
