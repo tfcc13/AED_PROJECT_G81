@@ -1,21 +1,25 @@
 #include <iostream>
-
-#include <cstdio>
-#include"Student.h"
-#include "UC_class.h"
-#include "LeicClass.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cstring>
 #include "Script.h"
+#include <cstdlib>
 
 
 bool close_program = false;
 
 
+void clearScreen() {
+#ifdef _WIN32 // for Windows
+    std::system("cls");
+#elif defined(__APPLE__) // for macOS
+    std::system("clear");
+#else // assuming Unix-based system (Linux)
+    std::system("clear");
+#endif
+}
+
+
 void displayStudentMenu(){
     while(!close_program) {
+        clearScreen();
         std::cout << "(1) >> Consult student schedule" << std::endl;
         std::cout << "(2) >> Consult student enrolled ucs" << std::endl;
         std::cout << "(3) >> Consult student class" << std::endl;
@@ -54,6 +58,7 @@ void displayStudentMenu(){
 
 void displayUcMenu(){
     while(!close_program) {
+        clearScreen();
         std::string uc_name;
         int number_of_ucs;
         std::cout << "(1) >> Consult UC occupancy" << std::endl;
@@ -111,6 +116,7 @@ void displayUcMenu(){
 }
 void displayClassMenu(){
     while(!close_program) {
+        clearScreen();
         std::string class_name;
         int number_of_classes;
         std::cout << "(1) >> Consult class occupancy" << std::endl;
@@ -170,6 +176,7 @@ void displayYearMenu(){}
 
 void displayDataConsultationMenu(){
     while(!close_program) {
+        clearScreen();
         std::cout << "(1) >> Consult data by student" << std::endl;
         std::cout << "(2) >> Consult data by uc" << std::endl;
         std::cout << "(3) >> Consult data by class" << std::endl;
@@ -214,6 +221,7 @@ void displayRequestMenu(){}
 void displayInterfaceMenu() {
 
     while(!close_program) {
+        clearScreen();
         std::cout << "(1) >> Data Consultation" << std::endl;
         std::cout << "(2) >> Requests" << std::endl;
         std::cout << "(3) >> Close menu" << std::endl;
