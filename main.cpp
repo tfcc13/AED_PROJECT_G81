@@ -471,7 +471,6 @@ std::set<Student> populateStudentSet(const std::string& filename) {
 */
 
 
-
 int main() {
     Script new_script = Script("database");
     new_script.loadData("input/classes.csv","input/classes_per_uc.csv","input/students_classes.csv");
