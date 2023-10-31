@@ -8,7 +8,7 @@
 Student::Student(int id_number, const std::string& st_name) :
         id_number_(id_number),
         st_name_(st_name),
-        st_enrolled_UC_and_classes_(),
+        st_enrolled_UC_and_classes_({}),
         st_number_of_UCs_(0),
         st_schedule_() {}
 

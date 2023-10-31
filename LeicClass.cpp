@@ -28,26 +28,26 @@ UC_class LeicClass::getUCClass(const string &UC_class_name) const {
     return *it;
 }
 
-void LeicClass::PrintClassUc() const {
-    for (const UC_class& UC : LEIC_UC_classes_) {
-        cout << UC.getUcName() << std::endl;
-    }
-}
-
-void LeicClass::PrintUcDaySchedule(const string& week_day){
-    LEIC_class_schedule_.PrintDaySchedule(week_day);
-}
-
-void LeicClass::PrintUcWeekSchedule(){
-    LEIC_class_schedule_.PrintWeekSchedule();
-}
-
 void LeicClass::insertUcClass(const UC_class& UC_class) {
     LEIC_UC_classes_.insert(UC_class);
 }
 
 void LeicClass::eraseUcClass(const UC_class& UC_class) {
     LEIC_UC_classes_.erase(UC_class);
+}
+
+void LeicClass::PrintClassUc() const {
+    for (const UC_class& UC : LEIC_UC_classes_) {
+        cout << UC.getUcName() << std::endl;
+    }
+}
+
+void LeicClass::PrintUcDaySchedule(const string& week_day) const{
+    LEIC_class_schedule_.PrintDaySchedule(week_day);
+}
+
+void LeicClass::PrintUcWeekSchedule() const{
+    LEIC_class_schedule_.PrintWeekSchedule();
 }
 
 void LeicClass::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
