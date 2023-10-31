@@ -44,11 +44,12 @@ void Student::PrintUcWeekSchedule(){
     st_schedule_.PrintWeekSchedule();
 }
 
-void Student::addSchedule(const Schedule& s){
+void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
+    st_enrolled_UC_and_classes_.insert(make_pair())
     st_schedule_.addSchedule(s);
 }
 
-void Student::removeSchedule(const Schedule& s){
+void Student::removeSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     st_schedule_.removeSchedule(s);
 }
 

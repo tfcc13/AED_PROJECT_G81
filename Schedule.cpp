@@ -103,8 +103,10 @@ void Schedule::PrintDaySchedule(const string &week_day){
 }
 
 void Schedule::PrintWeekSchedule(){
-    for (const auto& daySchedule : schedule_) {
-        this->PrintDaySchedule(daySchedule.first);
-    }
+    this->PrintDaySchedule("Monday");
+    this->PrintDaySchedule("Tuesday");
+    this->PrintDaySchedule("Wednesday");
+    this->PrintDaySchedule("Thursday");
+    this->PrintDaySchedule("Friday");
 }
 
