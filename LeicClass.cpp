@@ -24,7 +24,7 @@ const string &LeicClass::getClassName() const {
 }
 
 UC_class LeicClass::getUCClass(const string &UC_class_name) const {
-    auto it = LEIC_UC_classes_.find(UC_class_name);
+    auto it = LEIC_UC_classes_.find(UC_class(UC_class_name));
     return *it;
 }
 
@@ -42,8 +42,12 @@ void LeicClass::PrintUcWeekSchedule(){
     LEIC_class_schedule_.PrintWeekSchedule();
 }
 
-void LeicClass::addUcClass(const UC_class& UC_class) {
+void LeicClass::insertUcClass(const UC_class& UC_class) {
     LEIC_UC_classes_.insert(UC_class);
+}
+
+void LeicClass::eraseUcClass(const UC_class& UC_class) {
+    LEIC_UC_classes_.erase(UC_class);
 }
 
 void LeicClass::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){

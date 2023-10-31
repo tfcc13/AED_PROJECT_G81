@@ -26,14 +26,16 @@ public:
     bool operator<(const LeicClass& other) const;
 
     const string& getClassName() const;
-    UC_class getUCClass(const string& UC_class_name) const;
 
+    UC_class getUCClass(const string& UC_class_name) const;
+    void insertUcClass(const UC_class& UC_class);
+    void eraseUcClass(const UC_class& UC_class);
 
     void PrintClassUc() const;
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
 
-    void addUcClass(const UC_class& UC_class);
+
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
     void addSchedule(const Schedule& s);
