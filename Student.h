@@ -31,16 +31,28 @@ private:
 public:
     Student(int id_number, std::string& st_name);
     Student(const Student& other);
+
+    bool operator<(const Student& other) const;
+
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
+    void PrintUcDaySchedule(const string& week_day);
+    void PrintUcWeekSchedule();
+
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
+
+    void addSchedule(const Schedule& s);
+    void removeSchedule(const Schedule& s);
+    bool checkScheduleConflict(const Schedule& s);
+
+
     //void addUCAndClass(const pair<string, string> UC_and_Class);
     //void removeUCAndClass(const pair<string, string> UC_and_Class);
     //void switchUCAndClass(const pair<string, string> old_UC_and_Class, const pair<string, string> new_UC_and_Class);
     //void insertUcCode(const std::string& UcCode);
     // const set<string>& getUcCodes() const;
-    bool operator<(const Student& other) const;
+
 };
 
 #endif //AED_PROJECT_STUDENT_H
