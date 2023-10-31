@@ -48,3 +48,8 @@ void LeicClass::addDayScheduleEntry(const string &week_day, const dayScheduleEnt
 void LeicClass::addSchedule(const Schedule& s){
     LEIC_class_schedule_.addSchedule(s);
 }
+
+UC_class LeicClass::getUCClass(const string &UC_class_name) const {
+    auto it = LEIC_UC_classes_.find(UC_class_name);
+    return *it;
+}

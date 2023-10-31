@@ -26,6 +26,9 @@ public:
     bool operator<(const LeicClass& other) const;
 
     const string& getClassName() const;
+    UC_class getUCClass(const string& UC_class_name) const;
+
+
     void PrintClassUc() const;
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
