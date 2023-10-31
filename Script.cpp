@@ -176,7 +176,7 @@ void Script::populateStudentSet(const string &filename) {
         if(studentIt != all_students.end()) {
             tempStudent = *studentIt;
             all_students.erase(studentIt);
-            tempStudent.addSchedule(UcCode,classCode,schedule);
+            tempStudent.addSchedule(classCode,UcCode,schedule);
             all_students.insert(tempStudent);
 
         }
@@ -203,6 +203,12 @@ void Script::PrintWeekScheduleClass(const string& class_name){
     temp.PrintUcWeekSchedule();
 }
 
+void Script::consultStudentEnrolledUCs(int studentNumber) {
+    auto studentIt = all_students.find(Student(studentNumber,""));
+
+    Student studentTemp = *studentIt;
+    studentTemp.PrintEnrolledUCs();
+}
 
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
