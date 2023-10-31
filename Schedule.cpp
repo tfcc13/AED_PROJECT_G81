@@ -87,7 +87,7 @@ bool Schedule::checkScheduleConflict(const Schedule& s){
 }
 
 void Schedule::PrintDaySchedule(const string &week_day){
-    cout << left << setw(37) << " " << week_day << endl;
+    cout << left  << week_day << endl;
     if (schedule_[week_day].empty()){
         cout << left << "No classes on this day" << endl;
     } else{
