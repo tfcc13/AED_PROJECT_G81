@@ -23,6 +23,10 @@ bool UC_class::operator<(const UC_class &other) const {
     return UC_name_ < other.UC_name_;
 }
 
+const Schedule& UC_class::getUCClassSchedule() const{
+    return UC_class_schedule_;
+}
+
 const string& UC_class::getUcName() const {
     return UC_name_;
 }
