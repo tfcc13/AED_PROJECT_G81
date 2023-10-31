@@ -25,12 +25,21 @@ public:
 
     UC_class(string& UC_name);
     UC_class(const UC_class& other);
-    const string& getUcName() const;
-    void getEnrolledStudents() const;
+
     bool operator<(const UC_class& other) const;
-    void getUcDaySchedule(const string& weekDay) const;
-    void getUcWeekSchedule() const ;
-    void addUcSchedule(const string& weekDay, const dayScheduleEntry& someSchedule);
+
+    const string& getUcName() const;
+    void PrintEnrolledStudents() const;
+    void PrintUcDaySchedule(const string& week_day);
+    void PrintUcWeekSchedule();
+
+    void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
+    void removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
+    bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry);
+
+    void addSchedule(const Schedule& s);
+    void removeSchedule(const Schedule& s);
+    bool checkScheduleConflict(const Schedule& s);
 
 };
 
