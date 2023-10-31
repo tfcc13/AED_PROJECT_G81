@@ -12,6 +12,14 @@ Student::Student(int id_number, std::string& st_name) :
         st_number_of_UCs_(0),
         st_schedule_() {}
 
+Student::Student(const Student& other){
+    id_number_ = other.id_number_;
+    st_name_ = other.st_name_;
+    st_enrolled_UC_and_classes_ = other.st_enrolled_UC_and_classes_;
+    st_number_of_UCs_ = other.st_number_of_UCs_;
+    st_schedule_ = other.st_schedule_;
+}
+
 int Student::getIdNumber() const {
     return id_number_;
 }

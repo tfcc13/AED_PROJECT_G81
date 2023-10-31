@@ -30,7 +30,7 @@ private:
 
 public:
     Student(int id_number, std::string& st_name);
-    Student(Student& const);
+    Student(const Student& other);
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
