@@ -18,8 +18,8 @@ void clearScreen() {
 
 
 void displayStudentMenu(Script& script){
+    clearScreen();
     while(!close_program) {
-        clearScreen();
         int studentNumber;
         std::cout << "(1) >> Consult student schedule" << std::endl;
         std::cout << "(2) >> Consult student enrolled ucs" << std::endl;
@@ -69,8 +69,8 @@ void displayStudentMenu(Script& script){
 }
 
 void displayUcMenu(Script& script){
+    clearScreen();
     while(!close_program) {
-        clearScreen();
         std::string uc_name;
         int number_of_ucs;
         std::cout << "(1) >> Consult UC occupancy" << std::endl;
@@ -128,8 +128,8 @@ void displayUcMenu(Script& script){
     }
 }
 void displayClassMenu(Script& script){
+    clearScreen();
     while(!close_program) {
-        clearScreen();
         std::string class_name;
         int number_of_classes;
         std::cout << "(1) >> Consult class occupancy" << std::endl;
@@ -190,8 +190,8 @@ void displayYearMenu(Script& script){}
 
 
 void displayDataConsultationMenu(Script& script){
+    clearScreen();
     while(!close_program) {
-        clearScreen();
         std::cout << "(1) >> Consult data by student" << std::endl;
         std::cout << "(2) >> Consult data by uc" << std::endl;
         std::cout << "(3) >> Consult data by class" << std::endl;
