@@ -16,4 +16,6 @@ add_executable(AED_PROJECT main.cpp
         Schedule.h
         Schedule.cpp
         Script.cpp
+        Request.h
+        Request.cpp
 )
