@@ -62,7 +62,8 @@ void Script::populateUcSet(const string &filename) {
         LeicClass classCopy = LeicClass(*classIt);
         all_classes.erase(classIt);
         classCopy.addDayScheduleEntry(weekDay, curr_schedule);
-        all_classes.insert(classCopy);
+
+
 
 
 
@@ -74,7 +75,8 @@ void Script::populateUcSet(const string &filename) {
         }
 
         uc_temp.addDayScheduleEntry(weekDay, curr_schedule);
-
+        classCopy.addUcClass
+        all_classes.insert(classCopy);
         all_UCs.insert(uc_temp);
 
 
@@ -163,6 +165,7 @@ void Script::populateStudentSet(const string &filename) {
         auto classIt = all_classes.find(classCode);
         LeicClass classTemp = *classIt;
          Schedule schedule = classTemp.getUCClass(UcCode).getUCClassSchedule();
+         schedule.PrintWeekSchedule();
 
         Student tempStudent = Student(idNumber, studentName);
         tempStudent.addSchedule(classCode,UcCode,schedule);
