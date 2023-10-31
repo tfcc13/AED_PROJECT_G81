@@ -54,6 +54,18 @@ void Script::populateUcSet(const string &filename) {
         dayScheduleEntry curr_schedule =  {ucCode,classCode, startHour, duration, type};
 
         UC_class uc_temp = UC_class(ucCode);
+
+        LeicClass leic_class = LeicClass(classCode);
+
+        auto classIt = all_classes.find(leic_class);
+
+        LeicClass classCopy = LeicClass(*classIt);
+        all_classes.erase(classIt);
+        classCopy.addDayScheduleEntry(weekDay, curr_schedule);
+        all_classes.insert(classCopy);
+
+
+
         if(all_UCs.find(uc_temp) != all_UCs.end()) {
             UC_class uc_temp2 = *all_UCs.find(uc_temp);
             all_UCs.erase(uc_temp);
@@ -106,8 +118,6 @@ void Script::populateLeicSet(const string &filename) {
                 LeicClass classCopy = LeicClass(*classIt);
                 all_classes.erase(classIt);
                 classCopy.addUcClass(UC_class(uccode));
-                std::set<UC_class>::iterator ucIt =  all_UCs.find(uccode);
-                //classCopy.addDayScheduleEntry(*ucIt.)
                 all_classes.insert(classCopy);
             } else {
                 tempClass.addUcClass(uccode);
@@ -163,9 +173,15 @@ void Script::populateStudentSet(const string &filename) {
     dataFile.close();
 }
 
+void Script::PrintWeekScheduleClass(const string& class_name){
+    auto classIt = all_classes.find(LeicClass(class_name));
+    LeicClass temp = LeicClass(*classIt);
+    temp.PrintUcWeekSchedule();
+}
+
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
-    populateUcSet(filename_1);
     populateLeicSet(filename_2);
+    populateUcSet(filename_1);
     populateStudentSet(filename_3);
 
 }

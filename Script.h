@@ -28,6 +28,7 @@ public:
     void populateUcSet(const std::string& filename);
     void populateLeicSet(const std::string& filename);
     void populateStudentSet(const std::string& filename);
+    void PrintWeekScheduleClass(const string& class_name);
 
 private:
     std::set<UC_class> all_UCs;// = populateUcSet("input/classes.csv");

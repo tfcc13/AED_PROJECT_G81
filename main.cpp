@@ -17,7 +17,7 @@ void clearScreen() {
 }
 
 
-void displayStudentMenu(){
+void displayStudentMenu(Script& script){
     while(!close_program) {
         clearScreen();
         std::cout << "(1) >> Consult student schedule" << std::endl;
@@ -56,7 +56,7 @@ void displayStudentMenu(){
 
 }
 
-void displayUcMenu(){
+void displayUcMenu(Script& script){
     while(!close_program) {
         clearScreen();
         std::string uc_name;
@@ -114,7 +114,7 @@ void displayUcMenu(){
         }
     }
 }
-void displayClassMenu(){
+void displayClassMenu(Script& script){
     while(!close_program) {
         clearScreen();
         std::string class_name;
@@ -143,9 +143,9 @@ void displayClassMenu(){
                 std::cout << "Shows class enrolled students" << std::endl;
                 break;
             case 3:
-                std::cout << "Write the UC name" << std::endl;
+                std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
-                std::cout << "Shows class schedule" << std::endl;
+                script.PrintWeekScheduleClass(class_name);
                 break;
             case 4:
                 std::cout << "Write the amount of classes you want to see" << std::endl;
@@ -171,10 +171,10 @@ void displayClassMenu(){
     }
 
 }
-void displayYearMenu(){}
+void displayYearMenu(Script& script){}
 
 
-void displayDataConsultationMenu(){
+void displayDataConsultationMenu(Script& script){
     while(!close_program) {
         clearScreen();
         std::cout << "(1) >> Consult data by student" << std::endl;
@@ -190,16 +190,16 @@ void displayDataConsultationMenu(){
 
         switch (input) {
             case 1:
-                displayStudentMenu();
+                displayStudentMenu(script);
                 break;
             case 2:
-                displayUcMenu();
+                displayUcMenu(script);
                 break;
             case 3:
-                displayClassMenu();
+                displayClassMenu(script);
                 break;
             case 4:
-                displayYearMenu();
+                displayYearMenu(script);
                 break;
             case 5:
                 return;
@@ -213,12 +213,12 @@ void displayDataConsultationMenu(){
         }
     }
 }
-void displayRequestMenu(){}
+void displayRequestMenu(Script& script){}
 
 
 
 
-void displayInterfaceMenu() {
+void displayInterfaceMenu(Script& script) {
 
     while(!close_program) {
         clearScreen();
@@ -231,10 +231,10 @@ void displayInterfaceMenu() {
 
         switch (input) {
             case 1:
-                displayDataConsultationMenu();
+                displayDataConsultationMenu(script);
                 break;
             case 2:
-                displayRequestMenu();
+                displayRequestMenu(script);
                 break;
             case 3:
                 std::cout << "Menu closed" << std::endl;
@@ -498,6 +498,6 @@ int main() {
     }
 */
 
-    displayInterfaceMenu();
+    displayInterfaceMenu(new_script);
     return 0;
 }
