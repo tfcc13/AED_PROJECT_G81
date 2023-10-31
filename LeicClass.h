@@ -21,18 +21,17 @@ private:
 
 public:
     LeicClass(const string& class_name);
-
     LeicClass(const LeicClass& other);
 
-    const string& getClassName() const;
+    bool operator<(const LeicClass& other) const;
 
-    void getClassUc() const;
+    const string& getClassName() const;
+    void PrintClassUc() const;
 
     void addUcClass(const UC_class& UC_class);
 
-    void AddDayScheduleEntryLEICClass(const string &week_day, const dayScheduleEntry& entry);
+    void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
 
-    bool operator<(const LeicClass& other) const;
 };
 
 #endif //AED_PROJECT_LEICCLASS_H

@@ -11,19 +11,21 @@ LeicClass::LeicClass(const string& class_name) :
 
 LeicClass::LeicClass(const LeicClass& other) {
     LEIC_class_name_ = other.LEIC_class_name_;
-    for (const UC_class& uc : other.LEIC_UC_classes_) {
-        LEIC_UC_classes_.insert(uc);
-    }
+    LEIC_UC_classes_ = other.LEIC_UC_classes_;
     LEIC_class_schedule_ = other.LEIC_class_schedule_;
 }
 
- const string &LeicClass::getClassName() const {
+bool LeicClass::operator<(const LeicClass &other) const {
+    return LEIC_class_name_ < other.LEIC_class_name_;
+}
+
+const string &LeicClass::getClassName() const {
     return LEIC_class_name_;
 }
 
-void LeicClass::getClassUc() const {
-    for (const UC_class& uc : LEIC_UC_classes_) {
-        cout << uc.getUcName() << std::endl;
+void LeicClass::PrintClassUc() const {
+    for (const UC_class& UC : LEIC_UC_classes_) {
+        cout << UC.getUcName() << std::endl;
     }
 }
 
@@ -31,12 +33,6 @@ void LeicClass::addUcClass(const UC_class& UC_class) {
     LEIC_UC_classes_.insert(UC_class);
 }
 
-void LeicClass::AddDayScheduleEntryLEICClass(const string &week_day, const dayScheduleEntry& entry){
+void LeicClass::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
     LEIC_class_schedule_.addDayScheduleEntry(week_day, entry);
 }
-
-bool LeicClass::operator<(const LeicClass &other) const {
-    return LEIC_class_name_ < other.LEIC_class_name_;
-}
-
-
