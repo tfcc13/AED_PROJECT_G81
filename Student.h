@@ -39,7 +39,7 @@ public:
     int getNumberOfUCs() const;
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
-    void PrintEnrolledUCs();
+    void PrintEnrolledUCs() const;
 
     void addSchedule(const string& class_code, const string& UC_code, const Schedule& s);
     void removeSchedule(const string& class_code, const string& UC_code, const Schedule& s);

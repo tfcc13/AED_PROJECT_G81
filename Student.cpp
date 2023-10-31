@@ -45,7 +45,7 @@ void Student::PrintUcWeekSchedule(){
 }
 
 
-void Student::PrintEnrolledUCs() {
+void Student::PrintEnrolledUCs() const {
     for (const auto& pair : st_enrolled_UC_and_classes_) {
         std::cout  << pair.first << " - " << pair.second << std::endl;
     }
