@@ -23,7 +23,7 @@ private:
 
 public:
 
-    UC_class(string& UC_name);
+    UC_class(const string& UC_name);
     UC_class(const UC_class& other);
 
     bool operator<(const UC_class& other) const;
@@ -34,12 +34,6 @@ public:
     void PrintUcWeekSchedule();
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
-    void removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
-    bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry);
-
-    void addSchedule(const Schedule& s);
-    void removeSchedule(const Schedule& s);
-    bool checkScheduleConflict(const Schedule& s);
 
 };
 

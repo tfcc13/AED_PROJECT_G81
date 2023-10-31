@@ -4,7 +4,7 @@
 
 #include "UC_class.h"
 
-UC_class::UC_class(string& UC_name) :
+UC_class::UC_class(const string& UC_name) :
         UC_name_(UC_name),
         enrolled_students_(),
         number_of_enrolled_students_(0),
@@ -42,26 +42,9 @@ void UC_class::PrintUcWeekSchedule() {
 }
 
 void UC_class::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+    UC_class_schedule_.addDayScheduleEntry(week_day, entry);
 }
 
-void UC_class::removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
 
-}
-
-bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry){
-
-}
-
-void addSchedule(const Schedule& s){
-
-}
-
-void removeSchedule(const Schedule& s){
-
-}
-
-bool checkScheduleConflict(const Schedule& s){
-
-}
 
 
