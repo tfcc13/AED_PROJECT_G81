@@ -23,6 +23,11 @@ const string &LeicClass::getClassName() const {
     return LEIC_class_name_;
 }
 
+UC_class LeicClass::getUCClass(const string &UC_class_name) const {
+    auto it = LEIC_UC_classes_.find(UC_class_name);
+    return *it;
+}
+
 void LeicClass::PrintClassUc() const {
     for (const UC_class& UC : LEIC_UC_classes_) {
         cout << UC.getUcName() << std::endl;
@@ -49,7 +54,4 @@ void LeicClass::addSchedule(const Schedule& s){
     LEIC_class_schedule_.addSchedule(s);
 }
 
-UC_class LeicClass::getUCClass(const string &UC_class_name) const {
-    auto it = LEIC_UC_classes_.find(UC_class_name);
-    return *it;
-}
+

@@ -33,7 +33,7 @@ public:
     void removeStudent(const Student& s);
     const int getNumberOfEnrolledStudents() const;
     const int getNumberOfVacancies() const;
-    const Schedule& getUCClassSchedule() const;
+    Schedule getUCClassSchedule() const;
 
     void PrintEnrolledStudents() const;
     void PrintUcDaySchedule(const string& week_day);
