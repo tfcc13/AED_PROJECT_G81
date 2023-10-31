@@ -29,6 +29,14 @@ void LeicClass::PrintClassUc() const {
     }
 }
 
+void LeicClass::PrintUcDaySchedule(const string& week_day){
+    LEIC_class_schedule_.PrintDaySchedule(week_day);
+}
+
+void LeicClass::PrintUcWeekSchedule(){
+    LEIC_class_schedule_.PrintWeekSchedule();
+}
+
 void LeicClass::addUcClass(const UC_class& UC_class) {
     LEIC_UC_classes_.insert(UC_class);
 }

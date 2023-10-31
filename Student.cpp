@@ -36,6 +36,14 @@ int Student::getNumberOfUCs() const {
     return st_number_of_UCs_;
 }
 
+void Student::PrintUcDaySchedule(const string& week_day){
+    st_schedule_.PrintDaySchedule(week_day);
+}
+
+void Student::PrintUcWeekSchedule(){
+    st_schedule_.PrintWeekSchedule();
+}
+
 void Student::addSchedule(const Schedule& s){
     st_schedule_.addSchedule(s);
 }

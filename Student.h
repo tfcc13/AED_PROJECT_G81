@@ -37,6 +37,8 @@ public:
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
+    void PrintUcDaySchedule(const string& week_day);
+    void PrintUcWeekSchedule();
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
 

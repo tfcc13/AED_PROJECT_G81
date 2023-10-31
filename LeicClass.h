@@ -27,6 +27,8 @@ public:
 
     const string& getClassName() const;
     void PrintClassUc() const;
+    void PrintUcDaySchedule(const string& week_day);
+    void PrintUcWeekSchedule();
 
     void addUcClass(const UC_class& UC_class);
 
