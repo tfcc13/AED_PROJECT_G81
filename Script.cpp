@@ -57,11 +57,11 @@ void Script::populateUcSet(const string &filename) {
         if(all_UCs.find(uc_temp) != all_UCs.end()) {
             UC_class uc_temp2 = *all_UCs.find(uc_temp);
             all_UCs.erase(uc_temp);
-            uc_temp2.addUcSchedule(weekDay, curr_schedule);
+            uc_temp2.addDayScheduleEntry(weekDay, curr_schedule);
             all_UCs.insert(uc_temp2);
         }
 
-        uc_temp.addUcSchedule(weekDay, curr_schedule);
+        uc_temp.addDayScheduleEntry(weekDay, curr_schedule);
 
         all_UCs.insert(uc_temp);
 
@@ -75,7 +75,7 @@ void Script::populateUcSet(const string &filename) {
 
 
 
-std::set<LeicClass> Script::populateLeicSet(const string &filename) {
+void Script::populateLeicSet(const string &filename) {
         std::ifstream dataFile(filename);
 
 
@@ -83,7 +83,7 @@ std::set<LeicClass> Script::populateLeicSet(const string &filename) {
         if(dataFile.fail()) {
             std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
             std::cerr << "Error details: " << std::strerror(errno) << std::endl;
-            return all_classes;
+            return;
         }
         std::string header;
         getline(dataFile, header);
@@ -115,9 +115,6 @@ std::set<LeicClass> Script::populateLeicSet(const string &filename) {
             }
         }
         dataFile.close();
-
-
-
 
     }
 

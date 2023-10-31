@@ -10,6 +10,238 @@
 #include <cstring>
 #include "Script.h"
 
+
+bool close_program = false;
+
+
+void displayStudentMenu(){
+    while(!close_program) {
+        std::cout << "(1) >> Consult student schedule" << std::endl;
+        std::cout << "(2) >> Consult student enrolled ucs" << std::endl;
+        std::cout << "(3) >> Consult student class" << std::endl;
+        std::cout << "(4) >> Go back" << std::endl;
+        std::cout << "(5) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                std::cout << "Prints the student schedule" << std::endl;
+                break;
+            case 2:
+                std::cout << "Prints the number of uc's and ucs names" << std::endl;
+                break;
+            case 3:
+                std::cout << "Prints student class name" << std::endl;
+                break;
+            case 4:
+                std::cout << "Goes to the previous menu" << std::endl;
+                return;
+            case 5:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+
+        }
+    }
+
+}
+
+void displayUcMenu(){
+    while(!close_program) {
+        std::string uc_name;
+        int number_of_ucs;
+        std::cout << "(1) >> Consult UC occupancy" << std::endl;
+        std::cout << "(2) >> Consult UC enrolled students" << std::endl;
+        std::cout << "(3) >> Consult UC schedule" << std::endl;
+        std::cout << "(4) >> Consult UC's with the greatest number of students" << std::endl;
+        std::cout << "(5) >> Consult UC's with the smallest number of students" << std::endl;
+        std::cout << "(6) >> Go back" << std::endl;
+        std::cout << "(7) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                std::cout << "Write the UC name" << std::endl ;
+                std::cin >> uc_name;
+                std::cout << "Shows uc occupancy" << std::endl;
+                break;
+            case 2:
+
+                std::cout << "Write the UC name" << std::endl;
+                std::cin >> uc_name;
+                std::cout << "Shows uc enrolled students" << std::endl;
+                break;
+            case 3:
+                std::cout << "Write the UC name" << std::endl;
+                std::cin >> uc_name;
+                std::cout << "Shows uc schedule" << std::endl;
+                break;
+            case 4:
+
+                std::cout << "Write the amount of UC's you want to see" << std::endl;
+                std::cin >> number_of_ucs;
+                std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                break;
+            case 5:
+                std::cout << "Write the amount of UC's you want to see" << std::endl;
+                std::cin >> number_of_ucs;
+                std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                break;
+            case 6:
+                std::cout << "Goes to the previous menu" << std::endl;
+                return;
+            case 7:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+        }
+    }
+}
+void displayClassMenu(){
+    while(!close_program) {
+        std::string class_name;
+        int number_of_classes;
+        std::cout << "(1) >> Consult class occupancy" << std::endl;
+        std::cout << "(2) >> Consult class enrolled students" << std::endl;
+        std::cout << "(3) >> Consult class schedule" << std::endl;
+        std::cout << "(4) >> Consult classes with the greatest number of students" << std::endl;
+        std::cout << "(5) >> Consult classes with the smallest number of students" << std::endl;
+        std::cout << "(6) >> Go back" << std::endl;
+        std::cout << "(7) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                std::cout << "Write the class name" << std::endl;
+                std::cin >> class_name;
+                std::cout << "Shows class occupancy" << std::endl;
+                break;
+            case 2:
+                std::cout << "Write the class name" << std::endl;
+                std::cin >> class_name;
+                std::cout << "Shows class enrolled students" << std::endl;
+                break;
+            case 3:
+                std::cout << "Write the UC name" << std::endl;
+                std::cin >> class_name;
+                std::cout << "Shows class schedule" << std::endl;
+                break;
+            case 4:
+                std::cout << "Write the amount of classes you want to see" << std::endl;
+                std::cin >> number_of_classes;
+                std::cout << "Shows classes names and theirs occupancy" << std::endl;
+                break;
+            case 5:
+                std::cout << "Write the amount of UC's you want to see" << std::endl;
+                std::cin >> number_of_classes;
+                std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                break;
+            case 6:
+                std::cout << "Goes to the previous menu" << std::endl;
+                return;
+            case 7:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+        }
+    }
+
+}
+void displayYearMenu(){}
+
+
+void displayDataConsultationMenu(){
+    while(!close_program) {
+        std::cout << "(1) >> Consult data by student" << std::endl;
+        std::cout << "(2) >> Consult data by uc" << std::endl;
+        std::cout << "(3) >> Consult data by class" << std::endl;
+        std::cout << "(4) >> Consult data by year" << std::endl;
+        std::cout << "(5) >> Go back" << std::endl;
+        std::cout << "(6) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                displayStudentMenu();
+                break;
+            case 2:
+                displayUcMenu();
+                break;
+            case 3:
+                displayClassMenu();
+                break;
+            case 4:
+                displayYearMenu();
+                break;
+            case 5:
+                return;
+            case 6:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+        }
+    }
+}
+void displayRequestMenu(){}
+
+
+
+
+void displayInterfaceMenu() {
+
+    while(!close_program) {
+        std::cout << "(1) >> Data Consultation" << std::endl;
+        std::cout << "(2) >> Requests" << std::endl;
+        std::cout << "(3) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                displayDataConsultationMenu();
+                break;
+            case 2:
+                displayRequestMenu();
+                break;
+            case 3:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+
+        }
+
+    }
+}
+
+
 /*
 std::set<UC_class> populateUcSet(const std::string& filename) {
     std::set<UC_class> uc_classes;
@@ -226,7 +458,7 @@ std::set<Student> populateStudentSet(const std::string& filename) {
 
 int main() {
     Script new_script = Script("database");
-    new_script.loadData("input/classes.csv","input/classes_per_uc.csv","input/classes_per_uc.csv");
+    new_script.loadData("input/classes.csv","input/classes_per_uc.csv","input/students_classes.csv");
 
 /*
 
@@ -257,5 +489,7 @@ int main() {
         counter++;
     }
 */
+
+    displayInterfaceMenu();
     return 0;
 }
