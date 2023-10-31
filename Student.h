@@ -29,7 +29,7 @@ private:
     Schedule st_schedule_;
 
 public:
-    Student(int id_number, std::string& st_name = (string &) "");
+    Student(int id_number, const std::string& st_name);
     Student(const Student& other);
 
     bool operator<(const Student& other) const;

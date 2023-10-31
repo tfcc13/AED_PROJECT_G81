@@ -62,6 +62,10 @@ void Script::populateUcSet(const string &filename) {
         LeicClass classCopy = LeicClass(*classIt);
         all_classes.erase(classIt);
         classCopy.addDayScheduleEntry(weekDay, curr_schedule);
+        UC_class uc_class_temp = classCopy.getUCClass(ucCode);
+        classCopy.eraseUcClass(uc_class_temp);
+        uc_class_temp.addDayScheduleEntry(weekDay, curr_schedule);
+        classCopy.insertUcClass(uc_class_temp);
 
 
 
@@ -75,7 +79,6 @@ void Script::populateUcSet(const string &filename) {
         }
 
         uc_temp.addDayScheduleEntry(weekDay, curr_schedule);
-        classCopy.addUcClass
         all_classes.insert(classCopy);
         all_UCs.insert(uc_temp);
 
@@ -119,10 +122,10 @@ void Script::populateLeicSet(const string &filename) {
             if (classIt != all_classes.end()) {
                 LeicClass classCopy = LeicClass(*classIt);
                 all_classes.erase(classIt);
-                classCopy.addUcClass(UC_class(uccode));
+                classCopy.insertUcClass(UC_class(uccode));
                 all_classes.insert(classCopy);
             } else {
-                tempClass.addUcClass(uccode);
+                tempClass.insertUcClass(uccode);
                 all_classes.insert(tempClass);
 
 
@@ -165,7 +168,6 @@ void Script::populateStudentSet(const string &filename) {
         auto classIt = all_classes.find(classCode);
         LeicClass classTemp = *classIt;
          Schedule schedule = classTemp.getUCClass(UcCode).getUCClassSchedule();
-         schedule.PrintWeekSchedule();
 
         Student tempStudent = Student(idNumber, studentName);
         tempStudent.addSchedule(classCode,UcCode,schedule);
@@ -189,9 +191,10 @@ void Script::populateStudentSet(const string &filename) {
 
 
 void Script::PrintWeekStudentSchedule(int studentNumber) {
-    auto studentIt = all_students.find(Student(studentNumber));
+    auto studentIt = all_students.find(Student(studentNumber,""));
     Student studentTemp = *studentIt;
     studentTemp.PrintUcWeekSchedule();
+    std::cout << std::endl;
 }
 
 void Script::PrintWeekScheduleClass(const string& class_name){
