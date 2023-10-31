@@ -106,6 +106,8 @@ void Script::populateLeicSet(const string &filename) {
                 LeicClass classCopy = LeicClass(*classIt);
                 all_classes.erase(classIt);
                 classCopy.addUcClass(UC_class(uccode));
+                std::set<UC_class>::iterator ucIt =  all_UCs.find(uccode);
+                //classCopy.addDayScheduleEntry(*ucIt.)
                 all_classes.insert(classCopy);
             } else {
                 tempClass.addUcClass(uccode);
