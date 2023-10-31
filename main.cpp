@@ -89,6 +89,7 @@ void displayUcMenu(Script& script){
             case 1:
                 std::cout << "Write the UC name" << std::endl ;
                 std::cin >> uc_name;
+                script.consultUCOccupancy(uc_name);
                 std::cout << "Shows uc occupancy" << std::endl;
                 break;
             case 2:

@@ -32,12 +32,12 @@ public:
     void PrintWeekScheduleClass(const string& class_name);
     void consultStudentEnrolledUCs(int studentNumber);
     void consultStudentEnrolledClasses(int studentNumber);
-
+    void consultUCOccupancy(const string& uc_name);
 
 private:
-    std::set<UC_class> all_UCs;// = populateUcSet("input/classes.csv");
-    std::set<LeicClass> all_classes;// = populateLeicSet("input/classes_per_uc.csv");
-    std::set<Student> all_students; //= populateStudentSet("input/students_classes.csv");
+    std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");
+    std::set<LeicClass> all_classes_;// = populateLeicSet("input/classes_per_uc.csv");
+    std::set<Student> all_students_; //= populateStudentSet("input/students_classes.csv");
     std::string  database_;
 
 };

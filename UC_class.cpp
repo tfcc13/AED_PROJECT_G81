@@ -49,6 +49,14 @@ void UC_class::addDayScheduleEntry(const string &week_day, const dayScheduleEntr
     UC_class_schedule_.addDayScheduleEntry(week_day, entry);
 }
 
+const int UC_class::getNumberOfEnrolledStudents() const {
+    return int(enrolled_students_.size());
+}
+
+void UC_class::addStudent(const Student &s) {
+    enrolled_students_.insert(s);
+}
+
 
 
 
