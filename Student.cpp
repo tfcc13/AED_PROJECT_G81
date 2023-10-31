@@ -36,11 +36,11 @@ int Student::getNumberOfUCs() const {
     return st_number_of_UCs_;
 }
 
-void Student::PrintUcDaySchedule(const string& week_day){
+void Student::PrintUcDaySchedule(const string& week_day) const{
     st_schedule_.PrintDaySchedule(week_day);
 }
 
-void Student::PrintUcWeekSchedule(){
+void Student::PrintUcWeekSchedule() const{
     st_schedule_.PrintWeekSchedule();
 }
 
@@ -69,7 +69,7 @@ void Student::removeSchedule(const string& class_code, const string& UC_code, co
     st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
 }
 
-bool Student::checkScheduleConflict(const Schedule& s){
+bool Student::checkScheduleConflict(const Schedule& s) const{
     st_schedule_.checkScheduleConflict(s);
 }
 

@@ -32,11 +32,11 @@ public:
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
     void removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
-    bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry); // Se houver conflito, return true
+    bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry) const; // Se houver conflito, return true
 
     void addSchedule(const Schedule& s); // Dar merge do objeto horário atual com outro objeto horário de entrada
     void removeSchedule(const Schedule& s); // Dar split de um objeto horário de entrada com o objeto horário atual
-    bool checkScheduleConflict(const Schedule& s); // Verificar se existem conflitos entre o objeto horário atual com outro objeto horário de entrada. Se houver conflito, return true
+    bool checkScheduleConflict(const Schedule& s) const; // Verificar se existem conflitos entre o objeto horário atual com outro objeto horário de entrada. Se houver conflito, return true
 
     void PrintDaySchedule(const std::string& week_day) const;
     void PrintWeekSchedule() const;

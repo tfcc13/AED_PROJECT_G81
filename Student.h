@@ -39,14 +39,14 @@ public:
     int getIdNumber() const;
     const string& getStudentName() const;
     int getNumberOfUCs() const;
-    void PrintUcDaySchedule(const string& week_day);
-    void PrintUcWeekSchedule();
+    void PrintUcDaySchedule(const string& week_day) const;
+    void PrintUcWeekSchedule() const;
     void PrintEnrolledUCs() const;
     void PrintEnrolledClasses() const;
 
     void addSchedule(const string& class_code, const string& UC_code, const Schedule& s);
     void removeSchedule(const string& class_code, const string& UC_code, const Schedule& s);
-    bool checkScheduleConflict(const Schedule& s);
+    bool checkScheduleConflict(const Schedule& s) const;
 
     //void addUCAndClass(const pair<string, string> UC_and_Class);
     //void removeUCAndClass(const pair<string, string> UC_and_Class);

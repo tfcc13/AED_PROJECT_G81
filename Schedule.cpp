@@ -44,13 +44,13 @@ void Schedule::removeDayScheduleEntry(const string &week_day, const dayScheduleE
     });
 }
 
-bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry){
+bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry) const{
     double e1_beginning_time = entry.start_hour;
     double e1_finishing_time = entry.start_hour + entry.duration;
     double e2_beginning_time, e2_finishing_time;
 
     if(entry.class_type != "T"){
-        for(auto & it : schedule_[week_day]){
+        for(auto & it : schedule_.at(week_day)){
             e2_beginning_time = it.start_hour;
             e2_finishing_time = it.start_hour + it.duration;
             if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
@@ -78,7 +78,7 @@ void Schedule::removeSchedule(const Schedule& s){
     }
 }
 
-bool Schedule::checkScheduleConflict(const Schedule& s){
+bool Schedule::checkScheduleConflict(const Schedule& s) const{
     for(const auto & it_map_elem : s.schedule_){
         for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
             this->checkDayScheduleEntryConflict(it_map_elem.first, *it_schedule_entry);
@@ -88,7 +88,7 @@ bool Schedule::checkScheduleConflict(const Schedule& s){
 
 void Schedule::PrintDaySchedule(const string &week_day) const{
     cout << left  << week_day << endl;
-    if (schedule_[week_day].empty()){
+    if (schedule_.at(week_day).empty()){
         cout << left << "No classes on this day" << endl;
     } else{
         cout << left  << setw(15) << "UC code" << setw(15) << "Class code" << setw(15) << "Start Time" << std::setw(15) << "Duration" << std::setw(15) << "Type" << std::endl;
