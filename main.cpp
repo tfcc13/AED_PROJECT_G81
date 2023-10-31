@@ -20,6 +20,7 @@ void clearScreen() {
 void displayStudentMenu(Script& script){
     while(!close_program) {
         clearScreen();
+        int studentNumber;
         std::cout << "(1) >> Consult student schedule" << std::endl;
         std::cout << "(2) >> Consult student enrolled ucs" << std::endl;
         std::cout << "(3) >> Consult student class" << std::endl;
@@ -32,7 +33,10 @@ void displayStudentMenu(Script& script){
         std::cout << std::endl;
         switch (input) {
             case 1:
-                std::cout << "Prints the student schedule" << std::endl;
+                std::cout << "Insert student number;" << std::endl;
+                std::cin >> studentNumber;
+                std::cout <<  std::endl;
+                script.PrintWeekStudentSchedule(studentNumber);
                 break;
             case 2:
                 std::cout << "Prints the number of uc's and ucs names" << std::endl;

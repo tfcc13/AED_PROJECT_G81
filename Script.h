@@ -28,6 +28,7 @@ public:
     void populateUcSet(const std::string& filename);
     void populateLeicSet(const std::string& filename);
     void populateStudentSet(const std::string& filename);
+    void PrintWeekStudentSchedule(int studentNumber);
     void PrintWeekScheduleClass(const string& class_name);
 
 private:
