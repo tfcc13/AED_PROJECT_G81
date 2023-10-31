@@ -43,9 +43,14 @@ void displayStudentMenu(Script& script){
                 std::cin >> studentNumber;
                 std::cout <<  std::endl;
                 script.consultStudentEnrolledUCs(studentNumber);
+                std::cout << std::endl;
                 break;
             case 3:
-                std::cout << "Prints student class name" << std::endl;
+                std::cout << "Insert student number;" << std::endl;
+                std::cin >> studentNumber;
+                std::cout <<  std::endl;
+                script.consultStudentEnrolledClasses(studentNumber);
+                std::cout << std::endl;
                 break;
             case 4:
                 std::cout << "Goes to the previous menu" << std::endl;

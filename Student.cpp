@@ -51,6 +51,12 @@ void Student::PrintEnrolledUCs() const {
     }
 }
 
+void Student::PrintEnrolledClasses() const {
+    for (const auto& pair : st_enrolled_UC_and_classes_) {
+        std::cout  << pair.first << std::endl;
+    }
+}
+
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     st_enrolled_UC_and_classes_.insert(make_pair(class_code, UC_code));
     st_schedule_.addSchedule(s);

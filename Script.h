@@ -31,6 +31,9 @@ public:
     void PrintWeekStudentSchedule(int studentNumber);
     void PrintWeekScheduleClass(const string& class_name);
     void consultStudentEnrolledUCs(int studentNumber);
+    void consultStudentEnrolledClasses(int studentNumber);
+
+
 private:
     std::set<UC_class> all_UCs;// = populateUcSet("input/classes.csv");
     std::set<LeicClass> all_classes;// = populateLeicSet("input/classes_per_uc.csv");

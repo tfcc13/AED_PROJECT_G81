@@ -14,7 +14,9 @@ using namespace std;
 struct pair_compare
 {
     bool operator()(const pair<string, string>& left_pair, const pair<string, string>& right_pair) const
-    {
+    {   if (left_pair.first == right_pair.first) {
+        return left_pair.second < right_pair.second;
+    }
         return left_pair.first < right_pair.first;
     }
 };
@@ -40,6 +42,7 @@ public:
     void PrintUcDaySchedule(const string& week_day);
     void PrintUcWeekSchedule();
     void PrintEnrolledUCs() const;
+    void PrintEnrolledClasses() const;
 
     void addSchedule(const string& class_code, const string& UC_code, const Schedule& s);
     void removeSchedule(const string& class_code, const string& UC_code, const Schedule& s);

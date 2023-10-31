@@ -210,6 +210,12 @@ void Script::consultStudentEnrolledUCs(int studentNumber) {
     studentTemp.PrintEnrolledUCs();
 }
 
+
+void Script::consultStudentEnrolledClasses(int studentNumber) {
+    auto studentIt = all_students.find(Student(studentNumber,""));
+    studentIt->PrintEnrolledClasses();
+}
+
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
     populateUcSet(filename_1);
