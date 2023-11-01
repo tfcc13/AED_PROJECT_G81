@@ -18,7 +18,6 @@ private:
     string UC_name_;
     set<Student> enrolled_students_;
     int number_of_enrolled_students_;
-    int number_of_vacancies_;
     Schedule UC_class_schedule_;
 
 public:
@@ -35,9 +34,9 @@ public:
     const int getNumberOfVacancies() const;
     Schedule getUCClassSchedule() const;
 
-    void PrintEnrolledStudents() const;
-    void PrintUcDaySchedule(const string& week_day) const;
-    void PrintUcWeekSchedule() const;
+    void PrintEnrolledStudents();
+    void PrintUcDaySchedule(const string& week_day);
+    void PrintUcWeekSchedule();
 
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
 
