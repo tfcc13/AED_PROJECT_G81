@@ -86,32 +86,37 @@ void displayUcMenu(Script& script){
         std::cin >> input;
         std::cout << std::endl;
         switch (input) {
-            case 1:
+            case 1: // Done
                 std::cout << "Write the UC name" << std::endl ;
                 std::cin >> uc_name;
                 script.consultUCOccupancy(uc_name);
-                std::cout << "Shows uc occupancy" << std::endl;
+                std::cout << std::endl;
                 break;
-            case 2:
+            case 2: // Done
 
                 std::cout << "Write the UC name" << std::endl;
                 std::cin >> uc_name;
-                std::cout << "Shows uc enrolled students" << std::endl;
+                script.consultUCEnrolledStudents(uc_name);
+                std::cout << std::endl;
                 break;
-            case 3:
+            case 3: // Done
                 std::cout << "Write the UC name" << std::endl;
                 std::cin >> uc_name;
-                std::cout << "Shows uc schedule" << std::endl;
+                script.PrintWeekUCSchedule(uc_name);
+                std::cout << std::endl;
                 break;
             case 4:
 
                 std::cout << "Write the amount of UC's you want to see" << std::endl;
                 std::cin >> number_of_ucs;
                 std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                script.consultGreatestNumberOfStudentsUCs(number_of_ucs);
+
                 break;
             case 5:
                 std::cout << "Write the amount of UC's you want to see" << std::endl;
                 std::cin >> number_of_ucs;
+                script.consultSmallerNumberOfStudentsUCs(number_of_ucs);
                 std::cout << "Shows uc names and theirs occupancy" << std::endl;
                 break;
             case 6:
@@ -240,7 +245,8 @@ void displayInterfaceMenu(Script& script) {
         clearScreen();
         std::cout << "(1) >> Data Consultation" << std::endl;
         std::cout << "(2) >> Requests" << std::endl;
-        std::cout << "(3) >> Close menu" << std::endl;
+        std::cout << "(3) >> Undo last action" << std::endl;
+        std::cout << "(4) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
         std::cin >> input;
@@ -254,6 +260,8 @@ void displayInterfaceMenu(Script& script) {
                 displayRequestMenu(script);
                 break;
             case 3:
+                std::cout << "Last action undone" << std::endl;
+            case 4:
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;

@@ -207,6 +207,55 @@ void Script::consultUCOccupancy(const string& uc_name) {
     std::cout << UCClassIt->getNumberOfEnrolledStudents() << std::endl;
 }
 
+void Script::consultUCEnrolledStudents(const string& uc_name) {
+    auto UCClassIt = all_UCs_.find(uc_name);
+    UCClassIt->PrintEnrolledStudents();
+
+}
+
+void Script::consultGreatestNumberOfStudentsUCs(int num) {
+    auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
+        return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
+    };
+    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
+    auto setIt = sortedByOccupancy.end();
+    setIt--;
+    if (num <= int(sortedByOccupancy.size())) {
+        std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
+        for (int i = 0; i < num; i++, setIt--) {
+            std::cout << left << setw(8) << setIt->getUcName() << " | "  << setIt->getNumberOfEnrolledStudents() << std::endl;
+        }
+    }
+    else {
+        std::cout << "Theres only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
+    }
+
+}
+
+void Script::consultSmallerNumberOfStudentsUCs(int num) {
+    auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
+        return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
+    };
+    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
+    auto setIt = sortedByOccupancy.begin();
+    if (num <= int(sortedByOccupancy.size())) {
+        std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
+        for (int i = 0; i < num; i++, setIt++) {
+            std::cout << left << setw(8) << setIt->getUcName() << " | " << setIt->getNumberOfEnrolledStudents() << std::endl;
+        }
+    }
+    else {
+        std::cout << "Theres only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
+    }
+
+}
+
+void Script::PrintWeekUCSchedule(const std::string &uc_name) {
+    auto itUC = all_UCs_.find(UC_class(uc_name));
+    itUC->PrintUcWeekSchedule();
+}
+
+
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
     populateUcSet(filename_1);

@@ -33,6 +33,11 @@ public:
     void consultStudentEnrolledUCs(int studentNumber);
     void consultStudentEnrolledClasses(int studentNumber);
     void consultUCOccupancy(const string& uc_name);
+    void consultUCEnrolledStudents(const string& uc_name);
+    void consultGreatestNumberOfStudentsUCs(int num);
+    void consultSmallerNumberOfStudentsUCs(int num);
+    void PrintWeekUCSchedule(const string& uc_name);
+
 
 private:
     std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");
