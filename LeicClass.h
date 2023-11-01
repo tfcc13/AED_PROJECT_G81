@@ -33,6 +33,8 @@ public:
     int getNumberOfEnrolledStudents() const;
     set<Student> getEnrolledStudents() const;
 
+    Schedule getLeicClassSchedule() const;
+
     void PrintClassUc() const;
     void PrintUcDaySchedule(const string& week_day) const;
     void PrintUcWeekSchedule() const;

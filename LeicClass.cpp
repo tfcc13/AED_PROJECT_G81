@@ -56,6 +56,10 @@ set<Student> LeicClass::getEnrolledStudents() const{
     return  total_enrolled_students_in_class;
 }
 
+Schedule LeicClass::getLeicClassSchedule() const{
+    return LEIC_class_schedule_;
+}
+
 void LeicClass::PrintUcDaySchedule(const string& week_day) const{
     LEIC_class_schedule_.PrintDaySchedule(week_day);
 }
