@@ -45,17 +45,17 @@ Schedule UC_class::getUCClassSchedule() const{
     return UC_class_schedule_;
 }
 
-void UC_class::PrintEnrolledStudents(){
+void UC_class::PrintEnrolledStudents() const {
     for (const Student& student : enrolled_students_) {
         std::cout << "Student number: " << student.getIdNumber() << " Student name: " << student.getStudentName() << std::endl;
     }
 }
 
-void UC_class::PrintUcDaySchedule(const string& week_day){
+void UC_class::PrintUcDaySchedule(const string& week_day) const {
     UC_class_schedule_.PrintDaySchedule(week_day);
 }
 
-void UC_class::PrintUcWeekSchedule(){
+void UC_class::PrintUcWeekSchedule() const {
     UC_class_schedule_.PrintWeekSchedule();
 }
 
