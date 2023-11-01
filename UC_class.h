@@ -30,8 +30,10 @@ public:
     const string& getUcName() const;
     void insertStudent(Student& s);
     void eraseStudent(Student& s);
-    const int getNumberOfEnrolledStudents() const;
-    const int getNumberOfVacancies() const;
+
+    set<Student> getEnrolledStudents() const;
+    int getNumberOfEnrolledStudents() const;
+    int getNumberOfVacancies() const;
     Schedule getUCClassSchedule() const;
 
     void PrintEnrolledStudents() const;

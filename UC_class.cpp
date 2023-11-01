@@ -33,11 +33,15 @@ void UC_class::eraseStudent(Student& s){
     enrolled_students_.erase(s);
 }
 
-const int UC_class::getNumberOfEnrolledStudents() const {
+set<Student> UC_class::getEnrolledStudents() const{
+    return enrolled_students_;
+}
+
+int UC_class::getNumberOfEnrolledStudents() const {
     return int(enrolled_students_.size());
 }
 
-const int UC_class::getNumberOfVacancies() const{
+int UC_class::getNumberOfVacancies() const{
     return 27 - int(enrolled_students_.size());
 }
 
