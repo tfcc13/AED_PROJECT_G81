@@ -250,9 +250,24 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
 
 }
 
-void Script::PrintWeekUCSchedule(const std::string &uc_name) {
+void Script::PrintWeekUCSchedule(const string& uc_name){
     auto itUC = all_UCs_.find(UC_class(uc_name));
     itUC->PrintUcWeekSchedule();
+}
+
+
+void Script::consultClassOccupancy(const string& class_code) {
+    auto classIt = all_classes_.find(LeicClass(class_code));
+    // to be completed
+}
+
+int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
+    int counter = 0;
+    auto studentIt = all_students_.begin();
+    for (; studentIt != all_students_.end(); studentIt++) {
+        if (studentIt->getNumberOfUCs() == numberOfUCs) counter++;
+    }
+    return counter;
 }
 
 

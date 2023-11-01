@@ -21,11 +21,13 @@ void displayStudentMenu(Script& script){
     clearScreen();
     while(!close_program) {
         int studentNumber;
+        int numberOfUcs;
         std::cout << "(1) >> Consult student schedule" << std::endl;
         std::cout << "(2) >> Consult student enrolled ucs" << std::endl;
         std::cout << "(3) >> Consult student class" << std::endl;
-        std::cout << "(4) >> Go back" << std::endl;
-        std::cout << "(5) >> Close menu" << std::endl;
+        std::cout << "(4) >> Consult the number of students registered in n UC's" << std::endl;
+        std::cout << "(5) >> Go back" << std::endl;
+        std::cout << "(6) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
 
         int input;
@@ -53,9 +55,13 @@ void displayStudentMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 4:
+                std::cout << "Insert the number of UC's a student has" << std::endl;
+                std::cin >> numberOfUcs;
+                std::cout << "Theres " << script.consultNumberOfStudentsRegisteredUCs(numberOfUcs) << " students registered at " << numberOfUcs << " UC's" << std::endl;
+            case 5:
                 std::cout << "Goes to the previous menu" << std::endl;
                 return;
-            case 5:
+            case 6:
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
@@ -173,9 +179,9 @@ void displayClassMenu(Script& script){
                 std::cout << "Shows classes names and theirs occupancy" << std::endl;
                 break;
             case 5:
-                std::cout << "Write the amount of UC's you want to see" << std::endl;
+                std::cout << "Write the amount of classes you want to see" << std::endl;
                 std::cin >> number_of_classes;
-                std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                std::cout << "Shows classes  names and theirs occupancy" << std::endl;
                 break;
             case 6:
                 std::cout << "Goes to the previous menu" << std::endl;

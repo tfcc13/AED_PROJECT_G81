@@ -37,6 +37,8 @@ public:
     void consultGreatestNumberOfStudentsUCs(int num);
     void consultSmallerNumberOfStudentsUCs(int num);
     void PrintWeekUCSchedule(const string& uc_name);
+    void consultClassOccupancy(const string& class_code);
+    int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
 
 
 private:
