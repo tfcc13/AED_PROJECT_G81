@@ -270,6 +270,19 @@ int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
     return counter;
 }
 
+void Script::requestAddClass(int student_id, const string& class_code) {
+    auto studentIt = all_students_.find(Student(student_id,""));
+    auto classIt = all_classes_.find(LeicClass(class_code));
+
+}
+
+void Script::requestRemoveClass(int student_id, const std::string &class_code) {
+    auto studentIt = all_students_.find(Student(student_id,""));
+    auto classIt = all_classes_.find(LeicClass(class_code));
+    
+
+
+}
 
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
