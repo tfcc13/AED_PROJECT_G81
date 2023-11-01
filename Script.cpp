@@ -4,15 +4,9 @@
 
 #include "Script.h"
 
-
-
-
 Script::Script(const string &database) {
     database_ = database;
 }
-
-
-
 
 void Script::populateUcSet(const string &filename) {
     std::ifstream dataFile(filename);
@@ -41,7 +35,6 @@ void Script::populateUcSet(const string &filename) {
 
         char spacer = ',';
 
-
         std::getline(ss, classCode, spacer);
         std::getline(ss, ucCode, spacer);
         std::getline(ss, weekDay, spacer);
@@ -67,10 +60,6 @@ void Script::populateUcSet(const string &filename) {
         uc_class_temp.addDayScheduleEntry(weekDay, curr_schedule);
         classCopy.insertUcClass(uc_class_temp);
 
-
-
-
-
         if(all_UCs_.find(uc_temp) != all_UCs_.end()) {
             UC_class uc_temp2 = *all_UCs_.find(uc_temp);
             all_UCs_.erase(uc_temp);
@@ -82,20 +71,13 @@ void Script::populateUcSet(const string &filename) {
         all_classes_.insert(classCopy);
         all_UCs_.insert(uc_temp);
 
-
-
     }
 
     dataFile.close();
 }
 
-
-
-
 void Script::populateLeicSet(const string &filename) {
         std::ifstream dataFile(filename);
-
-
 
         if(dataFile.fail()) {
             std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
@@ -115,7 +97,6 @@ void Script::populateLeicSet(const string &filename) {
             std::getline(ss, uccode, spacer);
             std::getline(ss, classcode, spacer);
 
-
             LeicClass tempClass = LeicClass(classcode);
             std::set<LeicClass>::iterator classIt;
             classIt = all_classes_.find(tempClass);
@@ -125,20 +106,18 @@ void Script::populateLeicSet(const string &filename) {
                 classCopy.insertUcClass(UC_class(uccode));
                 all_classes_.insert(classCopy);
             } else {
-                tempClass.insertUcClass(uccode);
+                tempClass.insertUcClass(UC_class(uccode));
                 all_classes_.insert(tempClass);
-
-
             }
         }
         dataFile.close();
 
-    }
-// FRANCISCO VE ISTO
+}
+
 void Script::populateStudentSet(const string &filename) {
     std::ifstream dataFile(filename);
 
-    if(dataFile.fail()) {
+    if (dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
         return;
@@ -148,7 +127,7 @@ void Script::populateStudentSet(const string &filename) {
     getline(dataFile, header);
     std::string line;
 
-    while (std::getline(dataFile,line)) {
+    while (std::getline(dataFile, line)) {
         line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
         int idNumber;
@@ -158,45 +137,45 @@ void Script::populateStudentSet(const string &filename) {
         std::string temp;
 
         std::getline(ss, temp, ',');
-        idNumber =  std::stoi(temp);
+        idNumber = std::stoi(temp);
         std::getline(ss, studentName, ',');
         std::getline(ss, UcCode, ',');
         std::getline(ss, classCode, ',');
 
+        auto classIt = all_classes_.find(LeicClass(classCode)); //
+        LeicClass tempLeicClass = *classIt; //
+        all_classes_.erase(tempLeicClass); //
+        UC_class tempUCClass = tempLeicClass.getUCClass(UcCode); //
+        tempLeicClass.eraseUcClass(tempUCClass); //
+        Schedule schedule = tempUCClass.getUCClassSchedule(); //
 
-        std::set<Student>::iterator studentIt;
-        auto classIt = all_classes_.find(classCode);
-        LeicClass classTemp = *classIt;
-        Schedule schedule = classTemp.getUCClass(UcCode).getUCClassSchedule();
+        Student tempStudent = Student(idNumber, studentName); //
 
-        Student tempStudent = Student(idNumber, studentName);
-        tempStudent.addSchedule(classCode,UcCode,schedule);
-        studentIt = all_students_.find(tempStudent);
+        auto UCIt = all_UCs_.find(UC_class(UcCode)); //
+        auto tempUC = *UCIt; //
+        all_UCs_.erase(UCIt); //
 
-        if(studentIt != all_students_.end()) {
-            tempStudent = *studentIt;
-            all_students_.erase(studentIt);
-            tempStudent.addSchedule(classCode,UcCode,schedule);
-            all_students_.insert(tempStudent);
-            auto UCIt = all_UCs_.find(UC_class(UcCode));
-            UC_class temp_UC = *UCIt;
-            temp_UC.addStudent(tempStudent);
-
-
+        auto studentIt = all_students_.find(tempStudent); //
+        if (studentIt != all_students_.end()) {
+            tempStudent = *studentIt; //
+            all_students_.erase(studentIt); //
+            tempUCClass.eraseStudent(tempStudent); //
+            tempUC.eraseStudent(tempStudent); //
         }
 
-        auto UCIt = all_UCs_.find(UC_class(UcCode));
-        UC_class temp_UC = *UCIt;
-        temp_UC.addStudent(tempStudent);
+        tempStudent.addSchedule(classCode, UcCode, schedule); //
 
-        all_students_.insert(tempStudent);
-
+        all_students_.insert(tempStudent); //
+        tempUCClass.insertStudent(tempStudent); //
+        tempLeicClass.insertUcClass(tempUCClass); //
+        all_classes_.insert(tempLeicClass); //
+        tempUC.insertStudent(tempStudent); //
+        all_UCs_.insert(tempUC); //
 
     }
 
     dataFile.close();
 }
-
 
 void Script::PrintWeekStudentSchedule(int studentNumber) {
     auto studentIt = all_students_.find(Student(studentNumber,""));
@@ -218,7 +197,6 @@ void Script::consultStudentEnrolledUCs(int studentNumber) {
     studentTemp.PrintEnrolledUCs();
 }
 
-
 void Script::consultStudentEnrolledClasses(int studentNumber) {
     auto studentIt = all_students_.find(Student(studentNumber,""));
     studentIt->PrintEnrolledClasses();
@@ -229,11 +207,9 @@ void Script::consultUCOccupancy(const string& uc_name) {
     std::cout << UCClassIt->getNumberOfEnrolledStudents() << std::endl;
 }
 
-
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
     populateUcSet(filename_1);
     populateStudentSet(filename_3);
-
 }
 
