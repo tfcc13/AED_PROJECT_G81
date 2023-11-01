@@ -31,6 +31,14 @@ const string& UC_class::getUcName() const {
     return UC_name_;
 }
 
+void UC_class::insertStudent(Student &s) {
+    enrolled_students_.insert(s);
+}
+
+void UC_class::eraseStudent(Student& s){
+    enrolled_students_.erase(s);
+}
+
 void UC_class::PrintEnrolledStudents() const {
     for (const Student& student : enrolled_students_) {
         std::cout << "Student number: " << student.getIdNumber() << " Student name: " << student.getStudentName() << std::endl;
@@ -52,11 +60,6 @@ void UC_class::addDayScheduleEntry(const string &week_day, const dayScheduleEntr
 const int UC_class::getNumberOfEnrolledStudents() const {
     return int(enrolled_students_.size());
 }
-
-void UC_class::addStudent(const Student &s) {
-    enrolled_students_.insert(s);
-}
-
 
 
 

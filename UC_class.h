@@ -29,8 +29,8 @@ public:
     bool operator<(const UC_class& other) const;
 
     const string& getUcName() const;
-    void addStudent(const Student& s);
-    void removeStudent(const Student& s);
+    void insertStudent(Student& s);
+    void eraseStudent(Student& s);
     const int getNumberOfEnrolledStudents() const;
     const int getNumberOfVacancies() const;
     Schedule getUCClassSchedule() const;
