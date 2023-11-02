@@ -4,8 +4,7 @@
 
 #include "Student.h"
 
-// Constructor
-Student::Student(int id_number, const std::string& st_name) :
+Student::Student(int id_number, const string& st_name) :
         id_number_(id_number),
         st_name_(st_name),
         st_enrolled_UC_and_classes_({}),
@@ -30,6 +29,10 @@ int Student::getIdNumber() const {
 
 const std::string& Student::getStudentName() const {
     return st_name_;
+}
+
+set<pair<string, string>, pair_compare> Student::get_student_enrolled_UC_and_classes() const{
+    return st_enrolled_UC_and_classes_;
 }
 
 int Student::getNumberOfUCs() const {
@@ -60,17 +63,17 @@ void Student::PrintEnrolledClasses() const {
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     st_enrolled_UC_and_classes_.insert(make_pair(class_code, UC_code));
     st_schedule_.addSchedule(s);
-    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
+    st_number_of_UCs_ = int(st_enrolled_UC_and_classes_.size());
 }
 
 void Student::removeSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     st_enrolled_UC_and_classes_.erase(make_pair(class_code, UC_code));
     st_schedule_.removeSchedule(s);
-    st_number_of_UCs_ = st_enrolled_UC_and_classes_.size();
+    st_number_of_UCs_ = int(st_enrolled_UC_and_classes_.size());
 }
 
 bool Student::checkScheduleConflict(const Schedule& s) const{
-    st_schedule_.checkScheduleConflict(s);
+    return st_schedule_.checkScheduleConflict(s);
 }
 
 /*void Student::insertUcCode(const std::string &UcCode) {

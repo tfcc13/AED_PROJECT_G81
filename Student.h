@@ -33,11 +33,11 @@ private:
 public:
     Student(int id_number, const std::string& st_name);
     Student(const Student& other);
-
     bool operator<(const Student& other) const;
 
     int getIdNumber() const;
     const string& getStudentName() const;
+    set<pair<string, string>, pair_compare> get_student_enrolled_UC_and_classes() const;
     int getNumberOfUCs() const;
     void PrintUcDaySchedule(const string& week_day) const;
     void PrintUcWeekSchedule() const;
