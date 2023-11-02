@@ -258,24 +258,27 @@ void displayYearMenu(Script& script){
                 std::cout << "Insert the year you want to consult the occupancy" << std::endl;
                 cin >> year;
                 cout << endl;
-                cout << "The year " << year << " has " << script.consultYearOccupancy(year) << " students" << endl;
+                cout << "The year " << year << " has " << script.consultYearOccupancy(year-1) << " students" << endl;
                 cout << endl;
                 break;
             case 2:
                 std::cout << "Insert the year you want to consult the enrolled students" << std::endl;
                 cin >> year;
                 cout << endl;
-                script.consultEnrolledStudentsYear(year);
+                script.consultEnrolledStudentsYear(year-1);
                 cout << endl;
                 break;
             case 3:
                 std::cout << "Insert the year you want to consult the UC's names" << std::endl;
                 cin >> year;
-                script.consultUCsByYear(year);
+                script.consultUCsByYear(year-1);
                 cout << endl;
                 break;
             case 4:
-                displayYearMenu(script);
+                std::cout << "Insert the year you want to consult the UC's names" << std::endl;
+                cin >> year;
+                script.consultUCsByYearByAscendingOccupancy(year-1);
+                std::cout << endl;
                 break;
             case 5:
                 return;

@@ -383,6 +383,20 @@ void Script::consultUCsByYear(int year){
     }
 }
 
+void Script::consultUCsByYearByAscendingOccupancy(int year) {
+    auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
+        return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
+    };
+
+    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year].begin(),UC_years_[year].end(), compareNumberOfStudents);
+        std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
+        for (const auto& uc:sortedByOccupancy) {
+            std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
+        }
+
+
+}
+
 void Script::requestAddClass(int student_id, const string& class_code) {
     auto studentIt = all_students_.find(Student(student_id,""));
     auto classIt = all_classes_.find(LeicClass(class_code));
