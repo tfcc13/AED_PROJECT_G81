@@ -382,7 +382,7 @@ void Script::requestAddClass(int student_id, const string& class_code) {
 
 }
 
-void Script::requestRemoveClass(int student_id, const std::string &class_code) {
+void Script::requestRemoveClass(int student_id, const std::string& class_code) {
 
     auto studentIt = all_students_.find(Student(student_id,""));
     Student original_student = *studentIt;

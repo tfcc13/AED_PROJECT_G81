@@ -16,7 +16,7 @@ void clearScreen() {
 #endif
 }
 
-
+// Done
 void displayStudentMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -74,6 +74,7 @@ void displayStudentMenu(Script& script){
 
 }
 
+// Done
 void displayUcMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -138,6 +139,8 @@ void displayUcMenu(Script& script){
         }
     }
 }
+
+//Done
 void displayClassMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -219,6 +222,8 @@ void displayClassMenu(Script& script){
     }
 
 }
+
+//Por acabar
 void displayYearMenu(Script& script){
     clearScreen();
 
@@ -307,6 +312,7 @@ void displayYearMenu(Script& script){
 }
 
 
+//done
 void displayDataConsultationMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -347,10 +353,72 @@ void displayDataConsultationMenu(Script& script){
         }
     }
 }
-void displayRequestMenu(Script& script){}
+
+//por acabar
+void displayRequestMenu(Script& script){
+    clearScreen();
+    while(!close_program) {
+
+        std::string class_name;
+        std::string uc_code;
+        int student_number;
+        std::cout << "(1) >> Add class" << std::endl;
+        std::cout << "(2) >> Remove class" << std::endl;
+        std::cout << "(3) >> Switch class" << std::endl;
+        std::cout << "(4) >> Add UC" << std::endl;
+        std::cout << "(5) >> Remove UC" << std::endl;
+        std::cout << "(6) >> Switch UC" << std::endl;
+        std::cout << "(7) >> Go back" << std::endl;
+        std::cout << "(8) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+        int input;
+        std::cin >> input;
+        std::cout << std::endl;
+
+        switch (input) {
+            case 1:
+                std::cout << "Adds a  class" << std::endl;
+                break;
+            case 2:
+                std::cout << "Insert student number" << std::endl;
+                cin >> student_number;
+                std::cout << "Insert the  class to remove" << std::endl;
+                cin >> class_name;
+                script.requestRemoveClass(student_number,class_name);
+                std::cout << "Removes a  class" << std::endl;
+                break;
+            case 3:
+                std::cout << "Switches a  class" << std::endl;
+            case 4:
+                std::cout << "Adds UC's" << std::endl;
+                close_program = true;
+                break;
+            case 5:
+                std::cout << "Removes UC's" << std::endl;
+                break;
+            case 6:
+                std::cout << "Switches UC's" << std::endl;
+                break;
+            case 7:
+                return;
+            case 8:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+
+        }
+
+    }
+
+}
 
 
 
+
+//done
 
 void displayInterfaceMenu(Script& script) {
 
