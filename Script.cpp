@@ -344,8 +344,24 @@ int Script::consultYearOccupancy(int year) {
     return  int(student_union.size());
 }
 
+// Francisco vê isto
+
+/**
+ * @brief prints the students in a year ordered by number
+ *
+ * This function makes a set of students within a Leic year (1,2 or 3)
+ *
+ *
+ *
+ * @param year Recebe o ano que se quer ver
+ *
+ * @return Description of the return value.
+ */
+
 void Script::consultEnrolledStudentsYear(int year) {
     set<Student> temp_student;
+    // Francisco ve isto
+    /// This set is a union of unique students in a year
     set<Student> student_union;
     for (const auto & classIt : leic_class_years_[year]) {
         set<Student> temp = classIt.getEnrolledStudents();
