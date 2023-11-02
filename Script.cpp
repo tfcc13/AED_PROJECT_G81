@@ -321,6 +321,20 @@ void Script::requestRemoveClass(int student_id, const std::string &class_code) {
 
 }
 
+vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClass(const string& UC_code) const{
+    vector<pair<string, int>> NumberOfEnrolledStudentsPerClass;
+    for(const LeicClass& current_class : all_classes_){
+        auto itUCClass = current_class.getUCClass(UC_code);
+        if(itUCClass != UC_class("Não existe")){
+            NumberOfEnrolledStudentsPerClass.emplace_back(current_class.getClassName(), itUCClass.getNumberOfEnrolledStudents());
+        }
+    }
+    std::sort(NumberOfEnrolledStudentsPerClass.begin(), NumberOfEnrolledStudentsPerClass.end(),
+              [](const pair<string, int>& a, const pair<string, int>& b) {
+                  return a.second < b.second;
+              });
+}
+
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
     populateUcSet(filename_1);

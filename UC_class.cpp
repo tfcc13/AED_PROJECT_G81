@@ -21,6 +21,10 @@ bool UC_class::operator<(const UC_class &other) const {
     return UC_name_ < other.UC_name_;
 }
 
+bool UC_class::operator!=(const UC_class& other) const{
+    return (UC_name_ != other.UC_name_);
+}
+
 const string& UC_class::getUcName() const {
     return UC_name_;
 }

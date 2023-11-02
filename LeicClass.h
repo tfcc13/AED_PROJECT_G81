@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include "UC_class.h"
 #include "Schedule.h"
 

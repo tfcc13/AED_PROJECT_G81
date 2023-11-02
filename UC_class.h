@@ -26,6 +26,7 @@ public:
     UC_class(const UC_class& other);
 
     bool operator<(const UC_class& other) const;
+    bool operator!=(const UC_class& other) const;
 
     const string& getUcName() const;
     void insertStudent(Student& s);
