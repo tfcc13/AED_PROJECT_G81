@@ -332,11 +332,16 @@ void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStu
 }
 
 int Script::consultYearOccupancy(int year) {
-    int counter = 0;
-    for (const auto &  classIt : leic_class_years_[year]) {
-        counter += classIt.getNumberOfEnrolledStudents();
+    set<Student> temp_student;
+    set<Student> student_union;
+    for (const auto & classIt : leic_class_years_[year]) {
+        set<Student> temp = classIt.getEnrolledStudents();
+        set_union(temp_student.begin(), temp_student.end(),
+                  temp.begin(),temp.end(),
+                  inserter(student_union,student_union.begin()));
+        temp_student = student_union;
     }
-    return counter;
+    return  int(student_union.size());
 }
 
 void Script::consultEnrolledStudentsYear(int year) {
