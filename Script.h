@@ -49,8 +49,8 @@ public:
     void requestSwitchUC();
     void requestSwitchClass();
 
-    vector<pair<string, int>> getNumberOfEnrolledStudentsPerClass(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
-
+    vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
+    bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);
 
 private:
     std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");

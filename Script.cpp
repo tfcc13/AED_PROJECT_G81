@@ -321,7 +321,8 @@ void Script::requestRemoveClass(int student_id, const std::string &class_code) {
 
 }
 
-vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClass(const string& UC_code) const{
+// Para na UC, inscrever nas turmas com menos alunos
+vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const{
     vector<pair<string, int>> NumberOfEnrolledStudentsPerClass;
     for(const LeicClass& current_class : all_classes_){
         auto itUCClass = current_class.getUCClass(UC_code);
@@ -333,6 +334,18 @@ vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClass(const stri
               [](const pair<string, int>& a, const pair<string, int>& b) {
                   return a.second < b.second;
               });
+}
+
+// Para verificar o balanço de alunos entre turmas na mesma UC
+bool Script::checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2){
+    auto NumberOfEnrolledStudentsPerClass = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
+    auto it1 = find_if(NumberOfEnrolledStudentsPerClass.begin(), NumberOfEnrolledStudentsPerClass.end(), [class_code_1](const pair<std::string, int>& p) {
+        return p.first == class_code_1;
+    });
+    auto it2 = find_if(NumberOfEnrolledStudentsPerClass.begin(), NumberOfEnrolledStudentsPerClass.end(), [class_code_2](const pair<std::string, int>& p) {
+        return p.first == class_code_2;
+    });
+    return abs(it1->second - it2->second) <= 4;
 }
 
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
