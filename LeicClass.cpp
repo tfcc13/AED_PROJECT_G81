@@ -3,12 +3,12 @@
 //
 
 #include "LeicClass.h"
-
+///Constructor for LEIC class
 LeicClass::LeicClass(const string& class_name) :
         LEIC_class_name_(class_name),
         LEIC_UC_classes_(),
         LEIC_class_schedule_() {}
-
+///Copy constructor for LEIC class
 LeicClass::LeicClass(const LeicClass& other) {
     LEIC_class_name_ = other.LEIC_class_name_;
     LEIC_UC_classes_ = other.LEIC_UC_classes_;

@@ -86,6 +86,16 @@ bool Schedule::checkScheduleConflict(const Schedule& s) const{
     }
 }
 
+/**
+ * @brief This function prints the day schedule of a week.
+ *
+ * Receives a weekday and prints the schedule for the day.
+ *
+ * @param week_day Description of the first parameter.
+ *
+ *
+ */
+
 void Schedule::PrintDaySchedule(const string &week_day) const{
     cout << left  << week_day << endl;
     if (schedule_.at(week_day).empty()){
