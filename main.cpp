@@ -220,8 +220,86 @@ void displayClassMenu(Script& script){
 
 }
 void displayYearMenu(Script& script){
+    clearScreen();
 
+    while(!close_program) {
+        string uc_code;
+        int year;
+        string class_code;
 
+        std::cout << "(1) >> Consult the number of enrolled students in a year" << std::endl;
+        std::cout << "(2) >> Consult a list of enrolled students in a year" << std::endl;
+        std::cout << "(3) >> Consult a list of filtered enrolled students in a year by student numbers" << std::endl;
+        std::cout << "(4) >> Consult a list of filtered enrolled students in a year by name" << std::endl;
+        std::cout << "(5) >> Consult UC's in a year" << std::endl;
+        std::cout << "(6) >> Consult UC's in a year by in ascending order by occupancy" << std::endl;
+        std::cout << "(7) >> Consult UC's in a year by in descending order by occupancy" << std::endl;
+        std::cout << "(8) >> Consult UC's in a year with a minimum of n students" << std::endl;
+        std::cout << "(9) >> Consult UC's in a year with a maximum of n students" << std::endl;
+        std::cout << "(10) >> Consult classes in a year" << std::endl;
+        std::cout << "(11) >> Consult classes in a year in ascending order by occupancy" << std::endl;
+        std::cout << "(12) >> Consult classes in a year in descending order by occupancy" << std::endl;
+        std::cout << "(13) >> Consult classes in a year with a minimum of n students" << std::endl;
+        std::cout << "(14) >> Consult classes in a year with a maximum of n students" << std::endl;
+        std::cout << "(15) >> Consult data by year" << std::endl;
+        std::cout << "(16) >> Go back" << std::endl;
+        std::cout << "(17) >> Close menu" << std::endl;
+        std::cout << "Please choose an option" << std::endl;
+
+        int input;
+        std::cin >> input;
+        std::cout << std::endl;
+
+        switch (input) {
+            case 1:
+                std::cout << "Insert the year you want to consult the occupancy" << std::endl;
+                cin >> year;
+                cout << endl;
+                cout << "The year " << year << " has " << script.consultYearOccupancy(year) << " students" << endl;
+                cout << endl;
+                break;
+            case 2:
+                displayUcMenu(script);
+                break;
+            case 3:
+                displayClassMenu(script);
+                break;
+            case 4:
+                displayYearMenu(script);
+                break;
+            case 5:
+                return;
+            case 6:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
+                break;
+            case 16:
+                break;
+            case 17:
+                break;
+            default:
+                std::cout << "Choose a valid option" << std::endl;
+                break;
+        }
+    }
 }
 
 

@@ -331,6 +331,13 @@ void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStu
     }
 }
 
+int Script::consultYearOccupancy(int year) {
+    int counter = 0;
+    for (const auto &  classIt : leic_class_years_[year]) {
+        counter += classIt.getNumberOfEnrolledStudents();
+    }
+    return counter;
+}
 
 void Script::requestAddClass(int student_id, const string& class_code) {
     auto studentIt = all_students_.find(Student(student_id,""));
