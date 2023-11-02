@@ -259,7 +259,11 @@ void displayYearMenu(Script& script){
                 cout << endl;
                 break;
             case 2:
-                displayUcMenu(script);
+                std::cout << "Insert the year you want to consult the enrolled students" << std::endl;
+                cin >> year;
+                cout << endl;
+                script.consultEnrolledStudentsYear(year);
+                cout << endl;
                 break;
             case 3:
                 displayClassMenu(script);

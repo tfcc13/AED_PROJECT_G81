@@ -339,6 +339,22 @@ int Script::consultYearOccupancy(int year) {
     return counter;
 }
 
+void Script::consultEnrolledStudentsYear(int year) {
+    set<Student> temp_student;
+    set<Student> student_union;
+    for (const auto & classIt : leic_class_years_[year]) {
+        set<Student> temp = classIt.getEnrolledStudents();
+        set_union(temp_student.begin(), temp_student.end(),
+                  temp.begin(),temp.end(),
+                  inserter(student_union,student_union.begin()));
+    temp_student = student_union;
+    }
+    cout << left << setw(9) << "Number" << " | " << "Student Name" << std::endl;
+    for (const auto & student : student_union) {
+        cout << left << setw(9) << student.getIdNumber() << " | " << student.getStudentName() << endl;
+    }
+}
+
 void Script::requestAddClass(int student_id, const string& class_code) {
     auto studentIt = all_students_.find(Student(student_id,""));
     auto classIt = all_classes_.find(LeicClass(class_code));
