@@ -16,13 +16,14 @@ class UC_class {
 private:
 
     string UC_name_;
+    int UC_year_;
     set<Student> enrolled_students_;
     int number_of_enrolled_students_;
     Schedule UC_class_schedule_;
 
 public:
 
-    UC_class(const string& UC_name);
+    UC_class(const string& UC_name, int uc_year=1);
     UC_class(const UC_class& other);
 
     bool operator<(const UC_class& other) const;

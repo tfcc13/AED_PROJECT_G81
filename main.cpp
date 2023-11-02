@@ -142,14 +142,17 @@ void displayClassMenu(Script& script){
     clearScreen();
     while(!close_program) {
         std::string class_name;
+        std::string uc_code;
         int number_of_classes;
         std::cout << "(1) >> Consult class occupancy" << std::endl;
-        std::cout << "(2) >> Consult class enrolled students" << std::endl;
-        std::cout << "(3) >> Consult class schedule" << std::endl;
-        std::cout << "(4) >> Consult classes with the greatest number of students" << std::endl;
-        std::cout << "(5) >> Consult classes with the smallest number of students" << std::endl;
-        std::cout << "(6) >> Go back" << std::endl;
-        std::cout << "(7) >> Close menu" << std::endl;
+        std::cout << "(2) >> Consult UC class occupancy" << std::endl;
+        std::cout << "(3) >> Consult class enrolled students" << std::endl;
+        std::cout << "(4) >> Consult class schedule" << std::endl;
+        std::cout << "(5) >> Consult UC class schedule" << std::endl;
+        std::cout << "(6) >> Consult classes with the greatest number of students" << std::endl;
+        std::cout << "(7) >> Consult classes with the smallest number of students" << std::endl;
+        std::cout << "(8) >> Go back" << std::endl;
+        std::cout << "(9) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
 
         int input;
@@ -160,33 +163,52 @@ void displayClassMenu(Script& script){
             case 1:
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
-                std::cout << "Shows class occupancy" << std::endl;
+                std::cout << "This class has " << script.consultClassOccupancy(class_name) << " students" << std::endl;
                 break;
             case 2:
                 std::cout << "Write the class name" << std::endl;
-                std::cin >> class_name;
-                std::cout << "Shows class enrolled students" << std::endl;
+                cin >> class_name;
+                std::cout << "Write the UC name" << std::endl;
+                cin >> uc_code;
+                std::cout << "The UC " << uc_code << " in class " << class_name << " has " << script.consultUCCLassOccupancy(class_name,uc_code) << " students" << std::endl;
+                cout << endl;
                 break;
             case 3:
+                std::cout << "Write the class name" << std::endl;
+                std::cin >> class_name;
+                script.consultClassEnrolledStudents(class_name);
+                std::cout << std::endl;
+                break;
+            case 4:
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
                 script.PrintWeekScheduleClass(class_name);
                 std::cout <<  std::endl;
                 break;
-            case 4:
-                std::cout << "Write the amount of classes you want to see" << std::endl;
-                std::cin >> number_of_classes;
-                std::cout << "Shows classes names and theirs occupancy" << std::endl;
-                break;
             case 5:
-                std::cout << "Write the amount of classes you want to see" << std::endl;
-                std::cin >> number_of_classes;
-                std::cout << "Shows classes  names and theirs occupancy" << std::endl;
+                std::cout << "Write the class name" << std::endl;
+                cin >> class_name;
+                std::cout << "Write the UC name" << std::endl;
+                cin >> uc_code;
+                script.PrintUCClassSchedule(class_name,uc_code);
+                cout << endl;
                 break;
             case 6:
+                std::cout << "Write the amount of classes you want to see" << std::endl;
+                std::cin >> number_of_classes;
+                script.consultGreatestClasses(number_of_classes);
+                std::cout <<  std::endl;
+                break;
+            case 7:
+                std::cout << "Write the amount of classes you want to see" << std::endl;
+                std::cin >> number_of_classes;
+                script.consultSmallestClasses(number_of_classes);
+                std::cout << std::endl;
+                break;
+            case 8:
                 std::cout << "Goes to the previous menu" << std::endl;
                 return;
-            case 7:
+            case 9:
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
@@ -197,7 +219,10 @@ void displayClassMenu(Script& script){
     }
 
 }
-void displayYearMenu(Script& script){}
+void displayYearMenu(Script& script){
+
+
+}
 
 
 void displayDataConsultationMenu(Script& script){
@@ -286,6 +311,7 @@ void displayInterfaceMenu(Script& script) {
 int main() {
     Script new_script = Script("database");
     new_script.loadData("input/classes.csv","input/classes_per_uc.csv","input/students_classes.csv");
+    new_script.loadYear();
     displayInterfaceMenu(new_script);
     return 0;
 }

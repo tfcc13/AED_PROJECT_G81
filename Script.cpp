@@ -6,6 +6,8 @@
 
 Script::Script(const string &database) {
     database_ = database;
+    leic_class_years_.resize(3);
+    UC_years_.resize(3);
 }
 
 void Script::populateUcSet(const string &filename) {
@@ -44,9 +46,10 @@ void Script::populateUcSet(const string &filename) {
         duration = std::stod(temp2);
         std::getline(ss, type, spacer);
 
+        int year = classCode.at(0)-'0';
         dayScheduleEntry curr_schedule =  {ucCode,classCode, startHour, duration, type};
 
-        UC_class uc_temp = UC_class(ucCode);
+        UC_class uc_temp = UC_class(ucCode,year);
 
         LeicClass leic_class = LeicClass(classCode);
 
@@ -256,9 +259,22 @@ void Script::PrintWeekUCSchedule(const string& uc_name){
 }
 
 
-void Script::consultClassOccupancy(const string& class_code) {
+int Script::consultClassOccupancy(const string& class_code) {
     auto classIt = all_classes_.find(LeicClass(class_code));
-    // to be completed
+    int num = classIt->getNumberOfEnrolledStudents();
+    return num;
+}
+
+int Script::consultUCCLassOccupancy(const string& class_code, const string& uc_code) {
+    auto classIt = all_classes_.find(LeicClass(class_code));
+    UC_class UC_temp = classIt->getUCClass(uc_code);
+    return UC_temp.getNumberOfEnrolledStudents();
+}
+
+void Script::PrintUCClassSchedule(const string& class_code, const string& uc_code){
+    auto classIt = all_classes_.find(LeicClass(class_code));
+    UC_class UC_temp = classIt->getUCClass(uc_code);
+    UC_temp.PrintUcWeekSchedule();
 }
 
 int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
@@ -269,6 +285,52 @@ int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
     }
     return counter;
 }
+
+void Script::consultClassEnrolledStudents(const string& class_code) {
+    auto classIt = all_classes_.find(LeicClass(class_code));
+    set<Student> class_students = classIt->getEnrolledStudents();
+    cout << left << setw(14) << "Student number" << " | " << "Student name" << endl;
+    for (Student student : class_students) {
+        cout << left << setw(14) << student.getIdNumber() << " | " << student.getStudentName() << endl;
+    }
+}
+
+
+void Script::consultGreatestClasses(int num_classes){
+    auto compareNumberOfStudents = [](const LeicClass& class_a, const LeicClass& class_b) {
+        return class_a.getNumberOfEnrolledStudents() < class_b.getNumberOfEnrolledStudents();
+    };
+    set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
+    auto classIt = sortedByOccupancy.end();
+    classIt--;
+    if (num_classes <= int(sortedByOccupancy.size())) {
+        std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
+        for (int i = 0; i < num_classes; i++, classIt--) {
+            std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
+        }
+    }
+    else {
+        std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
+    }
+
+
+}
+void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStudents = [](const LeicClass& class_a, const LeicClass& class_b) {
+        return class_a.getNumberOfEnrolledStudents() < class_b.getNumberOfEnrolledStudents();
+    };
+    set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
+    auto classIt = sortedByOccupancy.begin();
+    if (num_classes <= int(sortedByOccupancy.size())) {
+        std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
+        for (int i = 0; i < num_classes; i++, classIt++) {
+            std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
+        }
+    }
+    else {
+        std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
+    }
+}
+
 
 void Script::requestAddClass(int student_id, const string& class_code) {
     auto studentIt = all_students_.find(Student(student_id,""));
@@ -348,9 +410,25 @@ bool Script::checkBalanceBetweenTwoClassesInUC(const string& UC_code, const stri
     return abs(it1->second - it2->second) <= 4;
 }
 
+
+
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
     populateUcSet(filename_1);
     populateStudentSet(filename_3);
+}
+
+void Script::loadYear() {
+    for (const auto & classIt : all_classes_) {
+        if(classIt.getClassName().at(0) == '1') {
+            leic_class_years_.at(0).insert(classIt);
+        }
+        else if((classIt.getClassName().at(0) == '2')) {
+            leic_class_years_.at(1).insert(classIt);
+        }
+        else if((classIt.getClassName().at(0) == '3')) {
+            leic_class_years_.at(2).insert(classIt);
+        }
+    }
 }
 

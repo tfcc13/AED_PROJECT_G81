@@ -11,6 +11,7 @@
 #include <cstring>
 #include <stack>
 #include <queue>
+#include <map>
 #include "Student.h"
 #include "Schedule.h"
 #include "LeicClass.h"
@@ -27,6 +28,7 @@ public:
 
     Script(const string& database);
     void loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3);
+    void loadYear();
     void populateUcSet(const std::string& filename);
     void populateLeicSet(const std::string& filename);
     void populateStudentSet(const std::string& filename);
@@ -39,8 +41,13 @@ public:
     void consultGreatestNumberOfStudentsUCs(int num);
     void consultSmallerNumberOfStudentsUCs(int num);
     void PrintWeekUCSchedule(const string& uc_name);
-    void consultClassOccupancy(const string& class_code);
+    void PrintUCClassSchedule(const string& class_code, const string& uc_code);
+    int consultClassOccupancy(const string& class_code);
+    int consultUCCLassOccupancy(const string& class_code, const string& uc_code);
     int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
+    void consultClassEnrolledStudents(const string& class_code);
+    void consultGreatestClasses(int num_classes);
+    void consultSmallestClasses(int num_classes);
 
     void requestAddUC(string& student_id, string& uc_code);
     void requestAddClass(int student_id, const string& class_code);
@@ -52,10 +59,14 @@ public:
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
     bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);
 
+
+
 private:
     std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");
     std::set<LeicClass> all_classes_;// = populateLeicSet("input/classes_per_uc.csv");
     std::set<Student> all_students_; //= populateStudentSet("input/students_classes.csv");
+    std::vector<set<LeicClass>> leic_class_years_;
+    std::vector<set<UC_class>> UC_years_;
     std::string  database_;
     queue<string> requests_queue_;
     stack<string> system_changes_record_;
