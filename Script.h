@@ -50,6 +50,7 @@ public:
     void consultSmallestClasses(int num_classes);
     int consultYearOccupancy(int year);
     void consultEnrolledStudentsYear(int year);
+    void consultUCsByYear(int year);
 
     void requestAddUC(string& student_id, string& uc_code);
     void requestAddClass(int student_id, const string& class_code);

@@ -376,6 +376,13 @@ void Script::consultEnrolledStudentsYear(int year) {
     }
 }
 
+void Script::consultUCsByYear(int year){
+    cout << left << "UC code" << endl;
+    for (const auto& uc_class : UC_years_[year]) {
+        cout << left << uc_class.getUcName() << std::endl;
+    }
+}
+
 void Script::requestAddClass(int student_id, const string& class_code) {
     auto studentIt = all_students_.find(Student(student_id,""));
     auto classIt = all_classes_.find(LeicClass(class_code));

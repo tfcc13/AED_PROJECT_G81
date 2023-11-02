@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Script.h"
 #include <cstdlib>
+#include <limits>
 
 
 bool close_program = false;
@@ -234,21 +235,18 @@ void displayYearMenu(Script& script){
 
         std::cout << "(1) >> Consult the number of enrolled students in a year" << std::endl;
         std::cout << "(2) >> Consult a list of enrolled students in a year" << std::endl;
-        std::cout << "(3) >> Consult a list of filtered enrolled students in a year by student numbers" << std::endl;
-        std::cout << "(4) >> Consult a list of filtered enrolled students in a year by name" << std::endl;
-        std::cout << "(5) >> Consult UC's in a year" << std::endl;
-        std::cout << "(6) >> Consult UC's in a year by in ascending order by occupancy" << std::endl;
-        std::cout << "(7) >> Consult UC's in a year by in descending order by occupancy" << std::endl;
-        std::cout << "(8) >> Consult UC's in a year with a minimum of n students" << std::endl;
-        std::cout << "(9) >> Consult UC's in a year with a maximum of n students" << std::endl;
-        std::cout << "(10) >> Consult classes in a year" << std::endl;
-        std::cout << "(11) >> Consult classes in a year in ascending order by occupancy" << std::endl;
-        std::cout << "(12) >> Consult classes in a year in descending order by occupancy" << std::endl;
-        std::cout << "(13) >> Consult classes in a year with a minimum of n students" << std::endl;
-        std::cout << "(14) >> Consult classes in a year with a maximum of n students" << std::endl;
-        std::cout << "(15) >> Consult data by year" << std::endl;
-        std::cout << "(16) >> Go back" << std::endl;
-        std::cout << "(17) >> Close menu" << std::endl;
+        std::cout << "(3) >> Consult UC's in a year" << std::endl;
+        std::cout << "(4) >> Consult UC's in a year by in ascending order by occupancy" << std::endl;
+        std::cout << "(5) >> Consult UC's in a year by in descending order by occupancy" << std::endl;
+        std::cout << "(6) >> Consult UC's in a year with a minimum of n students" << std::endl;
+        std::cout << "(7) >> Consult UC's in a year with a maximum of n students" << std::endl;
+        std::cout << "(8) >> Consult classes in a year" << std::endl;
+        std::cout << "(9) >> Consult classes in a year in ascending order by occupancy" << std::endl;
+        std::cout << "(10) >> Consult classes in a year in descending order by occupancy" << std::endl;
+        std::cout << "(11) >> Consult classes in a year with a minimum of n students" << std::endl;
+        std::cout << "(12) >> Consult classes in a year with a maximum of n students" << std::endl;
+        std::cout << "(13) >> Go back" << std::endl;
+        std::cout << "(14) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
 
         int input;
@@ -271,7 +269,10 @@ void displayYearMenu(Script& script){
                 cout << endl;
                 break;
             case 3:
-                displayClassMenu(script);
+                std::cout << "Insert the year you want to consult the UC's names" << std::endl;
+                cin >> year;
+                script.consultUCsByYear(year);
+                cout << endl;
                 break;
             case 4:
                 displayYearMenu(script);
@@ -421,7 +422,6 @@ void displayRequestMenu(Script& script){
 //done
 
 void displayInterfaceMenu(Script& script) {
-
     while(!close_program) {
         clearScreen();
         std::cout << "(1) >> Data Consultation" << std::endl;
@@ -442,6 +442,7 @@ void displayInterfaceMenu(Script& script) {
                 break;
             case 3:
                 std::cout << "Last action undone" << std::endl;
+                break;
             case 4:
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
