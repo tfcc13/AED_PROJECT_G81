@@ -49,6 +49,10 @@ int UC_class::getNumberOfEnrolledStudents() const {
     return int(enrolled_students_.size());
 }
 
+int UC_class::getUCYear() const {
+    return UC_year_;
+}
+
 int UC_class::getNumberOfVacancies() const{
     return 27 - int(enrolled_students_.size());
 }

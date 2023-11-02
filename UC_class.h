@@ -35,6 +35,7 @@ public:
 
     set<Student> getEnrolledStudents() const;
     int getNumberOfEnrolledStudents() const;
+    int getUCYear() const;
     int getNumberOfVacancies() const;
     Schedule getUCClassSchedule() const;
 

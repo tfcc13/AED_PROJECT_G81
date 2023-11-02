@@ -430,5 +430,16 @@ void Script::loadYear() {
             leic_class_years_.at(2).insert(classIt);
         }
     }
+    for(const auto & UCIt : all_UCs_) {
+        if(UCIt.getUCYear() == 1) {
+            UC_years_.at(0).insert(UCIt);
+        }
+        else if((UCIt.getUCYear() == 2)) {
+            UC_years_.at(1).insert(UCIt);
+        }
+        else if((UCIt.getUCYear() == 3)) {
+            UC_years_.at(0).insert(UCIt);
+        }
+    }
 }
 
