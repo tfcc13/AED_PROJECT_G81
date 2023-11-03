@@ -11,8 +11,13 @@
 
 using namespace std;
 
+
+///@struct pair_compare
+///
+///@brief Inclui o operador que será utilizado para ordenar um set de pares de strings
 struct pair_compare
 {
+    ///Organiza por ordem crescente do primeiro membro do par. Se dois pares tiverem o mesmo primeiro elemento, são ordenados por ordem crescente do segundo elemento.
     bool operator()(const pair<string, string>& left_pair, const pair<string, string>& right_pair) const
     {   if (left_pair.first == right_pair.first) {
         return left_pair.second < right_pair.second;
@@ -29,7 +34,7 @@ private:
     int id_number_;
     ///Nome do estudante
     string st_name_;
-    ///Conjunto dos pares ordenados \<class_code, UC_code\>, ordenados por ordem crescente de class_code
+    ///Conjunto dos pares ordenados \<class_code, UC_code\>, ordenados por pair_compare
     set<pair<string, string>, pair_compare> st_enrolled_UC_and_classes_;
     ///Número de UC's frequentadas pelo estudante
     int st_number_of_UCs_; // Para depois contar alunos inscritos em x cadeiras
