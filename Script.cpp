@@ -226,16 +226,31 @@ void Script::consultStudentEnrolledClasses(int studentNumber) {
 
 void Script::consultUCOccupancy(const string& uc_name) {
     auto UCClassIt = all_UCs_.find(UC_class(uc_name));
+
+    if(UCClassIt == all_UCs_.end()) {
+        cout << "UC not found" << std::endl;
+        return;
+    }
+
     std::cout << UCClassIt->getNumberOfEnrolledStudents() << std::endl;
 }
 
 void Script::consultUCEnrolledStudents(const string& uc_name) {
     auto UCClassIt = all_UCs_.find(uc_name);
+
+    if(UCClassIt == all_UCs_.end()) {
+        cout << "UC not found" << std::endl;
+        return;
+    }
+
+
     UCClassIt->PrintEnrolledStudents();
 
 }
 
 void Script::consultGreatestNumberOfStudentsUCs(int num) {
+
+
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
     };
@@ -274,6 +289,13 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
 
 void Script::PrintWeekUCSchedule(const string& uc_name){
     auto itUC = all_UCs_.find(UC_class(uc_name));
+
+    if(itUC == all_UCs_.end()) {
+        cout << "UC not found" << std::endl;
+        return;
+    }
+
+
     itUC->PrintUcWeekSchedule();
 }
 
