@@ -18,6 +18,9 @@ void clearScreen() {
 }
 
 // Done
+
+
+
 void displayStudentMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -32,8 +35,17 @@ void displayStudentMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        while (true) {
+
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
         switch (input) {
             case 1:
                 std::cout << "Insert student number;" << std::endl;
@@ -60,14 +72,17 @@ void displayStudentMenu(Script& script){
                 std::cin >> numberOfUcs;
                 std::cout << "Theres " << script.consultNumberOfStudentsRegisteredUCs(numberOfUcs) << " students registered at " << numberOfUcs << " UC's" << std::endl;
             case 5:
-                std::cout << "Go to the previous menu" << std::endl;
+                clearScreen();
                 return;
             case 6:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
 
         }
@@ -91,8 +106,17 @@ void displayUcMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        while (true) {
+
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
         switch (input) {
             case 1: // Done
                 std::cout << "Write the UC name" << std::endl ;
@@ -127,14 +151,17 @@ void displayUcMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 6:
-                std::cout << "Go to the previous menu" << std::endl;
+                clearScreen();
                 return;
             case 7:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
         }
     }
@@ -159,8 +186,17 @@ void displayClassMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        while (true) {
+
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
 
         switch (input) {
             case 1:
@@ -210,21 +246,24 @@ void displayClassMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 8:
-                std::cout << "Go to the previous menu" << std::endl;
+                clearScreen();
                 return;
             case 9:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
         }
     }
 
 }
 
-//Por acabar
+//Done
 void displayYearMenu(Script& script){
     clearScreen();
 
@@ -251,8 +290,17 @@ void displayYearMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        while (true) {
+
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
 
         switch (input) {
             case 1:
@@ -338,14 +386,17 @@ void displayYearMenu(Script& script){
                 cout << endl;
                 break;
             case 13:
+                clearScreen();
                 return;
-                break;
             case 14:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
         }
     }
@@ -365,8 +416,20 @@ void displayDataConsultationMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        //std::cin >> input;
+        //std::cout << std::endl;
+
+        while (true) {
+
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
 
         switch (input) {
             case 1:
@@ -382,13 +445,17 @@ void displayDataConsultationMenu(Script& script){
                 displayYearMenu(script);
                 break;
             case 5:
+                clearScreen();
                 return;
             case 6:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
         }
     }
@@ -412,9 +479,17 @@ void displayRequestMenu(Script& script){
         std::cout << "(8) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        while (true) {
 
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
         switch (input) {
             case 1:
                 std::cout << "Adds a  class" << std::endl;
@@ -431,22 +506,28 @@ void displayRequestMenu(Script& script){
                 std::cout << "Switches a  class" << std::endl;
             case 4:
                 std::cout << "Adds UC's" << std::endl;
-                close_program = true;
+                std::cout << std::endl;
                 break;
             case 5:
                 std::cout << "Removes UC's" << std::endl;
+                std::cout << std::endl;
                 break;
             case 6:
                 std::cout << "Switches UC's" << std::endl;
+                std::cout << std::endl;
                 break;
             case 7:
+                clearScreen();
                 return;
             case 8:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                std::cout << std::endl;
                 break;
 
         }
@@ -461,8 +542,8 @@ void displayRequestMenu(Script& script){
 //done
 
 void displayInterfaceMenu(Script& script) {
+    clearScreen();
     while(!close_program) {
-        clearScreen();
         string filename;
         std::cout << "(1) >> Data Consultation" << std::endl;
         std::cout << "(2) >> Requests" << std::endl;
@@ -471,9 +552,19 @@ void displayInterfaceMenu(Script& script) {
         std::cout << "(5) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
-        std::cin >> input;
-        std::cout << std::endl;
+        //std::cin >> input;
+        //std::cout << std::endl;
+        while (true) {
 
+            if (std::cin >> input) {
+                std::cout << std::endl;
+                break;
+            } else {
+                std::cout << "Invalid input. Please enter a valid choice." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+        }
         switch (input) {
             case 1:
                 displayDataConsultationMenu(script);
@@ -491,11 +582,14 @@ void displayInterfaceMenu(Script& script) {
                 cout << std::endl;
                 break;
             case 5:
+                clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;
             default:
+                clearScreen();
                 std::cout << "Choose a valid option" << std::endl;
+                cout << endl;
                 break;
 
         }
