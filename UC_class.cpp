@@ -34,10 +34,12 @@ const string& UC_class::getUcName() const {
 }
 
 void UC_class::insertStudent(Student &s) {
+    ///s é adicionado a enrolled_students_ usando a função insert.
     enrolled_students_.insert(s);
 }
 
 void UC_class::eraseStudent(Student& s){
+    ///s é removido de enrolled_students_ usando a função erase.
     enrolled_students_.erase(s);
 }
 
@@ -46,6 +48,7 @@ set<Student> UC_class::getEnrolledStudents() const{
 }
 
 int UC_class::getNumberOfEnrolledStudents() const {
+    ///Usa-se a função size de enrolled_students_ para se saber o número de estudantes neste set, ou seja, o número de estudantes inscritos.
     return int(enrolled_students_.size());
 }
 
@@ -62,20 +65,24 @@ Schedule UC_class::getUCClassSchedule() const{
 }
 
 void UC_class::PrintEnrolledStudents() const {
+    ///Para cada estudante em enrolled_students_ , a função imprime "Student number: \<id_number_\> Student name: \<st_name_\>"
     for (const Student& student : enrolled_students_) {
         std::cout << "Student number: " << student.getIdNumber() << " Student name: " << student.getStudentName() << std::endl;
     }
 }
 
 void UC_class::PrintUcDaySchedule(const string& week_day) const {
+    ///A função imprime o horário através da função PrintDaySchedule de UC_class_schedule_.
     UC_class_schedule_.PrintDaySchedule(week_day);
 }
 
 void UC_class::PrintUcWeekSchedule() const {
+    ///A função imprime o horário através da função PrintWeekSchedule de UC_class_schedule_.
     UC_class_schedule_.PrintWeekSchedule();
 }
 
 void UC_class::addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+    ///A função adiciona entry ao horário através da função addDayScheduleEntry de UC_class_schedule_.
     UC_class_schedule_.addDayScheduleEntry(week_day, entry);
 }
 
