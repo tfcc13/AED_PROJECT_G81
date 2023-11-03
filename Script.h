@@ -48,10 +48,18 @@ public:
     void consultClassEnrolledStudents(const string& class_code);
     void consultGreatestClasses(int num_classes);
     void consultSmallestClasses(int num_classes);
-    int consultYearOccupancy(int year);
+    void consultYearOccupancy(int year);
     void consultEnrolledStudentsYear(int year);
     void consultUCsByYear(int year);
     void consultUCsByYearByAscendingOccupancy(int year);
+    void consultUCsByYearByDescendingOccupancy(int year);
+    void consultUCsWithMinNStudents(int year, int number);
+    void consultUCsWithMaxNStudents(int year, int number);
+    void consultClassesInaYear(int year);
+    void consultClassesInaYearByAscendingOccupancy(int year);
+    void consultClassesInaYearByDescendingOccupancy(int year);
+    void consultClassesWithMinNStudents(int year, int number);
+    void consultClassesWithMaxNStudents(int year, int number);
 
     void requestAddUC(string& student_id, string& uc_code);
     void requestAddClass(int student_id, const string& class_code);

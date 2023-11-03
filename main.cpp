@@ -232,6 +232,7 @@ void displayYearMenu(Script& script){
         string uc_code;
         int year;
         string class_code;
+        int n_students;
 
         std::cout << "(1) >> Consult the number of enrolled students in a year" << std::endl;
         std::cout << "(2) >> Consult a list of enrolled students in a year" << std::endl;
@@ -258,55 +259,90 @@ void displayYearMenu(Script& script){
                 std::cout << "Insert the year you want to consult the occupancy" << std::endl;
                 cin >> year;
                 cout << endl;
-                cout << "The year " << year << " has " << script.consultYearOccupancy(year-1) << " students" << endl;
+                script.consultYearOccupancy(year);
                 cout << endl;
                 break;
             case 2:
                 std::cout << "Insert the year you want to consult the enrolled students" << std::endl;
                 cin >> year;
                 cout << endl;
-                script.consultEnrolledStudentsYear(year-1);
+                script.consultEnrolledStudentsYear(year);
                 cout << endl;
                 break;
             case 3:
                 std::cout << "Insert the year you want to consult the UC's names" << std::endl;
                 cin >> year;
-                script.consultUCsByYear(year-1);
+                script.consultUCsByYear(year);
                 cout << endl;
                 break;
             case 4:
-                std::cout << "Insert the year you want to consult the UC's names" << std::endl;
+                std::cout << "Insert the year you want to consult the UC's ascending occupancy " << std::endl;
                 cin >> year;
-                script.consultUCsByYearByAscendingOccupancy(year-1);
+                script.consultUCsByYearByAscendingOccupancy(year);
                 std::cout << endl;
                 break;
             case 5:
-                return;
+                std::cout << "Insert the year you want to consult the UC's descending occupancy " << std::endl;
+                cin >> year;
+                script.consultUCsByYearByDescendingOccupancy(year);
+                std::cout << endl;
+                break;
             case 6:
-                std::cout << "Menu closed" << std::endl;
-                close_program = true;
+                std::cout << "Insert the year you want to consult the UC's" << std::endl;
+                cin >> year;
+                cout << "Write the minimum of N students " << std::endl;
+                cin >> n_students;
+                script.consultUCsWithMinNStudents(year,n_students);
+                std::cout << endl;
                 break;
             case 7:
+                std::cout << "Insert the year you want to consult the UC's" << std::endl;
+                cin >> year;
+                cout << "Write the maximum of N students " << std::endl;
+                cin >> n_students;
+                script.consultUCsWithMaxNStudents(year,n_students);
+                std::cout << endl;
                 break;
             case 8:
+                std::cout << "Insert the year you want to consult classes names" << std::endl;
+                cin >> year;
+                script.consultClassesInaYear(year);
+                std::cout << endl;
                 break;
             case 9:
+                std::cout << "Insert the year you want to consult classes occupancy by ascending order" << std::endl;
+                cin >> year;
+                script.consultClassesInaYearByAscendingOccupancy(year);
+                std::cout << endl;
                 break;
             case 10:
+                std::cout << "Insert the year you want to consult classes occupancy by descending order" << std::endl;
+                cin >> year;
+                script.consultClassesInaYearByDescendingOccupancy(year);
+                std::cout << endl;
                 break;
             case 11:
+                std::cout << "Insert the year you want to consult classes with a minimum of N students" << std::endl;
+                cin >> year;
+                cout << "Insert the minimum of N students " << std::endl;
+                cin >> n_students;
+                script.consultClassesWithMinNStudents(year, n_students);
+                cout << endl;
                 break;
             case 12:
+                std::cout << "Insert the year you want to consult classes with a maximum of N students" << std::endl;
+                cin >> year;
+                cout << "Insert the maximum of N students " << std::endl;
+                cin >> n_students;
+                script.consultClassesWithMaxNStudents(year, n_students);
+                cout << endl;
                 break;
             case 13:
+                return;
                 break;
             case 14:
-                break;
-            case 15:
-                break;
-            case 16:
-                break;
-            case 17:
+                std::cout << "Menu closed" << std::endl;
+                close_program = true;
                 break;
             default:
                 std::cout << "Choose a valid option" << std::endl;

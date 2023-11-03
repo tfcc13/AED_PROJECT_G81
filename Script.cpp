@@ -230,7 +230,7 @@ void Script::consultGreatestNumberOfStudentsUCs(int num) {
         }
     }
     else {
-        std::cout << "Theres only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
+        std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
 
 }
@@ -248,7 +248,7 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
         }
     }
     else {
-        std::cout << "Theres only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
+        std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
 
 }
@@ -331,17 +331,29 @@ void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStu
     }
 }
 
-int Script::consultYearOccupancy(int year) {
+void Script::consultYearOccupancy(int year) {
+    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
     set<Student> temp_student;
     set<Student> student_union;
-    for (const auto & classIt : leic_class_years_[year]) {
+    for (const auto & classIt : leic_class_years_[year-1]) {
         set<Student> temp = classIt.getEnrolledStudents();
         set_union(temp_student.begin(), temp_student.end(),
                   temp.begin(),temp.end(),
                   inserter(student_union,student_union.begin()));
         temp_student = student_union;
     }
-    return  int(student_union.size());
+    if (year == 1) {
+        cout << "The  first year has " << student_union.size() << " students" << endl;
+    }
+    else if (year == 2) {
+        cout << "The second year has " << student_union.size() << " students" << endl;
+    }
+    else if (year == 3) {
+        cout << "The third year has " << student_union.size() << " students" << endl;
+    }
 }
 
 // Francisco vê isto
@@ -359,11 +371,15 @@ int Script::consultYearOccupancy(int year) {
  */
 
 void Script::consultEnrolledStudentsYear(int year) {
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
     set<Student> temp_student;
     // Francisco ve isto
     /// This set is a union of unique students in a year
     set<Student> student_union;
-    for (const auto & classIt : leic_class_years_[year]) {
+    for (const auto & classIt : leic_class_years_[year-1]) {
         set<Student> temp = classIt.getEnrolledStudents();
         set_union(temp_student.begin(), temp_student.end(),
                   temp.begin(),temp.end(),
@@ -377,24 +393,182 @@ void Script::consultEnrolledStudentsYear(int year) {
 }
 
 void Script::consultUCsByYear(int year){
-    cout << left << "UC code" << endl;
-    for (const auto& uc_class : UC_years_[year]) {
-        cout << left << uc_class.getUcName() << std::endl;
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+    cout << left << setw(8) << "UC code" << " | " << "Occupancy" << endl;
+    for (const auto& uc_class : UC_years_[year-1]) {
+        cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() << std::endl;
     }
 }
 
+
 void Script::consultUCsByYearByAscendingOccupancy(int year) {
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
     };
 
-    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year].begin(),UC_years_[year].end(), compareNumberOfStudents);
+    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year-1].begin(),UC_years_[year-1].end(), compareNumberOfStudents);
         std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
         for (const auto& uc:sortedByOccupancy) {
             std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
         }
 
 
+}
+
+void Script::consultUCsByYearByDescendingOccupancy(int year) {
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+    auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
+        return uc1.getNumberOfEnrolledStudents() > uc2.getNumberOfEnrolledStudents();
+    };
+
+    set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year-1].begin(),UC_years_[year-1].end(), compareNumberOfStudents);
+    std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
+    for (const auto& uc:sortedByOccupancy) {
+        std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
+    }
+
+}
+
+void Script::consultUCsWithMinNStudents(int year, int number) {
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+    bool flag = false;
+    cout << left << setw(8) <<  "UC code" << " | " << "Occupancy" << endl;
+    for (const auto& uc_class : UC_years_[year-1]) {
+        if (uc_class.getNumberOfEnrolledStudents() >= number) {
+            cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() <<  std::endl;
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "There is no UC with a minimum of " << number << " students" <<  std::endl;
+    }
+}
+
+
+
+void Script::consultUCsWithMaxNStudents(int year, int number) {
+    if(year > int(UC_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+
+    bool flag = false;
+
+    cout << left << setw(8) <<  "UC code" << " | " << "Occupancy" << endl;
+    for (const auto& uc_class : UC_years_[year-1]) {
+        if (uc_class.getNumberOfEnrolledStudents() <= number) {
+            cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() <<  std::endl;
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "There is no UC with a maximum of " << number << " students" <<  std::endl;
+    }
+}
+
+void Script::consultClassesInaYear(int year) {
+    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+    cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
+    for (const auto & classIt : leic_class_years_[year-1]) {
+        cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
+    }
+
+}
+
+void Script::consultClassesInaYearByAscendingOccupancy(int year) {
+    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+
+    auto compareNumberOfStudents = [](const LeicClass class1, const LeicClass class2) {
+        return class1.getNumberOfEnrolledStudents() < class2.getNumberOfEnrolledStudents();
+    };
+
+    set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(leic_class_years_[year-1].begin(),leic_class_years_[year-1].end(), compareNumberOfStudents);
+
+    cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
+
+    for (const auto & classIt : sortedByOccupancy) {
+        cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
+    }
+
+}
+
+
+void Script::consultClassesInaYearByDescendingOccupancy(int year) {
+    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+
+    auto compareNumberOfStudents = [](const LeicClass class1, const LeicClass class2) {
+        return class1.getNumberOfEnrolledStudents() > class2.getNumberOfEnrolledStudents();
+    };
+
+    set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(leic_class_years_[year-1].begin(),leic_class_years_[year-1].end(), compareNumberOfStudents);
+
+    cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
+
+    for (const auto & classIt : sortedByOccupancy) {
+        cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
+    }
+
+
+}
+
+void Script::consultClassesWithMinNStudents(int year, int number) {
+    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+
+    bool flag = false;
+
+    cout << left << setw(10) <<  "Class code" << " | " << "Occupancy" << endl;
+    for (const auto& classeIt : leic_class_years_[year-1]) {
+        if (classeIt.getNumberOfEnrolledStudents() >= number) {
+            cout << left << setw(10) << classeIt.getClassName() << " | " << classeIt.getNumberOfEnrolledStudents() <<  std::endl;
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "There is no class with a minimum of " << number << " students" <<  std::endl;
+    }
+}
+void Script::consultClassesWithMaxNStudents(int year, int number) {    if(year > int(leic_class_years_.size()) || year < 1) {
+        cout << "That's not a valid year " << endl;
+        return;
+    }
+
+    bool flag = false;
+
+    cout << left << setw(10) <<  "Class code" << " | " << "Occupancy" << endl;
+    for (const auto& classeIt : leic_class_years_[year-1]) {
+        if (classeIt.getNumberOfEnrolledStudents() <= number) {
+            cout << left << setw(10) << classeIt.getClassName() << " | " << classeIt.getNumberOfEnrolledStudents() <<  std::endl;
+            flag = true;
+        }
+    }
+    if (!flag) {
+        cout << "There is no class with a maximum of " << number << " students" <<  std::endl;
+    }
 }
 
 void Script::requestAddClass(int student_id, const string& class_code) {
@@ -503,7 +677,7 @@ void Script::loadYear() {
             UC_years_.at(1).insert(UCIt);
         }
         else if((UCIt.getUCYear() == 3)) {
-            UC_years_.at(0).insert(UCIt);
+            UC_years_.at(2).insert(UCIt);
         }
     }
 }
