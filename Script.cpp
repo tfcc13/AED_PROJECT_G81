@@ -194,7 +194,14 @@ void Script::PrintWeekStudentSchedule(int studentNumber) {
 }
 
 void Script::PrintWeekScheduleClass(const string& class_name){
+
     auto classIt = all_classes_.find(LeicClass(class_name));
+
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
+
     LeicClass temp = LeicClass(*classIt);
     temp.PrintUcWeekSchedule();
 }
@@ -257,7 +264,7 @@ void Script::consultGreatestNumberOfStudentsUCs(int num) {
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
     auto setIt = sortedByOccupancy.end();
     setIt--;
-    if (num <= int(sortedByOccupancy.size())) {
+    if (num <= int(sortedByOccupancy.size()) && num > 0) {
         std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num; i++, setIt--) {
             std::cout << left << setw(8) << setIt->getUcName() << " | "  << setIt->getNumberOfEnrolledStudents() << std::endl;
@@ -275,7 +282,7 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
     };
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
     auto setIt = sortedByOccupancy.begin();
-    if (num <= int(sortedByOccupancy.size())) {
+    if (num <= int(sortedByOccupancy.size()) && num > 0) {
         std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num; i++, setIt++) {
             std::cout << left << setw(8) << setIt->getUcName() << " | " << setIt->getNumberOfEnrolledStudents() << std::endl;
@@ -300,21 +307,52 @@ void Script::PrintWeekUCSchedule(const string& uc_name){
 }
 
 
-int Script::consultClassOccupancy(const string& class_code) {
+void Script::consultClassOccupancy(const string& class_code) {
     auto classIt = all_classes_.find(LeicClass(class_code));
-    int num = classIt->getNumberOfEnrolledStudents();
-    return num;
+
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
+    std::cout << "This class has " << classIt->getNumberOfEnrolledStudents() << " students" << std::endl;
 }
 
-int Script::consultUCCLassOccupancy(const string& class_code, const string& uc_code) {
+void Script::consultUCCLassOccupancy(const string& class_code, const string& uc_code) {
     auto classIt = all_classes_.find(LeicClass(class_code));
+
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
+
     UC_class UC_temp = classIt->getUCClass(uc_code);
-    return UC_temp.getNumberOfEnrolledStudents();
+
+    if(UC_temp.getUcName() == "Nao existe") {
+        cout << "Class found but UC not found" << endl;
+        return;
+    }
+
+
+
+    std::cout << "The UC " << uc_code << " in class " << class_code << " has " << UC_temp.getNumberOfEnrolledStudents() << " students" << std::endl;
+
 }
 
 void Script::PrintUCClassSchedule(const string& class_code, const string& uc_code){
     auto classIt = all_classes_.find(LeicClass(class_code));
+
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
+
     UC_class UC_temp = classIt->getUCClass(uc_code);
+
+    if(UC_temp.getUcName() == "Nao existe") {
+        cout << "Class found but UC not found" << endl;
+        return;
+    }
+
     UC_temp.PrintUcWeekSchedule();
 }
 
@@ -329,6 +367,10 @@ int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
 
 void Script::consultClassEnrolledStudents(const string& class_code) {
     auto classIt = all_classes_.find(LeicClass(class_code));
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
     set<Student> class_students = classIt->getEnrolledStudents();
     cout << left << setw(14) << "Student number" << " | " << "Student name" << endl;
     for (Student student : class_students) {
@@ -344,7 +386,7 @@ void Script::consultGreatestClasses(int num_classes){
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
     auto classIt = sortedByOccupancy.end();
     classIt--;
-    if (num_classes <= int(sortedByOccupancy.size())) {
+    if (num_classes <= int(sortedByOccupancy.size()) && num_classes > 0) {
         std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num_classes; i++, classIt--) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
@@ -361,7 +403,7 @@ void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStu
     };
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
     auto classIt = sortedByOccupancy.begin();
-    if (num_classes <= int(sortedByOccupancy.size())) {
+    if (num_classes <= int(sortedByOccupancy.size()) && num_classes > 0) {
         std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num_classes; i++, classIt++) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;

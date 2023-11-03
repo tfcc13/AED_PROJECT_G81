@@ -42,8 +42,8 @@ public:
     void consultSmallerNumberOfStudentsUCs(int num);
     void PrintWeekUCSchedule(const string& uc_name);
     void PrintUCClassSchedule(const string& class_code, const string& uc_code);
-    int consultClassOccupancy(const string& class_code);
-    int consultUCCLassOccupancy(const string& class_code, const string& uc_code);
+    void consultClassOccupancy(const string& class_code);
+    void consultUCCLassOccupancy(const string& class_code, const string& uc_code);
     int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
     void consultClassEnrolledStudents(const string& class_code);
     void consultGreatestClasses(int num_classes);

@@ -26,7 +26,7 @@ const string &LeicClass::getClassName() const {
 UC_class LeicClass::getUCClass(const string &UC_class_name) const {
     auto it = LEIC_UC_classes_.find(UC_class(UC_class_name));
     if(it == LEIC_UC_classes_.end()){
-        return UC_class("Não existe");
+        return UC_class("Nao existe");
     }
     return *it;
 }

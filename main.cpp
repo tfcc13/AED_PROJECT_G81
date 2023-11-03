@@ -60,7 +60,7 @@ void displayStudentMenu(Script& script){
                 std::cin >> numberOfUcs;
                 std::cout << "Theres " << script.consultNumberOfStudentsRegisteredUCs(numberOfUcs) << " students registered at " << numberOfUcs << " UC's" << std::endl;
             case 5:
-                std::cout << "Goes to the previous menu" << std::endl;
+                std::cout << "Go to the previous menu" << std::endl;
                 return;
             case 6:
                 std::cout << "Menu closed" << std::endl;
@@ -117,18 +117,17 @@ void displayUcMenu(Script& script){
 
                 std::cout << "Write the amount of UC's you want to see" << std::endl;
                 std::cin >> number_of_ucs;
-                std::cout << "Shows uc names and theirs occupancy" << std::endl;
                 script.consultGreatestNumberOfStudentsUCs(number_of_ucs);
-
+                std::cout <<  std::endl;
                 break;
             case 5:
                 std::cout << "Write the amount of UC's you want to see" << std::endl;
                 std::cin >> number_of_ucs;
                 script.consultSmallerNumberOfStudentsUCs(number_of_ucs);
-                std::cout << "Shows uc names and theirs occupancy" << std::endl;
+                std::cout << std::endl;
                 break;
             case 6:
-                std::cout << "Goes to the previous menu" << std::endl;
+                std::cout << "Go to the previous menu" << std::endl;
                 return;
             case 7:
                 std::cout << "Menu closed" << std::endl;
@@ -167,14 +166,15 @@ void displayClassMenu(Script& script){
             case 1:
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
-                std::cout << "This class has " << script.consultClassOccupancy(class_name) << " students" << std::endl;
+                script.consultClassOccupancy(class_name);
+                cout << std::endl;
                 break;
             case 2:
                 std::cout << "Write the class name" << std::endl;
                 cin >> class_name;
                 std::cout << "Write the UC name" << std::endl;
                 cin >> uc_code;
-                std::cout << "The UC " << uc_code << " in class " << class_name << " has " << script.consultUCCLassOccupancy(class_name,uc_code) << " students" << std::endl;
+                script.consultUCCLassOccupancy(class_name,uc_code);
                 cout << endl;
                 break;
             case 3:
@@ -210,7 +210,7 @@ void displayClassMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 8:
-                std::cout << "Goes to the previous menu" << std::endl;
+                std::cout << "Go to the previous menu" << std::endl;
                 return;
             case 9:
                 std::cout << "Menu closed" << std::endl;
