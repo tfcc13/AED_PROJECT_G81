@@ -110,6 +110,7 @@ public:
     ///Obtém o número de vagas disponíveis na turma para a UC
     ///
     /// \note O número máximo de alunos é 27
+    ///
     ///**Time Complexity:** O(1)
     /// \return Número de vagas disponíveis na turma para a UC
     int getNumberOfVacancies() const;
