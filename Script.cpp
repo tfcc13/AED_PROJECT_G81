@@ -182,6 +182,12 @@ void Script::populateStudentSet(const string &filename) {
 
 void Script::PrintWeekStudentSchedule(int studentNumber) {
     auto studentIt = all_students_.find(Student(studentNumber,""));
+
+    if (studentIt == all_students_.end()) {
+        cout << "Student not found" << std::endl;
+        return;
+    }
+
     Student studentTemp = *studentIt;
     studentTemp.PrintUcWeekSchedule();
     std::cout << std::endl;
@@ -196,12 +202,25 @@ void Script::PrintWeekScheduleClass(const string& class_name){
 void Script::consultStudentEnrolledUCs(int studentNumber) {
     auto studentIt = all_students_.find(Student(studentNumber,""));
 
+    if (studentIt == all_students_.end()) {
+        cout << "Student not found" << std::endl;
+        return;
+    }
+
+
     Student studentTemp = *studentIt;
     studentTemp.PrintEnrolledUCs();
 }
 
 void Script::consultStudentEnrolledClasses(int studentNumber) {
     auto studentIt = all_students_.find(Student(studentNumber,""));
+
+    if (studentIt == all_students_.end()) {
+        cout << "Student not found" << std::endl;
+        return;
+    }
+
+
     studentIt->PrintEnrolledClasses();
 }
 
