@@ -2,6 +2,7 @@
 // Created by tiago on 30-10-2023.
 //
 
+
 #include "Script.h"
 
 Script::Script(const string &database) {
@@ -90,6 +91,7 @@ void Script::populateLeicSet(const string &filename) {
         std::string header;
         getline(dataFile, header);
         std::string line;
+
 
         while (std::getline(dataFile,line)) {
             line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
@@ -731,6 +733,44 @@ bool Script::checkBalanceBetweenTwoClassesInUC(const string& UC_code, const stri
     });
     return abs(it1->second - it2->second) <= 4;
 }
+
+
+void Script::saveChangesToCsvFile(const string& filename) {
+
+
+    std::string sourceDirectory = __FILE__;
+    sourceDirectory = sourceDirectory.substr(0, sourceDirectory.find_last_of("/\\"));
+
+
+    std::string output_directory = sourceDirectory + "/output/";
+    std::string csv_filename = output_directory + filename +".csv";
+
+    std::filesystem::create_directories(output_directory);
+
+    // Open the CSV file in write mode and clear its contents if it already exists
+    std::ofstream outputFile(csv_filename, std::ios::out | std::ios::trunc);
+
+    if (!outputFile.is_open()) {
+        std::cerr << "Failed to open the CSV file for writing." << std::endl;
+        return;
+    }
+
+    char  delim = ',';
+    outputFile << "StudentCode" << delim << "StudentName" << delim << "UcCode" << delim << "ClassCode" << '\r' << '\n';
+    for (const auto& studentIt : all_students_) {
+        auto uc_classes = studentIt.get_student_enrolled_UC_and_classes();
+        for(const auto& uc_classes_pairs : uc_classes) {
+            outputFile << studentIt.getIdNumber() << delim << studentIt.getStudentName() << delim << uc_classes_pairs.second << delim << uc_classes_pairs.first << '\r' << '\n';
+        }
+    }
+
+    // Close the CSV file
+    outputFile.close();
+
+    std::cout << "CSV file created or cleared successfully in the output directory." << std::endl;
+
+}
+
 
 
 

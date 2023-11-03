@@ -21,6 +21,7 @@ private:
     Schedule LEIC_class_schedule_;
 
 public:
+    LeicClass();
     LeicClass(const string& class_name);
     LeicClass(const LeicClass& other);
 

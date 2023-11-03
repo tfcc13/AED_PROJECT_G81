@@ -12,6 +12,7 @@
 #include <stack>
 #include <queue>
 #include <map>
+#include <filesystem>
 #include "Student.h"
 #include "Schedule.h"
 #include "LeicClass.h"
@@ -67,6 +68,8 @@ public:
     void requestRemoveClass(int student_id, const string& class_code);
     void requestSwitchUC();
     void requestSwitchClass();
+
+    void saveChangesToCsvFile(const string& filename);
 
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
     bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);

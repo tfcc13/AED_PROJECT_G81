@@ -463,10 +463,12 @@ void displayRequestMenu(Script& script){
 void displayInterfaceMenu(Script& script) {
     while(!close_program) {
         clearScreen();
+        string filename;
         std::cout << "(1) >> Data Consultation" << std::endl;
         std::cout << "(2) >> Requests" << std::endl;
         std::cout << "(3) >> Undo last action" << std::endl;
-        std::cout << "(4) >> Close menu" << std::endl;
+        std::cout << "(4) >> Save the changes into a csv file" << std::endl;
+        std::cout << "(5) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
         std::cin >> input;
@@ -483,6 +485,12 @@ void displayInterfaceMenu(Script& script) {
                 std::cout << "Last action undone" << std::endl;
                 break;
             case 4:
+                std::cout << "Write the name of output  csv file" << std::endl;
+                cin >> filename;
+                script.saveChangesToCsvFile(filename);
+                cout << std::endl;
+                break;
+            case 5:
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
                 break;

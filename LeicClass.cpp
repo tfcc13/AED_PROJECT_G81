@@ -4,6 +4,13 @@
 
 #include "LeicClass.h"
 ///Constructor for LEIC class
+
+LeicClass::LeicClass() :
+    LEIC_class_name_(),
+    LEIC_UC_classes_(),
+    LEIC_class_schedule_() {}
+
+
 LeicClass::LeicClass(const string& class_name) :
         LEIC_class_name_(class_name),
         LEIC_UC_classes_(),
