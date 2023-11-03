@@ -62,7 +62,7 @@ public:
     Student(const Student& other);
 
 
-    ///Operador de comparação <
+    ///Overload do Operador de comparação <
     ///
     ///Verifica se o número de identificação do aluno atual é menor que o número de identificação de um outro aluno
     ///

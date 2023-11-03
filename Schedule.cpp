@@ -5,7 +5,7 @@
 #include "Schedule.h"
 
 
-///Igualdade de dayScheduleEntry
+///Overload do operador de igualdade de dayScheduleEntry
 ///
 /// \param d1 Objeto dayScheduleEntry que se pretende comparar
 /// \param d2 Objeto dayScheduleEntry que se pretende comparar

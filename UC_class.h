@@ -36,7 +36,7 @@ public:
     UC_class(const string& UC_name, int uc_year=1);
 
 
-    ///Copy Constructor de Student
+    ///Copy Constructor de UC_class
     ///
     ///Cria uma nova UC_class a partir de uma já existente, copiando todos os seus atributos.
     ///
@@ -45,17 +45,17 @@ public:
     UC_class(const UC_class& other);
 
 
-    ///Operador de comparação <
+    ///Overload do operador de comparação <
     ///
     ///Compara UC_name_
     ///
     ///**Time Complexity:** O(n)
     /// \param other UC que se pretende comparar com a UC atual
-    /// \return *true* se UC_name da UC atual for menor que UC_name de other, *false* caso contrário
+    /// \return *true* se UC_name_ da UC atual for menor que UC_name_ de other, *false* caso contrário
     bool operator<(const UC_class& other) const;
 
 
-    ///Operador de comparação !=
+    ///Overload do operador de comparação !=
     ///
     ///Compara UC_name_
     ///
