@@ -55,7 +55,7 @@ public:
     ///**Time Complexity:** O(1)
     Schedule();
 
-    ///Copy Construtor de Schedule
+    ///Copy Constructor de Schedule
     ///
     ///Cria um novo Schedule copiando um já existente
     ///
@@ -121,7 +121,7 @@ public:
 
     ///Imprime o horário semanal
     ///
-    ///**Time Complexity:** O(1)
+    ///**Time Complexity:** O(n)
     void PrintWeekSchedule() const;
 
 };

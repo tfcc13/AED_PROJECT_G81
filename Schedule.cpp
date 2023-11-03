@@ -132,7 +132,7 @@ void Schedule::PrintDaySchedule(const string &week_day) const{
         cout << left << "No classes on this day" << endl;
     }
 
-        ///Caso haja, imprime uma tabela com os parâmetros "UC code", "Class code", "Start Time", "Duration" e "Type" e com os valores correspondentes a cada aula desse dia (UC_code, class_code, start_hour, duration e class_type, respetivamente)
+    ///Caso haja, imprime uma tabela com os parâmetros "UC code", "Class code", "Start Time", "Duration" e "Type" e com os valores correspondentes a cada aula desse dia (UC_code, class_code, start_hour, duration e class_type, respetivamente)
     else{
         cout << left  << setw(15) << "UC code" << setw(15) << "Class code" << setw(15) << "Start Time" << std::setw(15) << "Duration" << std::setw(15) << "Type" << std::endl;
         for (const auto& classSchedule : schedule_.at(week_day)) {

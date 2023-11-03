@@ -61,14 +61,20 @@ void Student::PrintEnrolledClasses() const {
 }
 
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
+    ///O par \<class_code, UC_code\> é inserido no set st_enrolled_UC_and_classes_ referente às UC´s e respetivas turmas do aluno.
     st_enrolled_UC_and_classes_.insert(make_pair(class_code, UC_code));
+    ///O horário s é adicionado ao horário st_schedule_ do aluno através da função addSchedule.
     st_schedule_.addSchedule(s);
+    ///st_number_of_UCs_ (o número de UC's do aluno) é atualizado.
     st_number_of_UCs_ = int(st_enrolled_UC_and_classes_.size());
 }
 
 void Student::removeSchedule(const string& class_code, const string& UC_code, const Schedule& s){
+    ///O par \<class_code, UC_code\> é removido do set st_enrolled_UC_and_classes_ referente às UC´s e respetivas turmas do aluno.
     st_enrolled_UC_and_classes_.erase(make_pair(class_code, UC_code));
+    ///O horário s é removido do horário st_schedule_ do aluno através da função addSchedule.
     st_schedule_.removeSchedule(s);
+    ///st_number_of_UCs_ (o número de UC's do aluno) é atualizado.
     st_number_of_UCs_ = int(st_enrolled_UC_and_classes_.size());
 }
 
