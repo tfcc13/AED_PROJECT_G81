@@ -18,10 +18,7 @@
 #include "LeicClass.h"
 #include "UC_class.h"
 
-
 using namespace std;
-
-
 
 class Script {
 
@@ -100,10 +97,8 @@ public:
     void consultClassesWithMinNStudents(int year, int number);
     void consultClassesWithMaxNStudents(int year, int number);
 
-    void requestAddUC(string& student_id, string& uc_code);
     void requestAddClass(int student_id, const string& class_code);
-    void requestRemoveUC(const string& UC_code);
-    void requestRemoveClass(int student_id, const string& class_code);
+    void requestRemoveClassForAllUCs(int student_code, const string& class_code);
     void requestSwitchUC();
     void requestSwitchClass();
 

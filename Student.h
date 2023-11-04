@@ -11,18 +11,14 @@
 
 using namespace std;
 
-
 ///@struct pair_compare
 ///
 ///@brief Inclui o operador que será utilizado para ordenar um set de pares de strings
 struct pair_compare
 {
-    ///Organiza por ordem crescente do primeiro membro do par. Se dois pares tiverem o mesmo primeiro elemento, são ordenados por ordem crescente do segundo elemento.
-    bool operator()(const pair<string, string>& left_pair, const pair<string, string>& right_pair) const
-    {   if (left_pair.first == right_pair.first) {
+    ///Organiza por ordem crescente do segundo membro do par.
+    bool operator()(const pair<string, string>& left_pair, const pair<string, string>& right_pair) const{
         return left_pair.second < right_pair.second;
-    }
-        return left_pair.first < right_pair.first;
     }
 };
 
@@ -61,7 +57,6 @@ public:
     /// \param other Student que se pretende copiar
     Student(const Student& other);
 
-
     ///Overload do Operador de comparação <
     ///
     ///Verifica se o número de identificação do aluno atual é menor que o número de identificação de um outro aluno
@@ -70,8 +65,6 @@ public:
     /// \param other Estudante cujo número de identificação se pretende comparar com o estudante atual
     /// \return *true* se o número de identificação do estudante atual for menor que o do estudante other, *false* caso contrário
     bool operator<(const Student& other) const;
-
-
 
     ///Função getter de id_number_
     ///
@@ -85,22 +78,17 @@ public:
     /// \return  st_name_
     const string& getStudentName() const;
 
-
     ///Função getter de st_enrolled_UC_and_classes_
     ///
     ///**Time Complexity:** O(1)
     /// \return  st_enrolled_UC_and_classes_
     set<pair<string, string>, pair_compare> get_student_enrolled_UC_and_classes() const;
 
-
     ///Função getter de st_number_of_UCs_
     ///
     ///**Time Complexity:** O(1)
     /// \return  st_number_of_UCs_
     int getNumberOfUCs() const;
-
-
-
 
     ///Imprime o horário de um determinado dia
     ///
@@ -117,19 +105,15 @@ public:
     ///**Time Complexity:** O(n)
     void PrintUcWeekSchedule() const;
 
-
     ///Imprime as UC's em que o estudante está inscrito, bem como as respetivas turmas
     ///
     ///**Time Complexity:** O(n)
     void PrintEnrolledUCs() const;
 
-
     ///Imprime as turmas em que o estudante está inscrito
     ///
     ///**Time Complexity:** O(n)
     void PrintEnrolledClasses() const;
-
-
 
     ///Adiciona o horário de uma turma para uma unidade curricular ao horário do estudante
     ///
@@ -140,8 +124,6 @@ public:
     /// \param s Horário que se pretende adicionar
     void addSchedule(const string& class_code, const string& UC_code, const Schedule& s);
 
-
-
     ///Remove o horário de uma turma para uma unidade curricular do horário do estudante
     ///
     ///**Time Complexity:** O(n^2 * log n)
@@ -150,8 +132,6 @@ public:
     /// \param UC_code UC cujo horário se pretende remover
     /// \param s Horário que se pretende remover
     void removeSchedule(const string& class_code, const string& UC_code, const Schedule& s);
-
-
 
     ///Verifica se há algum conflito de aulas entre o horário do estudante e outro horário
     ///

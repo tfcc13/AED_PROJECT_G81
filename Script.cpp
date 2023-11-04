@@ -708,11 +708,8 @@ void Script::consultClassesWithMaxNStudents(int year, int number) {    if(year >
     }
 }
 
-// AQUI
-
 void Script::requestRemoveUC(int student_code, const string& UC_code){
-
-    // studentIt
+    // Student (erase + temp)
     auto studentIt = all_students_.find(Student(student_code,""));
     if(studentIt == all_students_.end()){
         cout << "Invalid student code. Please enter a valid student code." << endl;
@@ -721,7 +718,7 @@ void Script::requestRemoveUC(int student_code, const string& UC_code){
     Student temp_student = *studentIt;
     all_students_.erase(studentIt);
 
-    // UCIt
+    // UC (erase + temp)
     auto UCIt = all_UCs_.find(UC_class(UC_code));
     if(UCIt == all_UCs_.end()){
         cout << "Invalid UC code. Please enter a valid UC code." << endl;
@@ -730,8 +727,8 @@ void Script::requestRemoveUC(int student_code, const string& UC_code){
     UC_class temp_UC = *UCIt;
     all_UCs_.erase(UCIt);
 
-    // LeicClassIt
-    auto student_enrolled_UC_and_classes = studentIt->get_student_enrolled_UC_and_classes();
+    // LeicClass e UC_class (erase + temp)
+    auto student_enrolled_UC_and_classes = temp_student.get_student_enrolled_UC_and_classes();
     auto classNameIt = std::find_if(student_enrolled_UC_and_classes.begin(), student_enrolled_UC_and_classes.end(),
                                     [UC_code](const std::pair<std::string, std::string>& classPair) {
                                         return classPair.second == UC_code;
@@ -744,20 +741,20 @@ void Script::requestRemoveUC(int student_code, const string& UC_code){
     }
     auto LeicClassIt = all_classes_.find(LeicClass(class_name));
     UC_class temp_UC_Class = LeicClassIt->getUCClass(UC_code);
-
     LeicClass temp_LEIC_class = *LeicClassIt;
     all_classes_.erase(*LeicClassIt);
 
-    temp_LEIC_class.eraseUcClass(temp_UC_Class);
-    temp_UC_Class.eraseStudent(temp_student);
-
-    auto s = temp_UC_Class.getUCClassSchedule();
-    temp_student.removeSchedule(class_name, UC_code, s);
+    // Alterações dos objetos temporários
     temp_UC.eraseStudent(temp_student);
+    temp_UC_Class.eraseStudent(temp_student);
+    temp_LEIC_class.eraseUcClass(temp_UC_Class);
+
+    temp_student.removeSchedule(class_name, UC_code, temp_UC_Class.getUCClassSchedule());
+
     temp_UC_Class.insertStudent(temp_student);
     temp_LEIC_class.insertUcClass(temp_UC_Class);
 
-    // inserts
+    // Inserts
     all_UCs_.insert(temp_UC);
     all_students_.insert(temp_student);
     all_classes_.insert(temp_LEIC_class);
@@ -765,37 +762,42 @@ void Script::requestRemoveUC(int student_code, const string& UC_code){
     cout << "UC removed" << std::endl;
 }
 
-//AQUI
-
-void Script::requestAddClass(int student_id, const string& class_code) {
-    auto studentIt = all_students_.find(Student(student_id,""));
-    auto classIt = all_classes_.find(LeicClass(class_code));
-
-}
-
-void Script::requestRemoveClass(int student_id, const std::string& class_code) {
-
-    auto studentIt = all_students_.find(Student(student_id,""));
+void Script::requestRemoveClassForAllUCs(int student_code, const std::string& class_code) {
+    // Student (erase + temp)
+    auto studentIt = all_students_.find(Student(student_code,""));
+    if(studentIt == all_students_.end()){
+        cout << "Invalid student code. Please enter a valid student code." << endl;
+        return;
+    }
     Student original_student = *studentIt;
-    Student modified_student = *studentIt;
+    Student temp_student = original_student;
     all_students_.erase(studentIt);
-
+    // LeicClass (erase + temp)
     auto classIt = all_classes_.find(LeicClass(class_code));
+    if(classIt == all_classes_.end()){
+        cout << "Invalid class code. Please enter a valid class code." << endl;
+        return;
+    }
+    auto student_enrolled_UC_and_classes = original_student.get_student_enrolled_UC_and_classes();
     LeicClass temp_LeicClass = *classIt;
     all_classes_.erase(classIt);
-
-    auto student_enrolled_UC_and_classes = studentIt->get_student_enrolled_UC_and_classes();
 
     // Atualizar horário do estudante e registar UCs removidas
     set<string> removed_UCs;
     for(const auto& class_code_UC_code_pair : student_enrolled_UC_and_classes){
-        string current_class_code =  class_code_UC_code_pair.first;
+        string current_class_code = class_code_UC_code_pair.first;
         string current_UC_code = class_code_UC_code_pair.second;
+        cout << current_UC_code << current_class_code << endl;
         if(current_class_code == class_code){
             Schedule schedule_to_remove = temp_LeicClass.getUCClass(current_UC_code).getUCClassSchedule();
-            //modified_student.removeSchedule(current_class_code, current_UC_code, schedule_to_remove);
+            temp_student.removeSchedule(current_class_code, current_UC_code, schedule_to_remove);
             removed_UCs.insert(current_UC_code);
         }
+    }
+
+    if(removed_UCs.empty()){
+        cout << "The student with code " << student_code << " is not enrolled in any UC in class " << class_code << endl;
+        return;
     }
 
     // Atualizar LeicClass e all_UCs_
@@ -808,16 +810,14 @@ void Script::requestRemoveClass(int student_id, const std::string& class_code) {
         // all_UCs_
         auto UCIt = all_UCs_.find(UC_class(UC_code));
         UC_class temp_UC = *UCIt;
-        temp_UC.eraseStudent(original_student);
         all_UCs_.erase(UCIt);
+        temp_UC.eraseStudent(original_student);
         all_UCs_.insert(temp_UC);
+        cout << UC_code << " was removed from " << class_code << "."<< endl;
     }
 
     all_classes_.insert(temp_LeicClass);
-    all_students_.insert(modified_student);
-
-    cout << "teste";
-
+    all_students_.insert(temp_student);
 }
 
 // Para na UC, inscrever nas turmas com menos alunos

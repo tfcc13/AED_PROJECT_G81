@@ -470,7 +470,7 @@ void displayRequestMenu(Script& script){
         std::string UC_code;
         int student_code;
         std::cout << "(1) >> Add class" << std::endl;
-        std::cout << "(2) >> Remove class" << std::endl;
+        std::cout << "(2) >> Remove a class from all enrolled UC's" << std::endl;
         std::cout << "(3) >> Switch class" << std::endl;
         std::cout << "(4) >> Add UC" << std::endl;
         std::cout << "(5) >> Remove UC" << std::endl;
@@ -495,12 +495,11 @@ void displayRequestMenu(Script& script){
                 std::cout << "Adds a  class" << std::endl;
                 break;
             case 2:
-                std::cout << "Insert student number" << std::endl;
+                std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
-                std::cout << "Insert the  class to remove" << std::endl;
+                std::cout << "Insert the class code to remove" << std::endl;
                 cin >> class_code;
-                script.requestRemoveClass(student_code, class_code);
-                std::cout << "Removes a  class" << std::endl;
+                script.requestRemoveClassForAllUCs(student_code, class_code);
                 break;
             case 3:
                 std::cout << "Switches a  class" << std::endl;
@@ -509,11 +508,11 @@ void displayRequestMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 5:
-                //std::cout << "Insert student code" << std::endl;
-                //cin >> student_code;
-                //std::cout << "Insert the UC code to remove" << std::endl;
-                //cin >> UC_code;
-                script.requestRemoveUC(201920727, "L.EIC001");
+                std::cout << "Insert student code" << std::endl;
+                cin >> student_code;
+                std::cout << "Insert the UC code to remove" << std::endl;
+                cin >> UC_code;
+                script.requestRemoveUC(student_code, UC_code);
                 std::cout << std::endl;
                 break;
             case 6:
