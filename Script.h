@@ -27,9 +27,32 @@ class Script {
 
 public:
 
+    ///Constructor de Script
+    ///
+    ///**Time Complexity:** O(1)
+    /// \param database Nome de database_
     Script(const string& database);
+
+
+    ///Carrega os dados dos ficheiros, usando-os para popular os sets de UC's, turmas e estudantes
+    ///
+    ///Isto acontece através das funções populateUcSet , populateLeicSet e populateStudentSet, respetivamente.
+    ///
+    /// **Time Complexity:**
+    /// \param filename_1 Ficheiro que se irá usar para popular all_UCs_
+    /// \param filename_2 Ficheiro que se irá usar para popular all_classes_
+    /// \param filename_3 Ficheiro que se irá usar para popular all_students_
     void loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3);
+
+
+    ///Divide as turmas e UC's por ano
+    ///
+    ///**Time Complexity:** O(n * log n)
     void loadYear();
+
+
+
+
     void populateUcSet(const std::string& filename);
     void populateLeicSet(const std::string& filename);
     void populateStudentSet(const std::string& filename);

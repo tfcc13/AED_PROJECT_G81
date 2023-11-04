@@ -7,6 +7,7 @@
 
 Script::Script(const string &database) {
     database_ = database;
+    ///O tamanho de leic_class_years e UC_years_ é 3, já que há 3 anos.
     leic_class_years_.resize(3);
     UC_years_.resize(3);
 }
@@ -14,11 +15,14 @@ Script::Script(const string &database) {
 void Script::populateUcSet(const string &filename) {
     std::ifstream dataFile(filename);
 
+    ///Se não for possível abrir o ficheiro, imprime-se "Error Warning: Unable to open the file " e os detalhes do erro.
     if(dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
         return;
     }
+
+    ///Caso contrário, a primeira linha do ficheiro é interpretada como header.
     std::string header;
     getline(dataFile, header);
     std::string line;
@@ -27,6 +31,7 @@ void Script::populateUcSet(const string &filename) {
         line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
 
+        ///A partir de cada uma das restantes linhas do ficheiro, obtém-se, por esta ordem, os valores classCode, ucCode, weekDay, startHour, duration e type .
         std::string classCode;
         std::string ucCode;
         std::string weekDay;
@@ -47,23 +52,38 @@ void Script::populateUcSet(const string &filename) {
         duration = std::stod(temp2);
         std::getline(ss, type, spacer);
 
+
+        ///O ano é obtido através do primeiro carater
         int year = classCode.at(0)-'0';
+
+        ///A partir de ucCode, classCode, startHour, duration e type cria-se um novo objeto do tipo dayScheduleEntry, representando uma aula, chamado curr_schedule.
         dayScheduleEntry curr_schedule =  {ucCode,classCode, startHour, duration, type};
 
+        ///Cria-se também uma UC_class uc_temp a partir de ucCode e year e uma LeicClass a partir de classCode
         UC_class uc_temp = UC_class(ucCode,year);
 
         LeicClass leic_class = LeicClass(classCode);
 
+        ///Procura-se no set all_classes_ a LeicClass criada, faz-se uma cópia classCopy e apaga-se a original do set
         auto classIt = all_classes_.find(leic_class);
 
         LeicClass classCopy = LeicClass(*classIt);
         all_classes_.erase(classIt);
+
+        ///Adiciona-se curr_schedule ao horário de classCopy no dia weekDay, através da função addDayScheduleEntry de classCopy
         classCopy.addDayScheduleEntry(weekDay, curr_schedule);
+
+        ///Adquire-se no objeto uc_class_temp através da função getUCClass de classCopy o objeto UC_class associado com ucCode e apaga esta UC_class de classCopy.
         UC_class uc_class_temp = classCopy.getUCClass(ucCode);
         classCopy.eraseUcClass(uc_class_temp);
+
+        ///Adiciona-se curr_schedule a uc_class_temp através do mesmo processo usado anteriormente em classCopy.
         uc_class_temp.addDayScheduleEntry(weekDay, curr_schedule);
+
+        ///uc_class_temp é inserido em classCopy através da função insertUcClass .
         classCopy.insertUcClass(uc_class_temp);
 
+        ///Procura-se uc_temp em all_UCs_ . Se for encontrado, cria-se uma cópia uc_temp2 do equivalente de uc_temp em all_UCs_, que é apagado deste. Adiciona-se curr_schedule a uc_temp2 e adiciona-se essa UC_class a all_UCs_ . Essencialmente, a informação em all_UCs_ , o horário é atualizado.
         if(all_UCs_.find(uc_temp) != all_UCs_.end()) {
             UC_class uc_temp2 = *all_UCs_.find(uc_temp);
             all_UCs_.erase(uc_temp);
@@ -781,6 +801,11 @@ void Script::loadData(const std::string& filename_1, const std::string& filename
 }
 
 void Script::loadYear() {
+    ///Cada LeicClass em all_classes_ é inserida num set do vetor leic_class_years_ .
+    ///O set em que é inserido é determinado pelo primeiro caracter do nome (obtido pela função getClassName ).
+    ///Se o primeiro caracter for 1, vai para o set na posição 0 do vetor, que representa o primeiro ano.
+    ///Se o primeiro caracter for 2, vai para o set na posição 1 do vetor, que representa o segundoo ano.
+    ///Se o primeiro caracter for 3, vai para o set na posição 2 do vetor, que representa o terceiro ano.
     for (const auto & classIt : all_classes_) {
         if(classIt.getClassName().at(0) == '1') {
             leic_class_years_.at(0).insert(classIt);
@@ -792,6 +817,13 @@ void Script::loadYear() {
             leic_class_years_.at(2).insert(classIt);
         }
     }
+
+
+    ///Cada UC_Class em all_UCs_ é inserida num set do vetor UC_years_ .
+    ///O set em que é inserido é determinado pelo ano da UC, obtido pela função getUCYear .
+    ///Se o ano for 1, vai para o set na posição 0 do vetor, que representa o primeiro ano.
+    ///Se o ano for 2, vai para o set na posição 1 do vetor, que representa o segundoo ano.
+    ///Se o ano for 3, vai para o set na posição 2 do vetor, que representa o terceiro ano.
     for(const auto & UCIt : all_UCs_) {
         if(UCIt.getUCYear() == 1) {
             UC_years_.at(0).insert(UCIt);
