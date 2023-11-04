@@ -13,9 +13,10 @@ Script::Script(const string &database) {
 }
 
 void Script::populateUcSet(const string &filename) {
+    ///O ficheiro de input é aberto.
     std::ifstream dataFile(filename);
 
-    ///Se não for possível abrir o ficheiro, imprime-se "Error Warning: Unable to open the file " e os detalhes do erro.
+    ///Se não for possível abrir o ficheiro, imprime-se "Error Warning: Unable to open the file " e os detalhes do erro. Sai-se da função.
     if(dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
@@ -83,7 +84,7 @@ void Script::populateUcSet(const string &filename) {
         ///uc_class_temp é inserido em classCopy através da função insertUcClass .
         classCopy.insertUcClass(uc_class_temp);
 
-        ///Procura-se uc_temp em all_UCs_ . Se for encontrado, cria-se uma cópia uc_temp2 do equivalente de uc_temp em all_UCs_, que é apagado deste. Adiciona-se curr_schedule a uc_temp2 e adiciona-se essa UC_class a all_UCs_ . Essencialmente, a informação em all_UCs_ , o horário é atualizado.
+        ///Procura-se uc_temp em all_UCs_ . Se for encontrado, cria-se uma cópia uc_temp2 do equivalente de uc_temp em all_UCs_, que é apagado deste. Adiciona-se curr_schedule a uc_temp2 e adiciona-se essa UC_class a all_UCs_ . Essencialmente, o horário é atualizado em all_UCs_ .
         if(all_UCs_.find(uc_temp) != all_UCs_.end()) {
             UC_class uc_temp2 = *all_UCs_.find(uc_temp);
             all_UCs_.erase(uc_temp);
@@ -91,63 +92,82 @@ void Script::populateUcSet(const string &filename) {
             all_UCs_.insert(uc_temp2);
         }
 
+        ///curr_schedule é adicionado a uc_temp e classCopy (uma versão mais atualizada de leic_class) e uc_temp são adicionados aos seus respetivos sets, all_classes_ e all_UCs_ .
         uc_temp.addDayScheduleEntry(weekDay, curr_schedule);
         all_classes_.insert(classCopy);
         all_UCs_.insert(uc_temp);
 
     }
 
+    ///Por fim, após todas as linhas serem interpretadas, o ficheiro de input é fechado.
     dataFile.close();
 }
 
 void Script::populateLeicSet(const string &filename) {
-        std::ifstream dataFile(filename);
+    ///O ficheiro de input é aberto.
+    std::ifstream dataFile(filename);
 
-        if(dataFile.fail()) {
-            std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
-            std::cerr << "Error details: " << std::strerror(errno) << std::endl;
-            return;
-        }
-        std::string header;
-        getline(dataFile, header);
-        std::string line;
+    ///Se não for possível abrir o ficheiro, imprime-se "Error Warning: Unable to open the file " e os detalhes do erro. Sai-se da função.
+    if(dataFile.fail()) {
+        std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
+        std::cerr << "Error details: " << std::strerror(errno) << std::endl;
+        return;
+    }
 
+    ///Caso contrário, a primeira linha do ficheiro é interpretada como header.
+    std::string header;
+    getline(dataFile, header);
+    std::string line;
 
-        while (std::getline(dataFile,line)) {
+    while (std::getline(dataFile,line)) {
             line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
             std::istringstream ss(line);
+
+            ///A partir de cada uma das restantes linhas do ficheiro, obtém-se, por esta ordem, uccode e classcode .
             std::string uccode;
             std::string classcode;
             char spacer = ',';
             std::getline(ss, uccode, spacer);
             std::getline(ss, classcode, spacer);
 
+            ///Cria-se um novo objeto LeicClass chamado tempClass a partir de classCode.
             LeicClass tempClass = LeicClass(classcode);
+
+            ///Procura-se tempClass em all_classes_ .
             std::set<LeicClass>::iterator classIt;
             classIt = all_classes_.find(tempClass);
+
+            ///Se for encontrado, cria-se uma cópia e apaga-se o original do set. De seguida, insere-se uma UC_class criada a partir de uccode na cópia, que é inserida em all_classes_ . Essencialmente, atualiza a turma em all_classes_ .
             if (classIt != all_classes_.end()) {
                 LeicClass classCopy = LeicClass(*classIt);
                 all_classes_.erase(classIt);
                 classCopy.insertUcClass(UC_class(uccode));
                 all_classes_.insert(classCopy);
-            } else {
+            }
+            ///Caso contrário, insere-se uma UC_class criada a partir de uccode em tempClass, que é inserida em all_classes_ .
+            else {
                 tempClass.insertUcClass(UC_class(uccode));
                 all_classes_.insert(tempClass);
             }
         }
+
+        ///Por fim, após todas as linhas serem interpretadas, o ficheiro de input é fechado.
         dataFile.close();
 
 }
 
 void Script::populateStudentSet(const string &filename) {
+    ///O ficheiro de input é aberto.
     std::ifstream dataFile(filename);
 
+    ///Se não for possível abrir o ficheiro, imprime-se "Error Warning: Unable to open the file " e os detalhes do erro. Sai-se da função.
     if (dataFile.fail()) {
         std::cerr << "Error Warning: Unable to open the file " << filename << std::endl;
         std::cerr << "Error details: " << std::strerror(errno) << std::endl;
         return;
     }
 
+    ///Caso contrário, a primeira linha do ficheiro é interpretada como header.
     std::string header;
     getline(dataFile, header);
     std::string line;
@@ -155,6 +175,8 @@ void Script::populateStudentSet(const string &filename) {
     while (std::getline(dataFile, line)) {
         line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         std::istringstream ss(line);
+
+        ///A partir de cada uma das restantes linhas do ficheiro, obtém-se, por esta ordem, idNumber, studentName, UcCode e classCode.
         int idNumber;
         std::string studentName;
         std::string UcCode;
@@ -167,19 +189,25 @@ void Script::populateStudentSet(const string &filename) {
         std::getline(ss, UcCode, ',');
         std::getline(ss, classCode, ',');
 
+        ///Procura-se em all_classes_ a LeicLass criada a partir de classCode
         auto classIt = all_classes_.find(LeicClass(classCode)); //
+
+        ///Cria-se uma cópia dessa LeicClass, apaga-se o original de all_classes_, guarda-se a UC_class da cópia num objeto tempUCClass a partir da sua função getUCClass e apaga-se essa UC_class da cópia através da função eraseUcClass. Obtém-se também o horário schedule dessa UC a partir da sua função getUCClassSchedule .
         LeicClass tempLeicClass = *classIt; //
         all_classes_.erase(tempLeicClass); //
         UC_class tempUCClass = tempLeicClass.getUCClass(UcCode); //
         tempLeicClass.eraseUcClass(tempUCClass); //
         Schedule schedule = tempUCClass.getUCClassSchedule(); //
 
+        ///É criado um estudante tempStudent a partir de idNumber e studentName.
         Student tempStudent = Student(idNumber, studentName); //
 
+        ///Procura-se em all_UCs_ um objeto UC_class criado a partir de UcCode. Copia-se esse objeto para um objeto tempUC e apaga-se o original de all_UCs_.
         auto UCIt = all_UCs_.find(UC_class(UcCode)); //
         auto tempUC = *UCIt; //
         all_UCs_.erase(UCIt); //
 
+        ///Procura-se tempStudent em all_students_. Se for encontrado, é apagado em all_students_, tempUCClass e tempUC.
         auto studentIt = all_students_.find(tempStudent); //
         if (studentIt != all_students_.end()) {
             tempStudent = *studentIt; //
@@ -188,8 +216,11 @@ void Script::populateStudentSet(const string &filename) {
             tempUC.eraseStudent(tempStudent); //
         }
 
+        ///Adiciona-se um horário a tempStudent a partir de classCode, UcCode e schedule, através da sua função addSchedule.
         tempStudent.addSchedule(classCode, UcCode, schedule); //
 
+
+        ///Insere-se tempStudent em all_students_ e tempUCCLass, que é inserida em tempLeicClass, que por sua vez é inserida em all_classes_. tempStudent é também inserido em tempUC, que por sua vez é inserido em all_UCs_.
         all_students_.insert(tempStudent); //
         tempUCClass.insertStudent(tempStudent); //
         tempLeicClass.insertUcClass(tempUCClass); //
@@ -199,6 +230,7 @@ void Script::populateStudentSet(const string &filename) {
 
     }
 
+    ///Por fim, após todas as linhas serem interpretadas, o ficheiro de input é fechado.
     dataFile.close();
 }
 

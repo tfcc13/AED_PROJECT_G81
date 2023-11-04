@@ -52,9 +52,24 @@ public:
 
 
 
-
+    /// Popula all_UCs_
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param filename Ficheiro que se irá usar para popular os sets
     void populateUcSet(const std::string& filename);
+
+
+    ///Popula all_classes_
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param filename Ficheiro que se irá usar para popular o set
     void populateLeicSet(const std::string& filename);
+
+
+    ///Popula all_students_
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param filename Ficheiro que se irá usar para popular o set
     void populateStudentSet(const std::string& filename);
     void PrintWeekStudentSchedule(int studentNumber);
     void PrintWeekScheduleClass(const string& class_name);
