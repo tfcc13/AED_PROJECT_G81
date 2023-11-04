@@ -64,16 +64,19 @@ public:
 
     void requestAddUC(string& student_id, string& uc_code);
     void requestAddClass(int student_id, const string& class_code);
-    void requestRemoveUC();
+    void requestRemoveUC(const string& UC_code);
     void requestRemoveClass(int student_id, const string& class_code);
     void requestSwitchUC();
     void requestSwitchClass();
+
+    bool requestAddUCInLeastCrowdedClass(int student_id, const string& UC_code);
+    bool requestAddUCInClass(int student_id, const string& class_code, const string& UC_code);
+    void requestRemoveUC(int student_code, const string& UC_code);
 
     void saveChangesToCsvFile(const string& filename);
 
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
     bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);
-
 
 
 private:

@@ -466,9 +466,9 @@ void displayRequestMenu(Script& script){
     clearScreen();
     while(!close_program) {
 
-        std::string class_name;
-        std::string uc_code;
-        int student_number;
+        std::string class_code;
+        std::string UC_code;
+        int student_code;
         std::cout << "(1) >> Add class" << std::endl;
         std::cout << "(2) >> Remove class" << std::endl;
         std::cout << "(3) >> Switch class" << std::endl;
@@ -496,10 +496,10 @@ void displayRequestMenu(Script& script){
                 break;
             case 2:
                 std::cout << "Insert student number" << std::endl;
-                cin >> student_number;
+                cin >> student_code;
                 std::cout << "Insert the  class to remove" << std::endl;
-                cin >> class_name;
-                script.requestRemoveClass(student_number,class_name);
+                cin >> class_code;
+                script.requestRemoveClass(student_code, class_code);
                 std::cout << "Removes a  class" << std::endl;
                 break;
             case 3:
@@ -509,7 +509,11 @@ void displayRequestMenu(Script& script){
                 std::cout << std::endl;
                 break;
             case 5:
-                std::cout << "Removes UC's" << std::endl;
+                //std::cout << "Insert student code" << std::endl;
+                //cin >> student_code;
+                //std::cout << "Insert the UC code to remove" << std::endl;
+                //cin >> UC_code;
+                script.requestRemoveUC(201920727, "L.EIC001");
                 std::cout << std::endl;
                 break;
             case 6:
