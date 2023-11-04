@@ -45,12 +45,15 @@ void Schedule::addDayScheduleEntry(const string &week_day, const dayScheduleEntr
     });
 }
 
-void Schedule::removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry){
+void Schedule::removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry) {
+    auto it = schedule_[week_day].begin();
     ///Um iterador it itera pelo vetor correpondente ao dia da semana week_day a que a aula entry que se pretende remover pertence.
-    for(auto it = schedule_[week_day].begin(); it != schedule_[week_day].end(); it++){
+    while (it != schedule_[week_day].end()) {
         ///Quando o iterador corresponde à aula, esta é removida do vetor.
-        if(*it == entry){
-            schedule_[week_day].erase(it);
+        if (*it == entry) {
+            it = schedule_[week_day].erase(it); // Remove o elemento e atualiza o iterador
+        } else {
+            ++it;
         }
     }
     ///De seguida, o vetor é ordenado
