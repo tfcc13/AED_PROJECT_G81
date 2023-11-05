@@ -1,8 +1,3 @@
-//
-// Created by tiago on 30-10-2023.
-//
-
-
 #include "Script.h"
 
 Script::Script(const string &database) {
@@ -155,6 +150,11 @@ void Script::populateLeicSet(const string &filename) {
         dataFile.close();
 
 }
+
+
+
+
+
 
 void Script::populateStudentSet(const string &filename) {
     ///O ficheiro de input é aberto.
@@ -717,11 +717,8 @@ void Script::consultClassesWithMaxNStudents(int year, int number) {    if(year >
     }
 }
 
-// AQUI
-
-void Script::requestRemoveUC(int student_code, const string& UC_code){
-
-    // studentIt
+void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
+    // Student (erase + temp)
     auto studentIt = all_students_.find(Student(student_code,""));
     if(studentIt == all_students_.end()){
         cout << "Invalid student code. Please enter a valid student code." << endl;
