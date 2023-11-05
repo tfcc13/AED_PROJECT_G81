@@ -3,9 +3,7 @@
 #include <cstdlib>
 #include <limits>
 
-
 bool close_program = false;
-
 
 void clearScreen() {
 #ifdef _WIN32 // for Windows
