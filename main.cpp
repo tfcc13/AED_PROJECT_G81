@@ -15,10 +15,6 @@ void clearScreen() {
 #endif
 }
 
-// Done
-
-
-
 void displayStudentMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -91,7 +87,6 @@ void displayStudentMenu(Script& script){
 
 }
 
-// Done
 void displayUcMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -169,7 +164,6 @@ void displayUcMenu(Script& script){
     }
 }
 
-//Done
 void displayClassMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -281,7 +275,6 @@ void displayClassMenu(Script& script){
 
 }
 
-//Done
 void displayYearMenu(Script& script){
     clearScreen();
 
@@ -430,8 +423,6 @@ void displayYearMenu(Script& script){
     }
 }
 
-
-//done
 void displayDataConsultationMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -444,8 +435,6 @@ void displayDataConsultationMenu(Script& script){
         std::cout << "Please choose an option" << std::endl;
 
         int input;
-        //std::cin >> input;
-        //std::cout << std::endl;
 
         while (true) {
 
@@ -488,7 +477,6 @@ void displayDataConsultationMenu(Script& script){
         }
     }
 }
-
 
 void displayRequestMenu(Script& script){
     clearScreen();
@@ -553,11 +541,14 @@ void displayRequestMenu(Script& script){
             case 4:
                 std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
-                std::cout << "Insert the UC code to remove" << std::endl;
+                std::cout << "Enter the new class code to enroll" << std::endl;
                 cin >> UC_code;
+                std::cout << "Enter the UC code where the class switch will occur." << std::endl;
+                cin >> class_code;
+                cout << endl;
                 script.captureState();
-                script.requestRemoveSingleUC(student_code, UC_code);
-                std::cout << std::endl;
+                script.requestSwitchSingleUCtoClass(student_code, class_code, UC_code);
+                cout << endl;
                 break;
             case 5:
                 clearScreen();
@@ -577,8 +568,6 @@ void displayRequestMenu(Script& script){
     }
 }
 
-//done
-
 void displayInterfaceMenu(Script& script) {
     clearScreen();
     while(!close_program) {
@@ -590,8 +579,7 @@ void displayInterfaceMenu(Script& script) {
         std::cout << "(5) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
-        //std::cin >> input;
-        //std::cout << std::endl;
+
         while (true) {
 
             if (std::cin >> input) {
@@ -635,9 +623,6 @@ void displayInterfaceMenu(Script& script) {
 
     }
 }
-
-
-
 
 int main() {
     Script new_script = Script("database");
