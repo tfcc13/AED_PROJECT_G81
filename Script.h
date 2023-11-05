@@ -43,7 +43,6 @@ public:
     /// \param database Nome de database_
     Script(const string& database);
 
-
     ///Carrega os dados dos ficheiros, usando-os para popular os sets de UC's, turmas e estudantes
     ///
     ///Isto acontece através das funções populateUcSet , populateLeicSet e populateStudentSet, respetivamente.
@@ -54,13 +53,10 @@ public:
     /// \param filename_3 Ficheiro que se irá usar para popular all_students_
     void loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3);
 
-
     ///Divide as turmas e UC's por ano
     ///
     ///**Time Complexity:** O(n * log n)
     void loadYear();
-
-
 
     /// Popula all_UCs_
     ///
@@ -68,13 +64,11 @@ public:
     /// \param filename Ficheiro que se irá usar para popular os sets
     void populateUcSet(const std::string& filename);
 
-
     ///Popula all_classes_
     ///
     ///**Time Complexity:** O(n)
     /// \param filename Ficheiro que se irá usar para popular o set
     void populateLeicSet(const std::string& filename);
-
 
     ///Popula all_students_
     ///
@@ -115,20 +109,16 @@ public:
     void restoreState(DataBaseState& previous_state);
     void undoLastAction();
 
-    void requestAddClass(int student_id, const string& class_code);
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
-    void requestSwitchUC();
-    void requestSwitchClass();
-
-    bool requestAddUCInLeastCrowdedClass(int student_id, const string& UC_code);
+    void requestSwitchAllUCstoClass(int student_code, const string& class_code);
+    void requestSwitchSingleUCtoClass(int student_code, const string& UC_code);
     bool requestAddUCInClass(int student_id, const string& class_code, const string& UC_code);
-    void requestRemoveUC(int student_code, const string& UC_code);
+    void requestRemoveSingleUC(int student_code, const string& UC_code);
 
     void saveChangesToCsvFile(const string& filename);
 
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
     bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);
-
 
 private:
     std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");
