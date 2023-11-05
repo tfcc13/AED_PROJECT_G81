@@ -137,9 +137,7 @@ void Script::populateLeicSet(const string &filename) {
                 all_classes_.erase(classIt);
                 classCopy.insertUcClass(UC_class(uccode));
                 all_classes_.insert(classCopy);
-            }
-            ///Caso contrário, insere-se uma UC_class criada a partir de uccode em tempClass, que é inserida em all_classes_ .
-            else {
+            } else{
                 tempClass.insertUcClass(UC_class(uccode));
                 all_classes_.insert(tempClass);
             }
@@ -337,13 +335,10 @@ void Script::consultGreatestNumberOfStudentsUCs(int num) {
         for (int i = 0; i < num; i++, setIt--) {
             std::cout << left << setw(8) << setIt->getUcName() << " | "  << setIt->getNumberOfEnrolledStudents() << std::endl;
         }
-    }
-
-    ///Se *num* não for válido, imprime-se "There's only <número de estudantes na UC (tamanho de sortedByOccupancy)> UC's, please choose a smaller number" .
-    else {
+    } else{
+        ///Se *num* não for válido, imprime-se "There's only <número de estudantes na UC (tamanho de sortedByOccupancy)> UC's, please choose a smaller number" .
         std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
-
 }
 
 void Script::consultSmallerNumberOfStudentsUCs(int num) {
@@ -366,13 +361,10 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
         for (int i = 0; i < num; i++, setIt++) {
             std::cout << left << setw(8) << setIt->getUcName() << " | " << setIt->getNumberOfEnrolledStudents() << std::endl;
         }
-    }
-
+    } else{
         ///Se *num* não for válido, imprime-se "There's only <número de estudantes na UC (tamanho de sortedByOccupancy)> UC's, please choose a smaller number" .
-    else {
         std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
-
 }
 
 void Script::PrintWeekUCSchedule(const string& uc_name){
@@ -528,10 +520,8 @@ void Script::consultGreatestClasses(int num_classes){
         for (int i = 0; i < num_classes; i++, classIt--) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
         }
-    }
-
-    ///Se *num_classes* não for válido, imprime-se "There's only <número de estudantes na turma (tamanho de sortedByOccupancy)> classes, please choose a smaller number" .
-    else {
+    } else{
+        ///Se *num_classes* não for válido, imprime-se "There's only <número de estudantes na turma (tamanho de sortedByOccupancy)> classes, please choose a smaller number" .
         std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
     }
 }
@@ -555,10 +545,8 @@ void Script::consultSmallestClasses(int num_classes){
         for (int i = 0; i < num_classes; i++, classIt++) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
         }
-    }
-
+    } else{
         ///Se *num_classes* não for válido, imprime-se "There's only <número de estudantes na turma (tamanho de sortedByOccupancy)> classes, please choose a smaller number" .
-    else {
         std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
     }
 }
@@ -779,7 +767,6 @@ void Script::consultClassesInaYearByAscendingOccupancy(int year) {
     for (const auto & classIt : sortedByOccupancy) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
-
 }
 
 void Script::consultClassesInaYearByDescendingOccupancy(int year) {
@@ -955,15 +942,13 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
                     return;
                 }
             }
-        }
-        ///Se ajudar, o pedido é aprovado.
-        else{
+        } else{
+            ///Se ajudar, o pedido é aprovado.
             cout << "Request approved." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. Your request will help achieve this balance." << endl;
         }
-    }
-    ///Por outro lado, se o equilíbrio existir, verifica-se se o equilíbrio será perturbado pela inscrição.
-    else{
+    } else{
+        ///Por outro lado, se o equilíbrio existir, verifica-se se o equilíbrio será perturbado pela inscrição.
         // Balance exists
         *it++;
         std::sort(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
@@ -982,7 +967,6 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         ///Se não perturbar, o pedido é aceite.
         cout << "Request approved." << endl;
         cout << "The balance between class occupation was not disturbed." << endl;
-
     }
 
     ///Se o pedido foi aprovado, os sets all_students_, all_classes_ e allUCs_ apagam as informações do estudante, da turma e da UC, respetivamente.
@@ -1362,10 +1346,8 @@ void Script::undoLastAction() {
         ///Por fim, a mensagem "Last database state was restored" é impressa.
         cout << "Last database state was restored" << endl;
         cout << endl;
-    }
-
-    ///Por outro lado, se o registo estiver vazio, nada disto ocorre e a mensagem "There's nothing to undo" é impressa.
-    else {
+    } else{
+        ///Por outro lado, se o registo estiver vazio, nada disto ocorre e a mensagem "There's nothing to undo" é impressa.
         cout << "There's nothing to undo" << endl;
         cout << endl;
     }
