@@ -704,7 +704,7 @@ void Script::consultUCsWithMinNStudents(int year, int number) {
     ///A função imprime o header da tabela que se irá criar, "UC code | Occupancy".
     cout << left << setw(8) <<  "UC code" << " | " << "Occupancy" << endl;
 
-    ///Para cada UC do conjunto de UC's do ano pretendido (set na posição year-1 de UC_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for maior ou igual que o mínimo desejado, imprime-se o nome (obtido por getUcName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
+    ///Para cada UC do conjunto de UC's do ano pretendido (set na posição year-1 de UC_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for maior ou igual ao mínimo desejado, imprime-se o nome (obtido por getUcName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
     for (const auto& uc_class : UC_years_[year-1]) {
         if (uc_class.getNumberOfEnrolledStudents() >= number) {
             cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() <<  std::endl;
@@ -713,14 +713,12 @@ void Script::consultUCsWithMinNStudents(int year, int number) {
         }
     }
 
-    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes superior ou igual ao mínimo desejado.
-    ///Assim, a função imprime "There is no UC with a minimum of <mínimo> students"
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas UC's com um número de estudantes superior ou igual ao mínimo desejado.
+    ///Assim, a função imprime "There is no UC with a minimum of <mínimo> students".
     if (!flag) {
         cout << "There is no UC with a minimum of " << number << " students" <<  std::endl;
     }
 }
-
-
 
 void Script::consultUCsWithMaxNStudents(int year, int number) {
     ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
@@ -744,7 +742,7 @@ void Script::consultUCsWithMaxNStudents(int year, int number) {
         }
     }
 
-    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes inferior ou igual ao máximo desejado.
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas UC's com um número de estudantes inferior ou igual ao máximo desejado.
     ///Assim, a função imprime "There is no UC with a maximum of <máximo> students"
     if (!flag) {
         cout << "There is no UC with a maximum of " << number << " students" <<  std::endl;
@@ -752,11 +750,16 @@ void Script::consultUCsWithMaxNStudents(int year, int number) {
 }
 
 void Script::consultClassesInaYear(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///Caso contrário, a função imprime o header da tabela que se irá criar, "Class code | Occupancy".
     cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
+
+    ///Por fim, para cada turma do conjunto de turmas do ano pretendido (set na posição year-1 de leic_class_years_), imprime-se o nome (obtido por getClassName) e o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents).
     for (const auto & classIt : leic_class_years_[year-1]) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
@@ -764,19 +767,24 @@ void Script::consultClassesInaYear(int year) {
 }
 
 void Script::consultClassesInaYearByAscendingOccupancy(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
-
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class1 e class2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class1 for menor que em class2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const LeicClass class1, const LeicClass class2) {
         return class1.getNumberOfEnrolledStudents() < class2.getNumberOfEnrolledStudents();
     };
 
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos do conjunto de turmas do ano pretendido (set na posição year-1 de leic_class_years_) ordenados a partir de compareNumberOfStudents.
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(leic_class_years_[year-1].begin(),leic_class_years_[year-1].end(), compareNumberOfStudents);
 
+    ///A função imprime o header da tabela que se irá criar, "Class code | Occupancy".
     cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
 
+    ///Por fim, para cada turma em sortedByOccupancy, imprime-se o nome da turma (obtido por getClassName) e o número de estudantes inscritos nesta (obtido por getNumberOfEnrolledStudents). Como o set está ordenado por ordem crescente de número de estudantes, é essa a orden de impressão.
     for (const auto & classIt : sortedByOccupancy) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
@@ -785,19 +793,25 @@ void Script::consultClassesInaYearByAscendingOccupancy(int year) {
 
 
 void Script::consultClassesInaYearByDescendingOccupancy(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
 
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class1 e class2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class1 for maior que em class2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const LeicClass class1, const LeicClass class2) {
         return class1.getNumberOfEnrolledStudents() > class2.getNumberOfEnrolledStudents();
     };
 
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos do conjunto de turmas do ano pretendido (set na posição year-1 de leic_class_years_) ordenados a partir de compareNumberOfStudents.
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(leic_class_years_[year-1].begin(),leic_class_years_[year-1].end(), compareNumberOfStudents);
 
+    ///A função imprime o header da tabela que se irá criar, "Class code | Occupancy".
     cout << left << setw(10) <<  "Class Code" << " | " << "Occupancy" << endl;
 
+    ///Por fim, para cada turma em sortedByOccupancy, imprime-se o nome da turma (obtido por getClassName) e o número de estudantes inscritos nesta (obtido por getNumberOfEnrolledStudents). Como o set está ordenado por ordem decrescente de número de estudantes, é essa a orden de impressão.
     for (const auto & classIt : sortedByOccupancy) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
@@ -806,55 +820,75 @@ void Script::consultClassesInaYearByDescendingOccupancy(int year) {
 }
 
 void Script::consultClassesWithMinNStudents(int year, int number) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
 
+    ///Caso contrário, cria-se um objeto flag do tipo bool, com valor *false*.
     bool flag = false;
 
+    ///A função imprime o header da tabela que se irá criar, "Class code | Occupancy".
     cout << left << setw(10) <<  "Class code" << " | " << "Occupancy" << endl;
+
+    ///Para cada turma do conjunto de turmas do ano pretendido (set na posição year-1 de leic_class_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for maior ou igual ao mínimo desejado, imprime-se o nome (obtido por getClassName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
     for (const auto& classeIt : leic_class_years_[year-1]) {
         if (classeIt.getNumberOfEnrolledStudents() >= number) {
             cout << left << setw(10) << classeIt.getClassName() << " | " << classeIt.getNumberOfEnrolledStudents() <<  std::endl;
+            ///Além disso, nessa condição, o valor de flag é definido como *true*.
             flag = true;
         }
     }
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes superior ou igual ao mínimo desejado.
+    ///Assim, a função imprime "There is no class with a minimum of <mínimo> students"
     if (!flag) {
         cout << "There is no class with a minimum of " << number << " students" <<  std::endl;
     }
 }
 void Script::consultClassesWithMaxNStudents(int year, int number) {
-
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
 
+    ///Caso contrário, cria-se um objeto flag do tipo bool, com valor *false*.
     bool flag = false;
 
+    ///A função imprime o header da tabela que se irá criar, "Class code | Occupancy".
     cout << left << setw(10) <<  "Class code" << " | " << "Occupancy" << endl;
+
+    ///Para cada turma do conjunto de turmas do ano pretendido (set na posição year-1 de leic_class_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for inferior ou igual ao máximo desejado, imprime-se o nome (obtido por getClassName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
     for (const auto& classeIt : leic_class_years_[year-1]) {
         if (classeIt.getNumberOfEnrolledStudents() <= number) {
             cout << left << setw(10) << classeIt.getClassName() << " | " << classeIt.getNumberOfEnrolledStudents() <<  std::endl;
+            ///Além disso, nessa condição, o valor de flag é definido como *true*.
             flag = true;
         }
     }
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes inferior ou igual ao máximo desejado.
+    ///Assim, a função imprime "There is no class with a maximum of <máximo> students"
     if (!flag) {
         cout << "There is no class with a maximum of " << number << " students" <<  std::endl;
     }
 }
 
 void Script::requestAddUCInClass(int student_code, const string& class_code, const string& UC_code) {
-    // Verificação de Student
+    ///A função procura em all_students_ o estudante pretendido a partir de student_code.
     auto studentIt = all_students_.find(Student(student_code, ""));
+
+    ///Se este não for encontrado, o pedido é rejeitado e a função termina.
     if (studentIt == all_students_.end()) {
         cout << "Request denied." << endl;
         cout << "Invalid student code. Please enter a valid student code." << endl;
         return;
     }
+
     Student temp_student = *studentIt;
+    ///Obtém-se set dos pares <UC, turma> do estudante a partir da sua função get_student_enrolled_UC_and_classes.
     auto student_enrolled_UC_and_classes = temp_student.get_student_enrolled_UC_and_classes();
+    ///Se em algum par do set o segundo elemento for igual a UC_code, isto é, se o estudante já estiver inscrito na UC, o pedido é rejeitado e a função termina.
     for(const auto& class_code_UC_code_pair : student_enrolled_UC_and_classes){
         if(class_code_UC_code_pair.second == UC_code){
             cout << "Request denied." << endl;
@@ -862,28 +896,38 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
             return;
         }
     }
+
+    ///Caso contrário, se o número de UC's do estudante, obtido por getNumberOfUCs, for maior ou igual a 7 (número máximo de UC's), o pedido é rejeitado e a função termina.
     if (studentIt->getNumberOfUCs() >= 7) {
         cout << "Request denied." << endl;
         cout << "The student is already enrolled in the maximum of 7 UC's." << endl;
         return;
     }
-    // Verificação de LeicClass
+
+    ///Por outro lado, se a função continuar, procura-se em all_classes_ a turma pretendida a partir de class_code.
     auto classIt = all_classes_.find(LeicClass(class_code));
     LeicClass temp_LeicClass = *classIt;
+    ///Se esta não for encontrada, o pedido é rejeitado e a função termina.
     if (classIt == all_classes_.end()) {
         cout << "Request denied." << endl;
         cout << "Invalid class code. Please enter a valid class code." << endl;
         return;
     }
+
     // Verificação de UC_class
+    ///Caso contrário, guarda-se no objeto do tipo UC_class temp_UC_Class a turma da UC, obtida por UC_code, da turma pretendida.
     UC_class temp_UC_Class = temp_LeicClass.getUCClass(UC_code);
+    ///Se esta turma da UC não existir, o pedido é rejeitado e a função termina.
     if (!(temp_UC_Class != UC_class("Nao existe"))) {
         cout << "Request denied." << endl;
         cout << "UC not found in the class code under consideration. Please enter a valid UC code." << endl;
         return;
     }
+
+    ///Se a função continuar, verifica-se se o horário de temp_UC_class, obtido por getUCClassSchedule, é compatível com o horário do estudante, a partir da função checkScheduleConflict.
     Schedule schedule_to_add = temp_UC_Class.getUCClassSchedule();
     // Verifica se o horário da UC_class é compatível com o horário do estudante
+    ///Se for incompatível, o pedido é rejeitado e a função termina.
     if (temp_student.checkScheduleConflict(schedule_to_add)) {
         cout << "Request denied." << endl;
         cout << "The student's schedule " << student_code << " is not compatible with class schedule " << class_code
@@ -891,7 +935,11 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         return;
     }
 
+
+    /// Guarda-se o vetor de pares com nome das turmas e o número de estudantes da UC definida por UC_code nessa turma, a partir da função getNumberOfEnrolledStudentsPerClassInUC.
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
+
+    ///Guarda-se também os números de estudantes da turma com menos estudantes e da turma com mais estudantes (primeiro e último membro do vetor).
     int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
     int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
 
@@ -900,8 +948,10 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
                                return p.first == class_code;
                            });
 
+    ///Se a diferença entre os números de estudantes for superior a 4, considera-se que não existe equilíbrio.
     if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
         // Balance does not exist
+        ///Neste caso, se a inscrição do estudante não ajudar a atingir equilíbrio, o pedido é rejeitado, o programa indica as turmas com um número de estudantes menor que o máximo e a função termina.
         if(it->second == max_number_of_enrolled_students_per_class_in_UC){
             cout << "Request denied." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. To achieve balance, you must enroll in the classes with fewer students than the current maximum number(" << max_number_of_enrolled_students_per_class_in_UC << "), which are:" << endl;
@@ -911,11 +961,15 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
                     return;
                 }
             }
-        } else{
+        }
+        ///Se ajudar, o pedido é aprovado.
+        else{
             cout << "Request approved." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. Your request will help achieve this balance." << endl;
         }
-    } else{
+    }
+    ///Por outro lado, se o equilíbrio existir, verifica-se se o equilíbrio será perturbado pela inscrição.
+    else{
         // Balance exists
         *it++;
         std::sort(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
@@ -926,15 +980,19 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
         max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
 
+        ///Se perturbar, o pedido é rejeitado e a função termina.
         if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
             cout << "Request denied. This request disrupts class occupancy. The difference in the number of students enrolled in any class within the same UC must be less than or equal to 4." << endl;
             return;
         }
+        ///Se não perturbar, o pedido é aceite.
         cout << "Request approved." << endl;
         cout << "The balance between class occupation was not disturbed." << endl;
 
     }
 
+
+    ///Se o pedido foi aprovado, os sets all_students_, all_classes_ e allUCs_ apagam as informações do estudante, da turma e da UC, respetivamente.
     // Request aprovado
     auto UCIt = all_UCs_.find(UC_class(UC_code));
     auto temp_UC = *UCIt;
@@ -943,34 +1001,46 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
     all_classes_.erase(temp_LeicClass);
     all_UCs_.erase(temp_UC);
     // Alterações
+    ///Adiciona-se ao aluno o horário a partir de class_code, UC_code e schedule_to_add, através da função addSchedule
     temp_student.addSchedule(class_code, UC_code, schedule_to_add);
+    ///Insere-se o estudante na turma da UC através da função insertStudent.
     temp_UC_Class.insertStudent(temp_student);
+    ///Insere-se a turma da UC na turma LeicClass através da função insertUcClass.
     temp_LeicClass.insertUcClass(temp_UC_Class);
+    ///Insere-se na UC o estudante, através de insertStudent.
     temp_UC.insertStudent(temp_student);
     // inserts
+    ///O estudante, a turma e a UC, agora atualizados, são colocados de novo nos sets all_students, all_classes e all_UCs_, respetivamente.
     all_students_.insert(temp_student);
     all_classes_.insert(temp_LeicClass);
     all_UCs_.insert(temp_UC);
     // Retorno
+    ///Por fim, a função imprime "(<UC>, <turma>) added."
     cout << "(" << UC_code << ", "  << class_code << ") added." << std::endl;
 }
 
 void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
     // Student (erase + temp)
+    ///O estudante é procurado em all_students_.
     auto studentIt = all_students_.find(Student(student_code,""));
     if(studentIt == all_students_.end()){
+        ///Se não for encontrado, é impressa a mensagem "Invalid student code. Please enter a valid student code." e a função termina.
         cout << "Invalid student code. Please enter a valid student code." << endl;
         return;
     }
+    ///Se for, cria-se uma cópia do estudante e elimina-se o original do set.
     Student temp_student = *studentIt;
     all_students_.erase(studentIt);
 
     // UC (erase + temp)
+    ///A UC é procurada em all_UCs_.
     auto UCIt = all_UCs_.find(UC_class(UC_code));
     if(UCIt == all_UCs_.end()){
+        ///Se não for encontrada, é impressa a mensagem "Invalid UC code. Please enter a valid UC code." e a função termina.
         cout << "Invalid UC code. Please enter a valid UC code." << endl;
         return;
     }
+    ///Se for, cria-se uma cópia da UC e elimina-se a original do set.
     UC_class temp_UC = *UCIt;
     all_UCs_.erase(UCIt);
 
@@ -1073,17 +1143,21 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& class_
 }
 
 vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const{
+    ///A função cria um vetor de pares de string e int chamado number_of_enrolled_students_per_class_in_UC.
     vector<pair<string, int>> number_of_enrolled_students_per_class_in_UC;
+    ///Para cada turma em all_classes_, se a UC obtida a partir de UC_code existir, o par constituído pelo nome da turma (obtido por getClassName) e pelo número de estudantes inscritos na UC (obtido por getNumberOfEnrolledStudents) é colocado em number_of_enrolled_students_per_class_in_UC.
     for(const LeicClass& current_class : all_classes_){
         auto itUCClass = current_class.getUCClass(UC_code);
         if(itUCClass != UC_class("Não existe")){
             number_of_enrolled_students_per_class_in_UC.emplace_back(current_class.getClassName(), itUCClass.getNumberOfEnrolledStudents());
         }
     }
+    ///No fim desse processo, number_of_enrolled_students_per_class_in_UC é ordenado por ordem crescente de estudantes inscritos.
     std::sort(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
               [](const pair<string, int>& a, const pair<string, int>& b) {
                   return a.second < b.second;
               });
+    ///Por fim, number_of_enrolled_students_per_class_in_UC é retornado.
     return number_of_enrolled_students_per_class_in_UC;
 }
 
@@ -1124,14 +1198,18 @@ void Script::saveChangesToCsvFile(const string& filename) {
 }
 
 void Script::captureState() {
+    ///É criado um estado da base de dados, current_state, no qual se guarda os sets all_students, all_classes_ e all_UCs_ atuais.
     DataBaseState current_state;
     current_state.all_students = all_students_;
     current_state.all_classes = all_classes_;
     current_state.all_UCs = all_UCs_;
+
+    ///De seguida, este estado é colocado no topo da stack system_changes_record, que contém todos os estados da base de dados guardados.
     system_changes_record_.push(current_state);
 }
 
 void Script::restoreState(DataBaseState& previous_state) {
+    ///Os sets all_classes_, all_UCs_ e all_students de previous_state são atribuídos aos respetivos sets atuais.
     all_classes_ = previous_state.all_classes;
     all_UCs_ = previous_state.all_UCs;
     all_students_ = previous_state.all_students;
@@ -1139,14 +1217,20 @@ void Script::restoreState(DataBaseState& previous_state) {
 
 
 void Script::undoLastAction() {
+    ///Se o registo de estados anteriores não estiver vazio, guarda-se o objeto no topo da stack system_changes_record no objeto previous_state.
     if(!system_changes_record_.empty()) {
         DataBaseState previous_state = system_changes_record_.top();
+        ///Este é removido da stack.
         system_changes_record_.pop();
+        ///O estado previous_state é restaurado pela função restoreState e os estudantes, UC's e turmas são divididos por ano.
         restoreState(previous_state);
         loadYear();
+        ///Por fim, a mensagem "Last database state was restored" é impressa.
         cout << "Last database state was restored" << endl;
         cout << endl;
     }
+
+    ///Por outro lado, se o registo estiver vazio, nada disto ocorre e a mensagem "There's nothing to undo" é impressa.
     else {
         cout << "There's nothing to undo" << endl;
         cout << endl;

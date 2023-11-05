@@ -32,7 +32,7 @@ struct DataBaseState {
     set<Student> all_students;
 };
 
-
+///Inclui as funções principais para o funcionamento do programa
 class Script {
 
 public:
@@ -247,21 +247,82 @@ public:
     /// \param year Ano que se pretende analisar
     /// \param number Número máximo de estudantes
     void consultUCsWithMaxNStudents(int year, int number);
+
+
+    ///Imprime as turmas de um ano
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano cujas turmas se pretende analisar
     void consultClassesInaYear(int year);
+
+
+    ///Imprime as turmas de um ano por ordem crescente de número de alunos inscritos
+    ///
+    ///**Time Complexity:** O(n * log n)
+    /// \param year Ano cujas turmas se pretende consultar
     void consultClassesInaYearByAscendingOccupancy(int year);
+
+    ///Imprime as turmas de um ano por ordem crescente de número de alunos inscritos
+    ///
+    ///**Time Complexity:** O(n * log n)
+    /// \param year Ano cujas turmas se pretende consultar
     void consultClassesInaYearByDescendingOccupancy(int year);
+
+
+    ///Imprime as turmas com um número de estudantes igual ou superior a um determinado número, num determinado ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano que se pretende analisar
+    /// \param number Número mínimo de estudantes
     void consultClassesWithMinNStudents(int year, int number);
+
+    ///Imprime as UC's com um número de estudantes igual ou inferior a um determinado número, num determinado ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano que se pretende analisar
+    /// \param number Número máximo de estudantes
     void consultClassesWithMaxNStudents(int year, int number);
 
+
+    ///Guarda o estado atual dos estudantes, turmas e anos
+    ///
+    ///**Time Complexity:** O(n)
     void captureState();
+
+    ///Restaura o estado da base de dados para o estado pretendido
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param previous_state Estado ao qual se pretende retornar a base de dados
     void restoreState(DataBaseState& previous_state);
+
+    ///Desfaz a última ação
+    ///
+    ///**Time Complexity:** O(n * log n)
     void undoLastAction();
 
+    ///Adiciona uma turma de uma UC a um aluno
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param student_code Código do estudante
+    /// \param class_code Código da turma
+    /// \param UC_code Código da UC
     void requestAddUCInClass(int student_code, const string& class_code, const string& UC_code);
+
+
+    ///Remove a inscrição de um aluno numa UC
+    ///
+    ///**Time Complexity:**
+    /// \param student_code Código do estudante
+    /// \param UC_code Código da UC
     void requestRemoveSingleUC(int student_code, const string& UC_code);
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
     void requestSwitchSingleUCtoClass(int student_code, const string& class_code, const string& UC_code);
 
+    ///Obtém o número de estudantes por turma de uma determinada UC
+    ///
+    ///**Time Complexity:** O(n * log n)
+    /// \param UC_code UC cujo número de estudantes por turma se pretende saber
+    /// \return Vetor de pares em que estão associados o nome da turma e o número de estudantes da UC nessa turma
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const;
     void saveChangesToCsvFile(const string& filename);
 
