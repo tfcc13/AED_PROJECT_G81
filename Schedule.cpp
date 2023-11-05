@@ -73,10 +73,11 @@ bool Schedule::checkDayScheduleEntryConflict(const string &week_day, const daySc
         for(auto & it : schedule_.at(week_day)){
             e2_beginning_time = it.start_hour;
             e2_finishing_time = it.start_hour + it.duration;
-
-            ///Se a aula entry começar antes do fim da aula em que se encontra o iterador e esta começar entes do fim da aula entry, tem-se um conflito, logo a função retorna *true*.
-            if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
-                return true;
+            if(it.class_code != "T"){
+                ///Se a aula entry começar antes do fim da aula em que se encontra o iterador e esta começar entes do fim da aula entry, tem-se um conflito, logo a função retorna *true*.
+                if(e1_beginning_time <= e2_finishing_time and e2_beginning_time <= e1_finishing_time){
+                    return true;
+                }
             }
         }
     }
@@ -119,11 +120,15 @@ bool Schedule::checkScheduleConflict(const Schedule& s) const{
 
         ///Em cada iteração de it_map_elem, um iterador it_schedule_entry itera pelo vetor de aulas desse dia (do horário que se pretende verificar a conflituosidade)
         for(auto it_schedule_entry = it_map_elem.second.begin(); it_schedule_entry != it_map_elem.second.end(); it_schedule_entry++){
-
+            bool conflict;
             ///Em cada iteração de it_schedule_entry, verifica-se se a aula tem conflito com o horário base, usando a função checkDayScheduleEntryConflict
-            this->checkDayScheduleEntryConflict(it_map_elem.first, *it_schedule_entry);
+            conflict = this->checkDayScheduleEntryConflict(it_map_elem.first, *it_schedule_entry);
+            if(conflict){
+                return true;
+            }
         }
     }
+    return false;
 }
 
 void Schedule::PrintDaySchedule(const string &week_day) const{

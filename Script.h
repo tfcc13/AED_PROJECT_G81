@@ -112,12 +112,9 @@ public:
     void requestAddUCInClass(int student_code, const string& class_code, const string& UC_code);
     void requestRemoveSingleUC(int student_code, const string& UC_code);
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
-    void requestSwitchSingleUCtoClass(int student_code, const string& UC_code);
-    void requestSwitchAllUCstoClass(int student_code, const string& class_code);
+    void requestSwitchSingleUCtoClass(int student_code, const string& class_code, const string& UC_code);
 
-    bool validationOfStudentsUCClassEnrollment(int student_code, const string& class_code, const string& UC_code);
-    bool validationOfStudentsUCCClassSwitch();
-
+    vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const;
     void saveChangesToCsvFile(const string& filename);
 
 private:

@@ -497,18 +497,16 @@ void displayRequestMenu(Script& script){
         std::string class_code;
         std::string UC_code;
         int student_code;
-        std::cout << "(1) >> Add class" << std::endl;
-        std::cout << "(2) >> Remove a student class from all enrolled UC's" << std::endl;
-        std::cout << "(3) >> Switch class" << std::endl;
-        std::cout << "(4) >> Add UC" << std::endl;
-        std::cout << "(5) >> Remove UC" << std::endl;
-        std::cout << "(6) >> Switch UC" << std::endl;
-        std::cout << "(7) >> Go back" << std::endl;
-        std::cout << "(8) >> Close menu" << std::endl;
+        std::cout << "(1) >> Add a student in a UC and class" << std::endl;
+        std::cout << "(2) >> Remove a student from a single UC" << std::endl;
+        std::cout << "(3) >> Remove a student from all UC's within a class" << std::endl;
+        std::cout << "(4) >> Switch a student's UC class" << std::endl;
+        std::cout << "(5) >> Go back" << std::endl;
+        std::cout << "(6) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
         int input;
-        while (true) {
 
+        while (true) {
             if (std::cin >> input) {
                 std::cout << std::endl;
                 break;
@@ -518,29 +516,41 @@ void displayRequestMenu(Script& script){
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
+
         switch (input) {
             case 1:
-                std::cout << "Adds a  class" << std::endl;
+                std::cout << "Insert student code" << std::endl;
+                cin >> student_code;
+                std::cout << "Enter the UC code to be added" << std::endl;
+                cin >> UC_code;
+                std::cout << "Enter the class code to be added" << std::endl;
+                cin >> class_code;
+                cout << endl;
                 script.captureState();
+                script.requestAddUCInClass(student_code, class_code, UC_code);
+                cout << endl;
                 break;
             case 2:
                 std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
-                std::cout << "Insert the class code to remove" << std::endl;
+                std::cout << "Enter the UC code to be removed" << std::endl;
+                cin >> UC_code;
+                cout << endl;
+                script.captureState();
+                script.requestRemoveSingleUC(student_code, UC_code);
+                cout << endl;
+                break;
+            case 3:
+                std::cout << "Insert student code" << std::endl;
+                cin >> student_code;
+                std::cout << "Enter the class code for UC removal" << std::endl;
                 cin >> class_code;
                 cout << endl;
                 script.captureState();
                 script.requestRemoveClassForAllUCs(student_code, class_code);
                 cout << endl;
                 break;
-            case 3:
-                std::cout << "Switches a  class" << std::endl;
             case 4:
-                script.captureState();
-                std::cout << "Adds UC's" << std::endl;
-                std::cout << std::endl;
-                break;
-            case 5:
                 std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
                 std::cout << "Insert the UC code to remove" << std::endl;
@@ -549,15 +559,10 @@ void displayRequestMenu(Script& script){
                 script.requestRemoveSingleUC(student_code, UC_code);
                 std::cout << std::endl;
                 break;
-            case 6:
-                std::cout << "Switches UC's" << std::endl;
-                script.captureState();
-                std::cout << std::endl;
-                break;
-            case 7:
+            case 5:
                 clearScreen();
                 return;
-            case 8:
+            case 6:
                 clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
@@ -569,13 +574,8 @@ void displayRequestMenu(Script& script){
                 break;
 
         }
-
     }
-
 }
-
-
-
 
 //done
 
