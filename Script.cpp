@@ -955,15 +955,13 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
                     return;
                 }
             }
-        }
-        ///Se ajudar, o pedido é aprovado.
-        else{
+        } else{
+            ///Se ajudar, o pedido é aprovado.
             cout << "Request approved." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. Your request will help achieve this balance." << endl;
         }
-    }
-    ///Por outro lado, se o equilíbrio existir, verifica-se se o equilíbrio será perturbado pela inscrição.
-    else{
+    } else{
+        ///Por outro lado, se o equilíbrio existir, verifica-se se o equilíbrio será perturbado pela inscrição.
         // Balance exists
         *it++;
         std::sort(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
@@ -1240,6 +1238,7 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
     ///Caso contrário, obtém-se o horário da UC nessa turma.
     Schedule new_schedule = temp_UC_Class_new.getUCClassSchedule();
 
+    ///Cria-se cópias da turma e da UC_class desta UC e do horário antigos do aluno.
     // Verificação de LeicClass_old
     auto classIt_old = all_classes_.find(LeicClass(old_class_code));
     LeicClass temp_LeicClass_old = *classIt_old;
@@ -1248,16 +1247,19 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
     UC_class temp_UC_Class_old = temp_LeicClass_old.getUCClass(UC_code);
     Schedule old_schedule = temp_UC_Class_old.getUCClassSchedule();
 
+    ///O horário antigo é removido do horário do estudante.
     temp_student.removeSchedule(old_class_code, UC_code, old_schedule);
 
-    // Verifica se o horário da UC_class_new é compatível com o horário do estudante sem o old_schedule
+    /// Verifica-se se o novo horário da UC é compatível com o horário do estudante sem o seu horário antigo.
     if (temp_student.checkScheduleConflict(new_schedule)) {
+        ///Se não for, há uma mensagem de erro e a função termina.
         cout << "Request denied." << endl;
         cout << "The student's schedule " << student_code << " is not compatible with the new class schedule " << new_class_code
              << " of UC " << UC_code << "." << endl;
         return;
     }
 
+    ///Obtém-se os números de estudantes da turma com menos estudantes e da turma com mais estudantes
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
     int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
     int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
