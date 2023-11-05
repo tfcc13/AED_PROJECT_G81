@@ -311,11 +311,26 @@ public:
 
     ///Remove a inscrição de um aluno numa UC
     ///
-    ///**Time Complexity:**
+    ///**Time Complexity:** O(n)
     /// \param student_code Código do estudante
     /// \param UC_code Código da UC
     void requestRemoveSingleUC(int student_code, const string& UC_code);
+
+
+    ///Remove a inscrição de um aluno numa turma, para todas as UC's
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param student_code Código do estudante
+    /// \param class_code Código da turma
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
+
+
+    /// Troca a turma de uma UC de um estudante
+    ///
+    ///**Time Complexity:**
+    /// \param student_code Código do estudante
+    /// \param new_class_code Código da nova turma
+    /// \param UC_code Código da UC
     void requestSwitchSingleUCtoClass(int student_code, const string& new_class_code, const string& UC_code);
 
     ///Obtém o número de estudantes por turma de uma determinada UC

@@ -1053,79 +1053,109 @@ void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
     all_UCs_.erase(UCIt);
 
     // LeicClass e UC_class (erase + temp)
+    ///A função obtém o set de pares de UC e turma do estudante a partir da função get_student_enrolled_UC_and_classes da cópia do estudante e procura a turma associada à UC.
     auto student_enrolled_UC_and_classes = temp_student.get_student_enrolled_UC_and_classes();
     auto classNameIt = std::find_if(student_enrolled_UC_and_classes.begin(), student_enrolled_UC_and_classes.end(),
                                     [UC_code](const std::pair<std::string, std::string>& classPair) {
                                         return classPair.second == UC_code;
                                     }
     );
+
     string class_name = classNameIt->first;
+    ///Se a turma não for encontrada, imprime-se "UC not found in the student under consideration. Please enter a valid UC code." e a função termina.
     if(classNameIt == student_enrolled_UC_and_classes.end()){
         cout << "UC not found in the student under consideration. Please enter a valid UC code." << endl;
         return;
     }
+
+    ///Caso contrário, a turma é procurada em all_classes_.
     auto LeicClassIt = all_classes_.find(LeicClass(class_name));
+
+    ///São guardadas cópias da turma e da turma da UC. A turma é apagada de all_classes_.
     UC_class temp_UC_Class = LeicClassIt->getUCClass(UC_code);
     LeicClass temp_LEIC_class = *LeicClassIt;
     all_classes_.erase(*LeicClassIt);
 
     // Alterações dos objetos temporários
+    ///O estudante é removido das cópias da UC e da turma da UC.
     temp_UC.eraseStudent(temp_student);
     temp_UC_Class.eraseStudent(temp_student);
+    ///A turma da UC é removida da cópia da turma.
     temp_LEIC_class.eraseUcClass(temp_UC_Class);
 
+    ///O horário da turma da UC é removido do horário do estudante
     temp_student.removeSchedule(class_name, UC_code, temp_UC_Class.getUCClassSchedule());
 
+    ///O estudante, agora atualizado, é inserido na cópia da turma da UC, que por sua vez é inserida na cópia da turma.
     temp_UC_Class.insertStudent(temp_student);
     temp_LEIC_class.insertUcClass(temp_UC_Class);
 
     // Inserts
+    ///As cópias da UC, do estudante e da turma, agora atualizadas, são inseridas em all_UCs, all_students_ e all_classes_, respetivamente.
     all_UCs_.insert(temp_UC);
     all_students_.insert(temp_student);
     all_classes_.insert(temp_LEIC_class);
 
+    ///Por fim, a função imprime a mensagem "UC removed.".
     cout << "UC removed." << std::endl;
 }
 
 void Script::requestRemoveClassForAllUCs(int student_code, const std::string& class_code) {
     // Student (erase + temp)
+    ///Procura-se o estudante em all_students.
     auto studentIt = all_students_.find(Student(student_code,""));
     if(studentIt == all_students_.end()){
+        ///Se não for encontrado, imprime-se a mensagem "Invalid student code. Please enter a valid student code." e a função termina.
         cout << "Invalid student code. Please enter a valid student code." << endl;
         return;
     }
+
+    ///Cria-se uma cópia do estudante e apaga-se o estudante de all_students_.
     Student original_student = *studentIt;
     Student temp_student = original_student;
     all_students_.erase(studentIt);
+
     // LeicClass (erase + temp)
+    ///Procura-se a turma em all_classes_.
     auto classIt = all_classes_.find(LeicClass(class_code));
     if(classIt == all_classes_.end()){
+        ///Se não for encontrada, imprime-se a mensagem "Invalid class code. Please enter a valid class code." e a função termina.
         cout << "Invalid class code. Please enter a valid class code." << endl;
         return;
     }
+
+    ///Obtém-se o set de pares de UC's e respetivas turmas do estudante.
     auto student_enrolled_UC_and_classes = original_student.get_student_enrolled_UC_and_classes();
+
+    ///Cria-se uma cópia da turma e apaga-se a turma de all_classes_.
     LeicClass temp_LeicClass = *classIt;
     all_classes_.erase(classIt);
 
     // Atualizar horário do estudante e registar UCs removidas
+    ///Cria-se um set de strings para registar as UC's removidas.
     set<string> removed_UCs;
+    ///Por cada par do set obtido anteriormente, imprime-se a UC e a turma.
     for(const auto& class_code_UC_code_pair : student_enrolled_UC_and_classes){
         string current_class_code = class_code_UC_code_pair.first;
         string current_UC_code = class_code_UC_code_pair.second;
         cout << current_UC_code << current_class_code << endl;
+        ///Se a turma for a que se pretende anular a inscrição, remove-se o horário da UC, nessa turma, do horário do estudante.
         if(current_class_code == class_code){
             Schedule schedule_to_remove = temp_LeicClass.getUCClass(current_UC_code).getUCClassSchedule();
             temp_student.removeSchedule(current_class_code, current_UC_code, schedule_to_remove);
+            ///O código da UC é inserido no set de registo para UC's removidas.
             removed_UCs.insert(current_UC_code);
         }
     }
 
+    ///Se no fim deste processo não houver UC's removidas, imprime-se a mensagem "The student with code <student_code> is not enrolled in any UC in class <class_code>" e afunção termina
     if(removed_UCs.empty()){
         cout << "The student with code " << student_code << " is not enrolled in any UC in class " << class_code << endl;
         return;
     }
 
     // Atualizar LeicClass e all_UCs_
+    ///Caso contrário, atualiza-se a turma e all_UCs_, removendo de si as UC's removidas do estudante.
     for(const string& UC_code : removed_UCs){
         // LeicClass
         UC_class temp_UCClass = temp_LeicClass.getUCClass(UC_code);
@@ -1141,37 +1171,51 @@ void Script::requestRemoveClassForAllUCs(int student_code, const std::string& cl
         cout << UC_code << " was removed from " << class_code << "."<< endl;
     }
 
+    ///A turma e o estudante, agora atualizados, são inseridos em all_classes_ e all_students_, respetivamente.
     all_classes_.insert(temp_LeicClass);
     all_students_.insert(temp_student);
+
+    ///Por fim, chama-se a função loadYear para atualizar a divisão por ano das turmas e das UC's.
     loadYear();
 }
 
 void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_class_code, const string& UC_code){
     // Verificação de Student
+    ///Procura-se o aluno em all_students a partir de student_code.
     auto studentIt = all_students_.find(Student(student_code, ""));
     if (studentIt == all_students_.end()) {
+        ///Se não for encontrado, é impressa uma mensagem de erro e a função termina.
         cout << "Request denied." << endl;
         cout << "Invalid student code. Please enter a valid student code." << endl;
         return;
     }
+    ///Cria-se uma cópia do estudante.
     Student original_student = *studentIt;
     Student temp_student = original_student;
 
     // Verificação de UC_class
+    ///Obtém-se o set de pares de UC's e respetivas turmas do estudante.
     auto student_enrolled_UC_and_classes = temp_student.get_student_enrolled_UC_and_classes();
+
+    ///É criado um objeto bool UC_exists com valor *false*.
     bool UC_exists = false;
     string old_class_code;
+    ///Para cada par no set, se a UC for a UC definida por UC_code, o valor de UC_exists é definido como *true* e obtém-se a turma correpondente.
     for(const auto& class_code_UC_code_pair : student_enrolled_UC_and_classes){
         if(class_code_UC_code_pair.second == UC_code){
             UC_exists = true;
             old_class_code = class_code_UC_code_pair.first;
         }
     }
+
+    ///Se, ao fim deste processo, UC_exists tiver valor *false*, conclui-se que a UC não foi encontrada no set, logo o estudante não está inscrito nela. Assim, imprime-se uma mensagem de erro e a função termina.
     if(!UC_exists){
         cout << "Request denied." << endl;
         cout << "The student is still not enrolled in this UC." << endl;
         return;
     }
+
+    ///Por outro, se a turma da UC atual correponde à turma para a qual se quer mover o aluno, não há troca a ser efetuada. Imprime-se uma mensagem de erro e a função termina.
     if(old_class_code == new_class_code){
         cout << "Request denied." << endl;
         cout << "The classes involved in the switch are the same." << endl;
@@ -1179,26 +1223,36 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
     }
 
     // Verificação de LeicClass_new
+    ///Caso contrário, procura-se em all_classes_ a turma para a qual se pretende trocar, definida por new_classs_code.
     auto classIt_new = all_classes_.find(LeicClass(new_class_code));
     if (classIt_new == all_classes_.end()) {
+        ///Se não for encontrada, há uma mensagem de erro e a função termina.
         cout << "Request denied." << endl;
         cout << "Invalid new class code. Please enter a valid class code." << endl;
         return;
     }
+    ///Caso contrário, guarda-se uma cópia da turma.
     LeicClass temp_LeicClass_new = *classIt_new;
 
     // Verificação de UC_class_new
+    ///Verifica-se se existe uma UC Class nessa turma para a UC em questão.
     UC_class temp_UC_Class_new = temp_LeicClass_new.getUCClass(UC_code);
     if (!(temp_UC_Class_new != UC_class("Nao existe"))) {
+        ///Se não existir, imprime-se uma mensagem de erro e a função termina.
         cout << "Request denied." << endl;
         cout << "UC not found in the new class code under consideration. Please enter a valid UC code." << endl;
         return;
     }
+
+    ///Por outro lado, se o número de estudantes na turma da UC já tiver atingido o máximo, há também uma mensagem de erro e a função termina.
     if(temp_UC_Class_new.getNumberOfEnrolledStudents() >= 27){
         cout << "Request denied." << endl;
         cout << "The new UC class has already reached it's maximum capacity of 27 students." << endl;
         return;
     }
+
+
+    ///Caso contrário, obtém-se o horário da UC nessa turma.
     Schedule new_schedule = temp_UC_Class_new.getUCClassSchedule();
 
     // Verificação de LeicClass_old
