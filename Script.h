@@ -260,7 +260,7 @@ public:
     void requestAddUCInClass(int student_code, const string& class_code, const string& UC_code);
     void requestRemoveSingleUC(int student_code, const string& UC_code);
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
-    void requestSwitchSingleUCtoClass(int student_code, const string& class_code, const string& UC_code);
+    void requestSwitchSingleUCtoClass(int student_code, const string& new_class_code, const string& UC_code);
 
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const;
     void saveChangesToCsvFile(const string& filename);

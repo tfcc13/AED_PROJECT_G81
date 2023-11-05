@@ -882,6 +882,11 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         cout << "UC not found in the class code under consideration. Please enter a valid UC code." << endl;
         return;
     }
+    if(temp_UC_Class.getNumberOfEnrolledStudents() >= 27){
+        cout << "Request denied." << endl;
+        cout << "The current UC class has already reached it's maximum capacity of 27 students." << endl;
+        return;
+    }
     Schedule schedule_to_add = temp_UC_Class.getUCClassSchedule();
     // Verifica se o horário da UC_class é compatível com o horário do estudante
     if (temp_student.checkScheduleConflict(schedule_to_add)) {
@@ -1068,7 +1073,151 @@ void Script::requestRemoveClassForAllUCs(int student_code, const std::string& cl
     loadYear();
 }
 
-void Script::requestSwitchSingleUCtoClass(int student_code, const string& class_code, const string& UC_code){
+void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_class_code, const string& UC_code){
+    // Verificação de Student
+    auto studentIt = all_students_.find(Student(student_code, ""));
+    if (studentIt == all_students_.end()) {
+        cout << "Request denied." << endl;
+        cout << "Invalid student code. Please enter a valid student code." << endl;
+        return;
+    }
+    Student original_student = *studentIt;
+    Student temp_student = original_student;
+
+    // Verificação de UC_class
+    auto student_enrolled_UC_and_classes = temp_student.get_student_enrolled_UC_and_classes();
+    bool UC_exists = false;
+    string old_class_code;
+    for(const auto& class_code_UC_code_pair : student_enrolled_UC_and_classes){
+        if(class_code_UC_code_pair.second == UC_code){
+            UC_exists = true;
+            old_class_code = class_code_UC_code_pair.first;
+        }
+    }
+    if(!UC_exists){
+        cout << "Request denied." << endl;
+        cout << "The student is still not enrolled in this UC." << endl;
+        return;
+    }
+    if(old_class_code == new_class_code){
+        cout << "Request denied." << endl;
+        cout << "The classes involved in the switch are the same." << endl;
+        return;
+    }
+
+    // Verificação de LeicClass_new
+    auto classIt_new = all_classes_.find(LeicClass(new_class_code));
+    if (classIt_new == all_classes_.end()) {
+        cout << "Request denied." << endl;
+        cout << "Invalid new class code. Please enter a valid class code." << endl;
+        return;
+    }
+    LeicClass temp_LeicClass_new = *classIt_new;
+
+    // Verificação de UC_class_new
+    UC_class temp_UC_Class_new = temp_LeicClass_new.getUCClass(UC_code);
+    if (!(temp_UC_Class_new != UC_class("Nao existe"))) {
+        cout << "Request denied." << endl;
+        cout << "UC not found in the new class code under consideration. Please enter a valid UC code." << endl;
+        return;
+    }
+    if(temp_UC_Class_new.getNumberOfEnrolledStudents() >= 27){
+        cout << "Request denied." << endl;
+        cout << "The new UC class has already reached it's maximum capacity of 27 students." << endl;
+        return;
+    }
+    Schedule new_schedule = temp_UC_Class_new.getUCClassSchedule();
+
+    // Verificação de LeicClass_old
+    auto classIt_old = all_classes_.find(LeicClass(old_class_code));
+    LeicClass temp_LeicClass_old = *classIt_old;
+
+    // Verificação de UC_class_old
+    UC_class temp_UC_Class_old = temp_LeicClass_old.getUCClass(UC_code);
+    Schedule old_schedule = temp_UC_Class_old.getUCClassSchedule();
+
+    temp_student.removeSchedule(old_class_code, UC_code, old_schedule);
+
+    // Verifica se o horário da UC_class_new é compatível com o horário do estudante sem o old_schedule
+    if (temp_student.checkScheduleConflict(new_schedule)) {
+        cout << "Request denied." << endl;
+        cout << "The student's schedule " << student_code << " is not compatible with the new class schedule " << new_class_code
+             << " of UC " << UC_code << "." << endl;
+        return;
+    }
+
+    auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
+    int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
+    int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+
+    auto it_old = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
+                           [old_class_code](const pair<string, int>& p) {
+                               return p.first == old_class_code;
+                           });
+
+    auto it_new = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
+                               [old_class_code](const pair<string, int>& p) {
+                                   return p.first == old_class_code;
+                               });
+
+    if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
+        // Balance does not exist
+        if(it_old->second <= it_new->second){
+            cout << "Request denied." << endl;
+            cout << "The balance of class occupation in this UC has not been reached yet. To achieve balance, you should enroll in classes with fewer number of students compared to the current (" << max_number_of_enrolled_students_per_class_in_UC << "), which are:" << endl;
+            for(const auto& elem : number_of_enrolled_students_per_class_in_UC){
+                if(it_old->second > elem.second){
+                    cout << elem.first << " (" << elem.second << ") students enrolled" << endl;
+                    return;
+                }
+            }
+        } else{
+            cout << "Request approved." << endl;
+            cout << "The balance of class occupation in this UC has not been reached yet. Your request will help achieve this balance." << endl;
+        }
+    } else{
+        // Balance exists
+        *it_old--;
+        *it_new++;
+        std::sort(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
+                  [](const pair<string, int>& a, const pair<string, int>& b) {
+                      return a.second < b.second;
+                  });
+
+        min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
+        max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+
+        if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
+            cout << "Request denied. This request disrupts class occupancy. The difference in the number of students enrolled in any class within the same UC must be less than or equal to 4." << endl;
+            return;
+        }
+        cout << "Request approved." << endl;
+        cout << "The balance between class occupation was not disturbed." << endl;
+    }
+
+    // Request aprovado
+    auto UCIt = all_UCs_.find(UC_class(UC_code));
+    auto temp_UC = *UCIt;
+    // erases
+    all_students_.erase(original_student);
+    all_classes_.erase(temp_LeicClass_old);
+    all_classes_.erase(temp_LeicClass_new);
+    all_UCs_.erase(temp_UC);
+    temp_UC_Class_old.eraseStudent(original_student);
+    temp_UC.eraseStudent(original_student);
+    // Alterações
+    temp_student.addSchedule(new_class_code, UC_code, new_schedule);
+    // inserts
+    temp_UC_Class_new.insertStudent(temp_student);
+    temp_LeicClass_old.insertUcClass(temp_UC_Class_old);
+    temp_LeicClass_new.insertUcClass(temp_UC_Class_new);
+    temp_UC.insertStudent(temp_student);
+    all_students_.insert(temp_student);
+    all_classes_.insert(temp_LeicClass_new);
+    all_classes_.insert(temp_LeicClass_old);
+    all_UCs_.insert(temp_UC);
+
+    cout << "(" << UC_code << ", "  << old_class_code << ") was switched to " << "(" << UC_code << ", "  << new_class_code << ") added." << std::endl;
 
 }
 
