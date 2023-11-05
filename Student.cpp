@@ -49,16 +49,23 @@ void Student::PrintUcWeekSchedule() const{
 
 
 void Student::PrintEnrolledUCs() const {
+    cout << left << setw(10) << "Class Code" << " | " << "UC code" << endl;
     for (const auto& pair : st_enrolled_UC_and_classes_) {
-        std::cout  << pair.first << " - " << pair.second << std::endl;
+        std::cout  << left << setw(10) << pair.first << " | " << pair.second << std::endl;
     }
 }
 
 void Student::PrintEnrolledClasses() const {
+    set<string> classes;
+    cout << "Class Code" << endl;
     for (const auto& pair : st_enrolled_UC_and_classes_) {
-        std::cout  << pair.first << std::endl;
+        classes.insert(pair.first);
+    }
+    for (const auto& un_class : classes) {
+        std::cout  << un_class << std::endl;
     }
 }
+
 
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     ///O par \<class_code, UC_code\> é inserido no set st_enrolled_UC_and_classes_ referente às UC´s e respetivas turmas do aluno.

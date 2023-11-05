@@ -66,8 +66,9 @@ Schedule UC_class::getUCClassSchedule() const{
 
 void UC_class::PrintEnrolledStudents() const {
     ///Para cada estudante em enrolled_students_ , a função imprime "Student number: <id_number_> Student name: <st_name_>"
+    std::cout << left << setw(14) << "Student number"  << " | " << "Student name"  << std::endl;
     for (const Student& student : enrolled_students_) {
-        std::cout << "Student number: " << student.getIdNumber() << " Student name: " << student.getStudentName() << std::endl;
+        std::cout << left << setw(14) << student.getIdNumber() << " | " << student.getStudentName() << std::endl;
     }
 }
 

@@ -130,6 +130,7 @@ public:
     void consultUCCLassOccupancy(const string& class_code, const string& uc_code);
     int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
     void consultClassEnrolledStudents(const string& class_code);
+    void consultUCCLassEnrolledStudents(const string& class_code, const string& uc_code);
     void consultGreatestClasses(int num_classes);
     void consultSmallestClasses(int num_classes);
     void consultYearOccupancy(int year);
@@ -145,21 +146,20 @@ public:
     void consultClassesWithMinNStudents(int year, int number);
     void consultClassesWithMaxNStudents(int year, int number);
 
-
     void captureState();
     void restoreState(DataBaseState& previous_state);
     void undoLastAction();
 
-    void requestRemoveClassForAllUCs(int student_code, const string& class_code);
-    void requestSwitchAllUCstoClass(int student_code, const string& class_code);
-    void requestSwitchSingleUCtoClass(int student_code, const string& UC_code);
-    bool requestAddUCInClass(int student_id, const string& class_code, const string& UC_code);
+    void requestAddUCInClass(int student_code, const string& class_code, const string& UC_code);
     void requestRemoveSingleUC(int student_code, const string& UC_code);
+    void requestRemoveClassForAllUCs(int student_code, const string& class_code);
+    void requestSwitchSingleUCtoClass(int student_code, const string& UC_code);
+    void requestSwitchAllUCstoClass(int student_code, const string& class_code);
+
+    bool validationOfStudentsUCClassEnrollment(int student_code, const string& class_code, const string& UC_code);
+    bool validationOfStudentsUCCClassSwitch();
 
     void saveChangesToCsvFile(const string& filename);
-
-    vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const; // <class, Nº de alunos>. Por ordem de menos alunos para mais alunos. Tentar inscrever na que tem menos alunos (se compatível)
-    bool checkBalanceBetweenTwoClassesInUC(const string& UC_code, const string& class_code_1, const string& class_code_2);
 
 private:
     std::set<UC_class> all_UCs_;// = populateUcSet("input/classes.csv");
