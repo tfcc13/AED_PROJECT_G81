@@ -921,8 +921,8 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
 
     ///Guarda-se também os números de estudantes da turma com menos estudantes e da turma com mais estudantes (primeiro e último membro do vetor).
-    int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
-    int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+    int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.at(0).second;
+    int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.back().second;
 
     auto it = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
                            [class_code](const pair<string, int>& p) {
@@ -939,9 +939,9 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
             for(const auto& elem : number_of_enrolled_students_per_class_in_UC){
                 if(elem.second < max_number_of_enrolled_students_per_class_in_UC){
                     cout << elem.first << " (" << elem.second << ") students enrolled" << endl;
-                    return;
                 }
             }
+            return;
         } else{
             ///Se ajudar, o pedido é aprovado.
             cout << "Request approved." << endl;
@@ -956,8 +956,8 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
                       return a.second < b.second;
                   });
 
-        min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
-        max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+        int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.at(0).second;
+        int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.back().second;
 
         ///Se perturbar, o pedido é rejeitado e a função termina.
         if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
@@ -1247,8 +1247,8 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
 
     ///Obtém-se os números de estudantes da turma com menos estudantes e da turma com mais estudantes.
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
-    int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
-    int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+    int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.at(0).second;
+    int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.back().second;
 
     ///Obtém-se também o número de estudantes da turma antiga e da turma nova.
     auto it_old = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
@@ -1271,8 +1271,8 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
             for(const auto& elem : number_of_enrolled_students_per_class_in_UC){
                 if(it_old->second > elem.second){
                     cout << elem.first << ": " << elem.second << " students enrolled" << endl;
-                    return;
                 }
+                return;
             }
         } else{
             ///Caso contrário, o pedido é aprovado e é impressa uma mensagem de confirmação da aprovação.
@@ -1289,8 +1289,8 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
                       return a.second < b.second;
                   });
 
-        min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
-        max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
+        int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.at(0).second;
+        int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.back().second;
 
         if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
             ///Se for rejeitada, há uma mensagem de erro e a função termina.
