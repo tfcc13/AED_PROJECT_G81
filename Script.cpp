@@ -787,14 +787,14 @@ void Script::requestRemoveClassForAllUCs(int student_code, const std::string& cl
     loadYear();
 }
 
-bool Script::validationOfStudentsUCClassEnrollment(int student_code, const string& class_code, const string& UC_code){
+bool Script::validationOfStudentsUCClassEnrollment(int student_code, const string& class_code, const string& UC_code) {
     // Verificação de Student
-    auto studentIt = all_students_.find(Student(student_code,""));
-    if(studentIt == all_students_.end()){
+    auto studentIt = all_students_.find(Student(student_code, ""));
+    if (studentIt == all_students_.end()) {
         cout << "Invalid student code. Please enter a valid student code." << endl;
         return false;
     }
-    if(studentIt->getNumberOfUCs() >= 7){
+    if (studentIt->getNumberOfUCs() >= 7) {
         cout << "The student is already enrolled in the maximum of 7 UC's." << endl;
         return false;
     }
@@ -802,21 +802,23 @@ bool Script::validationOfStudentsUCClassEnrollment(int student_code, const strin
     // Verificação de LeicClass
     auto classIt = all_classes_.find(LeicClass(class_code));
     LeicClass current_LeicClass = *classIt;
-    if(classIt == all_classes_.end()){
+    if (classIt == all_classes_.end()) {
         cout << "Invalid class code. Please enter a valid class code." << endl;
         return false;
     }
     // Verificação de UC_class
     UC_class current_UCClass = current_LeicClass.getUCClass(UC_code);
-    if(!(current_UCClass != UC_class("Nao existe"))){
+    if (!(current_UCClass != UC_class("Nao existe"))) {
         cout << "UC not found in the class code under consideration. Please enter a valid UC code." << endl;
         return false;
     }
     Schedule schedule_to_add = current_UCClass.getUCClassSchedule();
     // Verifica se o horário da UC_class é compatível com o horário do estudante
-    if(!(current_student.checkScheduleConflict(schedule_to_add))){
-        cout << "The student's schedule " << student_code << " is not compatible with class schedule " << class_code << " of academic unit " << UC_code << "." << endl;
+    if (!(current_student.checkScheduleConflict(schedule_to_add))) {
+        cout << "The student's schedule " << student_code << " is not compatible with class schedule " << class_code
+             << " of academic unit " << UC_code << "." << endl;
     }
+}
 
 void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
     // Student (erase + temp)
@@ -870,9 +872,6 @@ void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
     all_classes_.insert(temp_LEIC_class);
 
     cout << "UC removed" << std::endl;
-}
-
-
 }
 
 void Script::saveChangesToCsvFile(const string& filename) {
