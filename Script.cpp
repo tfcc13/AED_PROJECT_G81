@@ -266,28 +266,31 @@ void Script::PrintWeekScheduleClass(const string& class_name){
 }
 
 void Script::consultStudentEnrolledUCs(int studentNumber) {
-
+    ///A função procura em all_students_ o estudante a partir de studentNumber.
     auto studentIt = all_students_.find(Student(studentNumber,""));
 
+    ///Caso não seja encontrado, "Student not found" é impresso e sai-se da função.
     if (studentIt == all_students_.end()) {
         cout << "Student not found" << std::endl;
         return;
     }
 
-
+    ///Caso contrário, cria-se uma cópia do estudante encontrado e as UC's em que está inscrito são impressas a partir da sua função PrintEnrolledUCs.
     Student studentTemp = *studentIt;
     studentTemp.PrintEnrolledUCs();
 }
 
 void Script::consultStudentEnrolledClasses(int studentNumber) {
+    ///A função procura em all_students_ o estudante a partir de studentNumber.
     auto studentIt = all_students_.find(Student(studentNumber,""));
 
+    ///Caso não seja encontrado, "Student not found" é impresso e sai-se da função.
     if (studentIt == all_students_.end()) {
         cout << "Student not found" << std::endl;
         return;
     }
 
-
+    ///Caso contrário, imprime-se as turmas em que o estudante está inscrito através da sua função PrintEnrolledClasses.
     studentIt->PrintEnrolledClasses();
 }
 

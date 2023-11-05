@@ -86,7 +86,7 @@ public:
     ///Imprime o horário semanal de um estudante
     ///
     ///**Time Complexity:** O(log n)
-    /// \param studentNumber Número de estudante do estudante cujo horário se pretende imprimir
+    /// \param studentNumber Número do estudante cujo horário se pretende imprimir
     void PrintWeekStudentSchedule(int studentNumber);
 
 
@@ -98,9 +98,21 @@ public:
 
 
 
-
+    ///Imprime as UC's em que um estudante está inscrito
+    ///
+    ///**Time Complexity:** O(log n)
+    /// \param studentNumber Número do estudante cujas UC's se pretende imprimir
     void consultStudentEnrolledUCs(int studentNumber);
+
+
+    ///Imprime as turmas em que um estudante está inscrito
+    ///
+    ///**Time Complexity:** O(log n)
+    /// \param studentNumber Número do estudante cujas UC's se pretende imprimir
     void consultStudentEnrolledClasses(int studentNumber);
+
+
+    ///
     void consultUCOccupancy(const string& uc_name);
     void consultUCEnrolledStudents(const string& uc_name);
     void consultGreatestNumberOfStudentsUCs(int num);

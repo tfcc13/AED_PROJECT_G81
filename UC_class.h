@@ -141,7 +141,7 @@ public:
     void PrintUcWeekSchedule() const;
 
 
-    ///Adiciona uma aula ao horário da turma
+    ///Adiciona uma aula ao horário da UC
     ///
     ///**Time Complexity:** O(n * log n)
     /// \param week_day Dia ao qual se pretende adicionar a aula
