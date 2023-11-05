@@ -1,7 +1,3 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #include "Student.h"
 
 Student::Student(int id_number, const string& st_name) :
@@ -47,7 +43,6 @@ void Student::PrintUcWeekSchedule() const{
     st_schedule_.PrintWeekSchedule();
 }
 
-
 void Student::PrintEnrolledUCs() const {
     cout << left << setw(10) << "Class Code" << " | " << "UC code" << endl;
     for (const auto& pair : st_enrolled_UC_and_classes_) {
@@ -65,7 +60,6 @@ void Student::PrintEnrolledClasses() const {
         std::cout  << un_class << std::endl;
     }
 }
-
 
 void Student::addSchedule(const string& class_code, const string& UC_code, const Schedule& s){
     ///O par \<class_code, UC_code\> é inserido no set st_enrolled_UC_and_classes_ referente às UC´s e respetivas turmas do aluno.
@@ -89,12 +83,3 @@ bool Student::checkScheduleConflict(const Schedule& s) const{
     ///A verificação é feita através da função checkScheduleConflict de st_schedule_
     return st_schedule_.checkScheduleConflict(s);
 }
-
-/*void Student::insertUcCode(const std::string &UcCode) {
-   this->uc_code.insert(UcCode);
-}
-*/
-/*const std::set<std::string>& Student::getUcCodes() const {
-    return uc_code;
-}
-*/

@@ -1,15 +1,9 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #include "LeicClass.h"
-
 
 LeicClass::LeicClass() :
     LEIC_class_name_(),
     LEIC_UC_classes_(),
     LEIC_class_schedule_() {}
-
 
 LeicClass::LeicClass(const string& class_name) :
         LEIC_class_name_(class_name),
@@ -35,7 +29,8 @@ UC_class LeicClass::getUCClass(const string &UC_class_name) const {
     auto it = LEIC_UC_classes_.find(UC_class(UC_class_name));
     ///Caso não seja encontrada, a função retorna um objeto UC_class com UC_name_ "Nao existe".
     if(it == LEIC_UC_classes_.end()){
-        return UC_class("Nao existe");
+        UC_class ret = UC_class("Nao existe");
+        return ret;
     }
     return *it;
 }

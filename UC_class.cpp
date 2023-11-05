@@ -1,7 +1,3 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #include "UC_class.h"
 
 UC_class::UC_class(const string& UC_name, int uc_year) :
@@ -11,7 +7,6 @@ UC_class::UC_class(const string& UC_name, int uc_year) :
         UC_class_schedule_(),
         UC_year_(uc_year)
         {}
-
 
 UC_class::UC_class(const UC_class &other) {
     UC_name_ = other.UC_name_;

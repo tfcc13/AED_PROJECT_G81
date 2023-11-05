@@ -1,7 +1,3 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #ifndef AED_PROJECT_SCHEDULE_H
 #define AED_PROJECT_SCHEDULE_H
 
@@ -13,7 +9,6 @@
 #include <iomanip>
 
 using namespace std;
-
 
 ///@struct dayScheduleEntry
 ///
@@ -34,9 +29,6 @@ struct dayScheduleEntry {
     ///Tipo de aula (T, TP ou PL)
     string class_type;
 };
-
-
-
 
 ///Classe que representa horários
 class Schedule {
@@ -63,15 +55,12 @@ public:
     /// \param other Schedule que se pretende copiar
     Schedule(const Schedule& other);
 
-
-
     ///Adiciona uma aula
     ///
     ///**Time Complexity:** O(n * log n) (devido ao sort)
     /// \param week_day Dia ao qual se pretende adicionar uma aula
     /// \param entry Aula que se pretende adicionar
     void addDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
-
 
     ///Remove uma aula
     ///
@@ -81,7 +70,6 @@ public:
     /// \param entry Aula que se pretende remover
     void removeDayScheduleEntry(const string &week_day, const dayScheduleEntry& entry);
 
-
     ///Verifica se uma determinada aula tem uma sobreposição conflituosa com outra aula
     ///
     ///**Time Complexity:** O(n)
@@ -90,13 +78,11 @@ public:
     /// \return *True* se houver conflito, *False* caso contrário
     bool checkDayScheduleEntryConflict(const string &week_day, const dayScheduleEntry& entry) const; // Se houver conflito, return true
 
-
     ///Funde o horário atual com outro horário
     ///
     ///**Time Complexity:** O(n^2 * log n)
     /// \param s Horário que se pretende fundir com o horário atual
     void addSchedule(const Schedule& s);
-
 
     ///Remove do horário atual as aulas de outro horário
     ///
@@ -111,21 +97,16 @@ public:
     /// \return *True* se houver conflito, *False* caso contrário
     bool checkScheduleConflict(const Schedule& s) const;
 
-
     ///Imprime o horário de um dia
     ///
     ///**Time Complexity:** O(n)
     /// \param week_day Dia cujo horário se pretende imprimir
     void PrintDaySchedule(const std::string& week_day) const;
 
-
     ///Imprime o horário semanal
     ///
     ///**Time Complexity:** O(n)
     void PrintWeekSchedule() const;
-
 };
-
-
 
 #endif //AED_PROJECT_SCHEDULE_H
