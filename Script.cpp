@@ -576,9 +576,9 @@ void Script::consultYearOccupancy(int year) {
         return;
     }
 
-    ///Caso contrário,
     set<Student> temp_student;
     set<Student> student_union;
+    ///Caso contrário, para cada turma do conjunto de turmas do ano year (set na posição year-1 de leic_class_years_), obtém-se os alunos inscritos pela função getEnrolledStudents. Outro set acumula os estudantes ao longo das iterações.
     for (const auto & classIt : leic_class_years_[year-1]) {
         set<Student> temp = classIt.getEnrolledStudents();
         set_union(temp_student.begin(), temp_student.end(),
@@ -586,6 +586,8 @@ void Script::consultYearOccupancy(int year) {
                   inserter(student_union,student_union.begin()));
         temp_student = student_union;
     }
+
+    ///Por fim, imprime-se "The  first/second/third year has <número de estudantes> students", sendo que o número de estudantes é obtido a partir do tamanho do set referido anteriormente.
     if (year == 1) {
         cout << "The  first year has " << student_union.size() << " students" << endl;
     }
@@ -597,48 +599,43 @@ void Script::consultYearOccupancy(int year) {
     }
 }
 
-// Francisco vê isto
-
-/**
- * @brief prints the students in a year ordered by number
- *
- * This function makes a set of students within a Leic year (1,2 or 3)
- *
- *
- *
- * @param year Recebe o ano que se quer ver
- *
- * @return Description of the return value.
- */
-
 void Script::consultEnrolledStudentsYear(int year) {
-    if(year > int(UC_years_.size()) || year < 1) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
+    if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
     set<Student> temp_student;
-    // Francisco ve isto
-    /// This set is a union of unique students in a year
     set<Student> student_union;
+    ///Caso contrário, para cada turma do conjunto de turmas do ano year (set na posição year-1 de leic_class_years_), obtém-se os alunos inscritos pela função getEnrolledStudents. Outro set acumula os estudantes ao longo das iterações.
     for (const auto & classIt : leic_class_years_[year-1]) {
         set<Student> temp = classIt.getEnrolledStudents();
         set_union(temp_student.begin(), temp_student.end(),
                   temp.begin(),temp.end(),
                   inserter(student_union,student_union.begin()));
-    temp_student = student_union;
+        temp_student = student_union;
     }
+
+    ///De seguida, a função imprime o header da tabela que se irá criar, "Number | Student Name"
     cout << left << setw(9) << "Number" << " | " << "Student Name" << std::endl;
+
+    ///Por fim, para cada estudante no set, imprime-se o número de estudante (obtido por getIdNumber) e o nome (obtido por getStudentName).
     for (const auto & student : student_union) {
         cout << left << setw(9) << student.getIdNumber() << " | " << student.getStudentName() << endl;
     }
 }
 
 void Script::consultUCsByYear(int year){
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///Caso contrário, a função imprime o header da tabela que se irá criar, "UC code | Occupancy".
     cout << left << setw(8) << "UC code" << " | " << "Occupancy" << endl;
+    ///Por fim, para cada UC do conjunto de UC's do ano pretendido (set na posição year-1 de UC_years_), imprime-se o nome da UC (obtido por getUcName) e o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents).
     for (const auto& uc_class : UC_years_[year-1]) {
         cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() << std::endl;
     }
@@ -646,34 +643,48 @@ void Script::consultUCsByYear(int year){
 
 
 void Script::consultUCsByYearByAscendingOccupancy(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos UC_class, uc1 e uc2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em uc1 for menor que em uc2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
     };
 
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos do set correspondente às UC's desse ano em UC_years_, ordenados a partir de compareNumberOfStudents.
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year-1].begin(),UC_years_[year-1].end(), compareNumberOfStudents);
-        std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
-        for (const auto& uc:sortedByOccupancy) {
-            std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
-        }
+    ///A função imprime o header da tabela que se irá criar, "UC | Enrolled Students".
+    std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
 
-
+    ///Por fim, para cada UC em sortedByOccupancy, imprime-se o nome da UC (obtido por getUCName) e o número de estudantes inscritos nesta (obtido por getNumberOfEnrolledStudents). Como o set está ordenado por ordem crescente de número de estudantes, é essa a orden de impressão.
+    for (const auto& uc:sortedByOccupancy) {
+        std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
+    }
 }
 
 void Script::consultUCsByYearByDescendingOccupancy(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos UC_class, uc1 e uc2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em uc1 for maior que em uc2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() > uc2.getNumberOfEnrolledStudents();
     };
 
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos do set correspondente às UC's desse ano em UC_years_, ordenados a partir de compareNumberOfStudents.
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(UC_years_[year-1].begin(),UC_years_[year-1].end(), compareNumberOfStudents);
+    ///A função imprime o header da tabela que se irá criar, "UC | Enrolled Students".
     std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
+
+    ///Por fim, para cada UC em sortedByOccupancy, imprime-se o nome da UC (obtido por getUCName) e o número de estudantes inscritos nesta (obtido por getNumberOfEnrolledStudents). Como o set está ordenado por ordem decrescente de número de estudantes, é essa a orden de impressão.
     for (const auto& uc:sortedByOccupancy) {
         std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
     }
@@ -681,18 +692,29 @@ void Script::consultUCsByYearByDescendingOccupancy(int year) {
 }
 
 void Script::consultUCsWithMinNStudents(int year, int number) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///Caso contrário, cria-se um objeto flag do tipo bool, com valor *false*.
     bool flag = false;
+
+    ///A função imprime o header da tabela que se irá criar, "UC code | Occupancy".
     cout << left << setw(8) <<  "UC code" << " | " << "Occupancy" << endl;
+
+    ///Para cada UC do conjunto de UC's do ano pretendido (set na posição year-1 de UC_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for maior ou igual que o mínimo desejado, imprime-se o nome (obtido por getUcName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
     for (const auto& uc_class : UC_years_[year-1]) {
         if (uc_class.getNumberOfEnrolledStudents() >= number) {
             cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() <<  std::endl;
+            ///Além disso, nessa condição, o valor de flag é definido como *true*.
             flag = true;
         }
     }
+
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes superior ou igual ao mínimo desejado.
+    ///Assim, a função imprime "There is no UC with a minimum of <mínimo> students"
     if (!flag) {
         cout << "There is no UC with a minimum of " << number << " students" <<  std::endl;
     }
@@ -701,20 +723,29 @@ void Script::consultUCsWithMinNStudents(int year, int number) {
 
 
 void Script::consultUCsWithMaxNStudents(int year, int number) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
 
+    ///Caso contrário, cria-se um objeto flag do tipo bool, com valor *false*.
     bool flag = false;
 
+    ///A função imprime o header da tabela que se irá criar, "UC code | Occupancy".
     cout << left << setw(8) <<  "UC code" << " | " << "Occupancy" << endl;
+
+    ///Para cada UC do conjunto de UC's do ano pretendido (set na posição year-1 de UC_years_), se o número de estudantes inscritos (obtido por getNumberOfEnrolledStudents) for menor ou igual ao o máximo desejado, imprime-se o nome (obtido por getUcName) e o número de estudantes (obtido por getNumberOfEnrolledStudents).
     for (const auto& uc_class : UC_years_[year-1]) {
         if (uc_class.getNumberOfEnrolledStudents() <= number) {
             cout << left << setw(8) << uc_class.getUcName() << " | " << uc_class.getNumberOfEnrolledStudents() <<  std::endl;
+            ///Além disso, nessa condição, o valor de flag é definido como *true*.
             flag = true;
         }
     }
+
+    ///Se, após se iterar pelo ano inteiro, flag tiver valor *false*, conclui-se que este não foi alterado para *true*, ou seja, não foram encontradas turmas com um número de estudantes inferior ou igual ao máximo desejado.
+    ///Assim, a função imprime "There is no UC with a maximum of <máximo> students"
     if (!flag) {
         cout << "There is no UC with a maximum of " << number << " students" <<  std::endl;
     }

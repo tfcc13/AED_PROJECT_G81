@@ -200,13 +200,52 @@ public:
     void consultSmallestClasses(int num_classes);
 
 
-
+    ///Imprime o número de estudantes de um ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano cujo número de estudantes se pretende consultar
     void consultYearOccupancy(int year);
+
+    ///Imprime os estudantes de um ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano cujos estudantes se pretende consultar
     void consultEnrolledStudentsYear(int year);
+
+
+    ///Imprime as UC's de um ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano cujas UC's se pretende consultar
     void consultUCsByYear(int year);
+
+
+    ///Imprime as UC's de um ano por ordem crescente de número de alunos inscritos
+    ///
+    ///**Time Complexity:** O(n * log n)
+    /// \param year Ano cujas UC's se pretende consultar
     void consultUCsByYearByAscendingOccupancy(int year);
+
+    ///Imprime as UC's de um ano por ordem decrescente de número de alunos inscritos
+    ///
+    ///**Time Complexity:** O(n * log n)
+    /// \param year Ano cujas UC's se pretende consultar
     void consultUCsByYearByDescendingOccupancy(int year);
+
+
+    ///Imprime as UC's com um número de estudantes igual ou superior a um determinado número, num determinado ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano que se pretende analisar
+    /// \param number Número mínimo de estudantes
     void consultUCsWithMinNStudents(int year, int number);
+
+
+    ///Imprime as UC's com um número de estudantes igual ou inferior a um determinado número, num determinado ano.
+    ///
+    ///**Time Complexity:** O(n)
+    /// \param year Ano que se pretende analisar
+    /// \param number Número máximo de estudantes
     void consultUCsWithMaxNStudents(int year, int number);
     void consultClassesInaYear(int year);
     void consultClassesInaYearByAscendingOccupancy(int year);
