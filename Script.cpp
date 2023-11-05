@@ -268,9 +268,7 @@ void Script::consultStudentEnrolledUCs(int studentNumber) {
         return;
     }
 
-
-    Student studentTemp = *studentIt;
-    studentTemp.PrintEnrolledUCs();
+    studentIt->PrintEnrolledUCs();
 }
 
 void Script::consultStudentEnrolledClasses(int studentNumber) {
@@ -293,7 +291,7 @@ void Script::consultUCOccupancy(const string& uc_name) {
         return;
     }
 
-    std::cout << UCClassIt->getNumberOfEnrolledStudents() << std::endl;
+    std::cout << uc_name << " has " << UCClassIt->getNumberOfEnrolledStudents()  << " students " << std::endl;
 }
 
 void Script::consultUCEnrolledStudents(const string& uc_name) {
@@ -430,6 +428,28 @@ void Script::consultClassEnrolledStudents(const string& class_code) {
     for (Student student : class_students) {
         cout << left << setw(14) << student.getIdNumber() << " | " << student.getStudentName() << endl;
     }
+}
+
+void Script::consultUCCLassEnrolledStudents(const string& class_code, const string& uc_code) {
+    auto classIt = all_classes_.find(LeicClass(class_code));
+
+    if(classIt == all_classes_.end()) {
+        cout << "Class not found" << endl;
+        return;
+    }
+
+    UC_class UC_temp = classIt->getUCClass(uc_code);
+
+    if(UC_temp.getUcName() == "Nao existe") {
+        cout << "Class found but UC not found" << endl;
+        return;
+    }
+
+    UC_temp.PrintEnrolledStudents();
+
+
+
+
 }
 
 
@@ -818,6 +838,7 @@ void Script::requestRemoveClassForAllUCs(int student_code, const std::string& cl
 
     all_classes_.insert(temp_LeicClass);
     all_students_.insert(temp_student);
+    loadYear();
 }
 
 // Para na UC, inscrever nas turmas com menos alunos

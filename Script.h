@@ -95,6 +95,7 @@ public:
     void consultUCCLassOccupancy(const string& class_code, const string& uc_code);
     int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
     void consultClassEnrolledStudents(const string& class_code);
+    void consultUCCLassEnrolledStudents(const string& class_code, const string& uc_code);
     void consultGreatestClasses(int num_classes);
     void consultSmallestClasses(int num_classes);
     void consultYearOccupancy(int year);

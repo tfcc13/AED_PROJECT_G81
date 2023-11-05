@@ -70,7 +70,10 @@ void displayStudentMenu(Script& script){
             case 4:
                 std::cout << "Insert the number of UC's a student has" << std::endl;
                 std::cin >> numberOfUcs;
+                cout << endl;
                 std::cout << "Theres " << script.consultNumberOfStudentsRegisteredUCs(numberOfUcs) << " students registered at " << numberOfUcs << " UC's" << std::endl;
+                cout << endl;
+                break;
             case 5:
                 clearScreen();
                 return;
@@ -121,6 +124,7 @@ void displayUcMenu(Script& script){
             case 1: // Done
                 std::cout << "Write the UC name" << std::endl ;
                 std::cin >> uc_name;
+                cout << endl;
                 script.consultUCOccupancy(uc_name);
                 std::cout << std::endl;
                 break;
@@ -177,12 +181,13 @@ void displayClassMenu(Script& script){
         std::cout << "(1) >> Consult class occupancy" << std::endl;
         std::cout << "(2) >> Consult UC class occupancy" << std::endl;
         std::cout << "(3) >> Consult class enrolled students" << std::endl;
-        std::cout << "(4) >> Consult class schedule" << std::endl;
-        std::cout << "(5) >> Consult UC class schedule" << std::endl;
-        std::cout << "(6) >> Consult classes with the greatest number of students" << std::endl;
-        std::cout << "(7) >> Consult classes with the smallest number of students" << std::endl;
-        std::cout << "(8) >> Go back" << std::endl;
-        std::cout << "(9) >> Close menu" << std::endl;
+        std::cout << "(4) >> Consult UC class enrolled students" << std::endl;
+        std::cout << "(5) >> Consult class schedule" << std::endl;
+        std::cout << "(6) >> Consult UC class schedule" << std::endl;
+        std::cout << "(7) >> Consult classes with the greatest number of students" << std::endl;
+        std::cout << "(8) >> Consult classes with the smallest number of students" << std::endl;
+        std::cout << "(9) >> Go back" << std::endl;
+        std::cout << "(10) >> Close menu" << std::endl;
         std::cout << "Please choose an option" << std::endl;
 
         int input;
@@ -202,6 +207,7 @@ void displayClassMenu(Script& script){
             case 1:
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
+                cout << endl;
                 script.consultClassOccupancy(class_name);
                 cout << std::endl;
                 break;
@@ -210,45 +216,59 @@ void displayClassMenu(Script& script){
                 cin >> class_name;
                 std::cout << "Write the UC name" << std::endl;
                 cin >> uc_code;
+                cout << endl;
                 script.consultUCCLassOccupancy(class_name,uc_code);
                 cout << endl;
                 break;
             case 3:
                 std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
+                cout << endl;
                 script.consultClassEnrolledStudents(class_name);
                 std::cout << std::endl;
                 break;
             case 4:
                 std::cout << "Write the class name" << std::endl;
+                cin >> class_name;
+                std::cout << "Write the UC name" << std::endl;
+                cin >> uc_code;
+                cout << endl;
+                script.consultUCCLassEnrolledStudents(class_name,uc_code);
+                cout << endl;
+                break;
+            case 5:
+                std::cout << "Write the class name" << std::endl;
                 std::cin >> class_name;
+                cout << endl;
                 script.PrintWeekScheduleClass(class_name);
                 std::cout <<  std::endl;
                 break;
-            case 5:
+            case 6:
                 std::cout << "Write the class name" << std::endl;
                 cin >> class_name;
                 std::cout << "Write the UC name" << std::endl;
                 cin >> uc_code;
+                cout << endl;
                 script.PrintUCClassSchedule(class_name,uc_code);
                 cout << endl;
                 break;
-            case 6:
+            case 7:
                 std::cout << "Write the amount of classes you want to see" << std::endl;
                 std::cin >> number_of_classes;
                 script.consultGreatestClasses(number_of_classes);
                 std::cout <<  std::endl;
                 break;
-            case 7:
+            case 8:
                 std::cout << "Write the amount of classes you want to see" << std::endl;
                 std::cin >> number_of_classes;
+                cout << endl;
                 script.consultSmallestClasses(number_of_classes);
                 std::cout << std::endl;
                 break;
-            case 8:
+            case 9:
                 clearScreen();
                 return;
-            case 9:
+            case 10:
                 clearScreen();
                 std::cout << "Menu closed" << std::endl;
                 close_program = true;
@@ -320,18 +340,21 @@ void displayYearMenu(Script& script){
             case 3:
                 std::cout << "Insert the year you want to consult the UC's names" << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultUCsByYear(year);
                 cout << endl;
                 break;
             case 4:
                 std::cout << "Insert the year you want to consult the UC's ascending occupancy " << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultUCsByYearByAscendingOccupancy(year);
                 std::cout << endl;
                 break;
             case 5:
                 std::cout << "Insert the year you want to consult the UC's descending occupancy " << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultUCsByYearByDescendingOccupancy(year);
                 std::cout << endl;
                 break;
@@ -340,6 +363,7 @@ void displayYearMenu(Script& script){
                 cin >> year;
                 cout << "Write the minimum of N students " << std::endl;
                 cin >> n_students;
+                cout << endl;
                 script.consultUCsWithMinNStudents(year,n_students);
                 std::cout << endl;
                 break;
@@ -348,24 +372,28 @@ void displayYearMenu(Script& script){
                 cin >> year;
                 cout << "Write the maximum of N students " << std::endl;
                 cin >> n_students;
+                cout << endl;
                 script.consultUCsWithMaxNStudents(year,n_students);
                 std::cout << endl;
                 break;
             case 8:
                 std::cout << "Insert the year you want to consult classes names" << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultClassesInaYear(year);
                 std::cout << endl;
                 break;
             case 9:
                 std::cout << "Insert the year you want to consult classes occupancy by ascending order" << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultClassesInaYearByAscendingOccupancy(year);
                 std::cout << endl;
                 break;
             case 10:
                 std::cout << "Insert the year you want to consult classes occupancy by descending order" << std::endl;
                 cin >> year;
+                cout << endl;
                 script.consultClassesInaYearByDescendingOccupancy(year);
                 std::cout << endl;
                 break;
@@ -374,6 +402,7 @@ void displayYearMenu(Script& script){
                 cin >> year;
                 cout << "Insert the minimum of N students " << std::endl;
                 cin >> n_students;
+                cout << endl;
                 script.consultClassesWithMinNStudents(year, n_students);
                 cout << endl;
                 break;
@@ -382,6 +411,7 @@ void displayYearMenu(Script& script){
                 cin >> year;
                 cout << "Insert the maximum of N students " << std::endl;
                 cin >> n_students;
+                cout << endl;
                 script.consultClassesWithMaxNStudents(year, n_students);
                 cout << endl;
                 break;
@@ -461,7 +491,7 @@ void displayDataConsultationMenu(Script& script){
     }
 }
 
-//por acabar
+
 void displayRequestMenu(Script& script){
     clearScreen();
     while(!close_program) {
@@ -470,7 +500,7 @@ void displayRequestMenu(Script& script){
         std::string UC_code;
         int student_code;
         std::cout << "(1) >> Add class" << std::endl;
-        std::cout << "(2) >> Remove a class from all enrolled UC's" << std::endl;
+        std::cout << "(2) >> Remove a student class from all enrolled UC's" << std::endl;
         std::cout << "(3) >> Switch class" << std::endl;
         std::cout << "(4) >> Add UC" << std::endl;
         std::cout << "(5) >> Remove UC" << std::endl;
@@ -500,6 +530,7 @@ void displayRequestMenu(Script& script){
                 cin >> student_code;
                 std::cout << "Insert the class code to remove" << std::endl;
                 cin >> class_code;
+                cout << endl;
                 script.captureState();
                 script.requestRemoveClassForAllUCs(student_code, class_code);
                 cout << endl;
