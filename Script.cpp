@@ -151,11 +151,6 @@ void Script::populateLeicSet(const string &filename) {
 
 }
 
-
-
-
-
-
 void Script::populateStudentSet(const string &filename) {
     ///O ficheiro de input é aberto.
     std::ifstream dataFile(filename);
@@ -325,19 +320,28 @@ void Script::consultUCEnrolledStudents(const string& uc_name) {
 
 void Script::consultGreatestNumberOfStudentsUCs(int num) {
 
-
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos UC_class, uc1 e uc2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em uc1 for menor que em uc2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
     };
+
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos de all_UCs_ ordenados a partir de compareNumberOfStudents.
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
+
+    ///Cria-se também um iterador setIt que irá iterar por sortedByOccupancy, começando no fim.
     auto setIt = sortedByOccupancy.end();
     setIt--;
+
+    ///Se o número *num* for válido, imprime-se "UC | Enrolled students" (header da tabela) e, por *num* iterações, imprime-se o nome da UC (obtido por getUcName) e o número de estudantes incritos (obtido por getNumberOfEnrolledStudents) da UC na posição de setIt. A cada iteração, o valor de setIt diminui, iterando por sortedByOccupancy no sentido negativo.
     if (num <= int(sortedByOccupancy.size()) && num > 0) {
         std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num; i++, setIt--) {
             std::cout << left << setw(8) << setIt->getUcName() << " | "  << setIt->getNumberOfEnrolledStudents() << std::endl;
         }
     }
+
+    ///Se *num* não for válido, imprime-se "There's only <número de estudantes na UC (tamanho de sortedByOccupancy)> UC's, please choose a smaller number" .
     else {
         std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
@@ -345,17 +349,28 @@ void Script::consultGreatestNumberOfStudentsUCs(int num) {
 }
 
 void Script::consultSmallerNumberOfStudentsUCs(int num) {
+
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos UC_class, uc1 e uc2, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em uc1 for menor que em uc2 e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const UC_class& uc1, const UC_class& uc2) {
         return uc1.getNumberOfEnrolledStudents() < uc2.getNumberOfEnrolledStudents();
     };
+
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos de all_UCs_ ordenados a partir de compareNumberOfStudents.
     set<UC_class, decltype(compareNumberOfStudents)> sortedByOccupancy(all_UCs_.begin(),all_UCs_.end(), compareNumberOfStudents);
+
+    ///Cria-se um iterador setIt que irá iterar por sortedByOccupancy, começando no início.
     auto setIt = sortedByOccupancy.begin();
+
+    ///Se o número *num* for válido, imprime-se "UC | Enrolled students" (header da tabela) e, por *num* iterações, imprime-se o nome da UC (obtido por getUcName) e o número de estudantes incritos (obtido por getNumberOfEnrolledStudents) da UC na posição de setIt. A cada iteração, o valor de setIt aumenta, iterando por sortedByOccupancy no sentido positivo.
     if (num <= int(sortedByOccupancy.size()) && num > 0) {
         std::cout << left << setw(8) << "UC" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num; i++, setIt++) {
             std::cout << left << setw(8) << setIt->getUcName() << " | " << setIt->getNumberOfEnrolledStudents() << std::endl;
         }
     }
+
+        ///Se *num* não for válido, imprime-se "There's only <número de estudantes na UC (tamanho de sortedByOccupancy)> UC's, please choose a smaller number" .
     else {
         std::cout << "There's only " << sortedByOccupancy.size() << " UC's, please choose a smaller number" << std::endl;
     }
@@ -363,152 +378,205 @@ void Script::consultSmallerNumberOfStudentsUCs(int num) {
 }
 
 void Script::PrintWeekUCSchedule(const string& uc_name){
+    ///Procura-se em all_UCs_ a UC cujo horário se pretende imprimir.
     auto itUC = all_UCs_.find(UC_class(uc_name));
 
+    ///Caso não seja encontrada, imprime-se "UC not found" e sai-se da função.
     if(itUC == all_UCs_.end()) {
         cout << "UC not found" << std::endl;
         return;
     }
 
-
+    ///Caso contrário, o horário semanal é impresso a partir da função PrintUcWeekSchedule da UC.
     itUC->PrintUcWeekSchedule();
 }
 
 
 void Script::consultClassOccupancy(const string& class_code) {
+    ///Procura-se em all_classes_ a turma cujo número de estudantes se pretende consultar.
     auto classIt = all_classes_.find(LeicClass(class_code));
 
+    ///Se a turma não for encontrada, imprime-se "Class not found" e sai-se da função.
     if(classIt == all_classes_.end()) {
         cout << "Class not found" << endl;
         return;
     }
+
+    ///Caso contrário, imprime-se "This class has <número de estudantes inscritos na turma> students". O número de estudantes é obtido a partir da função getNumberOfEnrolledStudents da turma.
     std::cout << "This class has " << classIt->getNumberOfEnrolledStudents() << " students" << std::endl;
 }
 
 void Script::consultUCCLassOccupancy(const string& class_code, const string& uc_code) {
+    ///Procura-se em all_classes_ a turma cujo número de estudantes se pretende consultar.
     auto classIt = all_classes_.find(LeicClass(class_code));
 
+    ///Se a turma não for encontrada, imprime-se "Class not found" e sai-se da função.
     if(classIt == all_classes_.end()) {
         cout << "Class not found" << endl;
         return;
     }
 
+    ///Caso contrário, obtém-se a através da função getUCClass da turma a turma da UC pretendida, através de uc_code. Esta é guardada no objeto UC_temp do tipo UC_class.
     UC_class UC_temp = classIt->getUCClass(uc_code);
 
+    ///Caso não exista turma desta UC (o seu nome é "Nao existe"), imprime-se "Class found but UC not found" e sai-se da função.
     if(UC_temp.getUcName() == "Nao existe") {
         cout << "Class found but UC not found" << endl;
         return;
     }
 
-
-
+    ///Caso contrário, imprime-se "The UC <uc_code> in class <class_code> has <número de estudantes inscritos> students". O número de estudantes inscritos obtém-se através da função getNumberOfEnrolledStudents de UC_temp.
     std::cout << "The UC " << uc_code << " in class " << class_code << " has " << UC_temp.getNumberOfEnrolledStudents() << " students" << std::endl;
 
 }
 
 void Script::PrintUCClassSchedule(const string& class_code, const string& uc_code){
+    ///Procura-se em all_classes_ a turma pretendida, a partir de class_code.
     auto classIt = all_classes_.find(LeicClass(class_code));
 
+    ///Se esta não for encontrada, "Class not found" é impresso e sai-se da função.
     if(classIt == all_classes_.end()) {
         cout << "Class not found" << endl;
         return;
     }
 
+    ///Caso contrário, obtém-se a através da função getUCClass da turma a turma da UC pretendida, através de uc_code. Esta é guardada no objeto UC_temp do tipo UC_class.
     UC_class UC_temp = classIt->getUCClass(uc_code);
 
+    ///Caso não exista turma desta UC (o seu nome é "Nao existe"), imprime-se "Class found but UC not found" e sai-se da função.
     if(UC_temp.getUcName() == "Nao existe") {
         cout << "Class found but UC not found" << endl;
         return;
     }
 
+    ///Caso contrário, o horário da turma da UC é impresso a partir da sua função PrintUcWeekSchedule.
     UC_temp.PrintUcWeekSchedule();
 }
 
 int Script::consultNumberOfStudentsRegisteredUCs(int numberOfUCs) {
+    ///A função cria um contador, inicializado em 0.
     int counter = 0;
+
+    ///Um iterador itera por all_students_. Em cada iteração, se o estudante na posição do iterador estiver inscrito em *numberOfUCs*, o contador é incrmentado em 1. O número de UC's do aluno é obtido através da sua função getNumberOfUCs.
     auto studentIt = all_students_.begin();
     for (; studentIt != all_students_.end(); studentIt++) {
         if (studentIt->getNumberOfUCs() == numberOfUCs) counter++;
     }
+    ///Por fim, a função retorna o valor final do contador, isto é, o número de estudantes inscritos em *numberOfUCs* UC's.
     return counter;
 }
 
 void Script::consultClassEnrolledStudents(const string& class_code) {
+    ///A função procura em all_classes_ a turma pretendida a partir de class_code.
     auto classIt = all_classes_.find(LeicClass(class_code));
+
+    ///Se esta não for encontrada, "Class not found" é impresso e sai-se da função.
     if(classIt == all_classes_.end()) {
         cout << "Class not found" << endl;
         return;
     }
+
+    ///Caso contrário, guarda-se no set class_students os alunos inscritos na turma, obtidos através da sua função getEnrolledStudents.
     set<Student> class_students = classIt->getEnrolledStudents();
+
+    ///A função imprime "Student number | Student name", o header da tabela que se irá formar.
     cout << left << setw(14) << "Student number" << " | " << "Student name" << endl;
+
+    ///Por fim, por cada estudante em class_students, imprime-se "<número de estudante> | <nome>", obtidos a partir de getIdNumber e getStudentName, respetivamente.
     for (Student student : class_students) {
         cout << left << setw(14) << student.getIdNumber() << " | " << student.getStudentName() << endl;
     }
 }
 
 void Script::consultUCCLassEnrolledStudents(const string& class_code, const string& uc_code) {
+    ///A função procura em all_classes_ a turma pretendida a partir de class_code.
     auto classIt = all_classes_.find(LeicClass(class_code));
 
+    ///Se esta não for encontrada, "Class not found" é impresso e sai-se da função.
     if(classIt == all_classes_.end()) {
         cout << "Class not found" << endl;
         return;
     }
 
+    ///Caso contrário, obtém-se a através da função getUCClass da turma a turma da UC pretendida, através de uc_code. Esta é guardada no objeto UC_temp do tipo UC_class.
     UC_class UC_temp = classIt->getUCClass(uc_code);
 
+    ///Caso não exista turma desta UC (o seu nome é "Nao existe"), imprime-se "Class found but UC not found" e sai-se da função.
     if(UC_temp.getUcName() == "Nao existe") {
         cout << "Class found but UC not found" << endl;
         return;
     }
 
+    ///Caso contrário, os estudantes são impressos através da função PrintEnrolledStudents de UC_temp.
+    /// \note Os estudantes serão impressos no formato definido por PrintEnrolledStudents: "Student number: <id_number_> Student name: <st_name_>"
     UC_temp.PrintEnrolledStudents();
-
-
-
-
 }
 
 
 void Script::consultGreatestClasses(int num_classes){
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class_a e class_b, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class_a for menor que em class_b e retorna *false* caso contrário.
     auto compareNumberOfStudents = [](const LeicClass& class_a, const LeicClass& class_b) {
         return class_a.getNumberOfEnrolledStudents() < class_b.getNumberOfEnrolledStudents();
     };
+
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos de all_classes_ ordenados a partir de compareNumberOfStudents.
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
+
+    ///Cria-se também um iterador classIt que irá iterar por sortedByOccupancy, começando no fim.
     auto classIt = sortedByOccupancy.end();
     classIt--;
+
+    ///Se o número *num_classes* for válido, imprime-se "Class | Enrolled students" (header da tabela) e, por *num_classes* iterações, imprime-se o nome da turma (obtido por getClassName) e o número de estudantes incritos (obtido por getNumberOfEnrolledStudents) da turma na posição de classIt. A cada iteração, o valor de classIt diminui, iterando por sortedByOccupancy no sentido negativo.
     if (num_classes <= int(sortedByOccupancy.size()) && num_classes > 0) {
         std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num_classes; i++, classIt--) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
         }
     }
+
+    ///Se *num_classes* não for válido, imprime-se "There's only <número de estudantes na turma (tamanho de sortedByOccupancy)> classes, please choose a smaller number" .
     else {
         std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
     }
 
 
 }
-void Script::consultSmallestClasses(int num_classes){    auto compareNumberOfStudents = [](const LeicClass& class_a, const LeicClass& class_b) {
+void Script::consultSmallestClasses(int num_classes){
+    ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class_a e class_b, respetivamente.
+    ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class_a for menor que em class_b e retorna *false* caso contrário.
+    auto compareNumberOfStudents = [](const LeicClass& class_a, const LeicClass& class_b) {
         return class_a.getNumberOfEnrolledStudents() < class_b.getNumberOfEnrolledStudents();
     };
+
+    ///De seguida, cria-se um novo set sortedByOccupancy, com os elementos de all_classes_ ordenados a partir de compareNumberOfStudents.
     set<LeicClass, decltype(compareNumberOfStudents)> sortedByOccupancy(all_classes_.begin(),all_classes_.end(), compareNumberOfStudents);
+
+    ///Cria-se também um iterador classIt que irá iterar por sortedByOccupancy, começando no início.
     auto classIt = sortedByOccupancy.begin();
+
+    ///Se o número *num_classes* for válido, imprime-se "Class | Enrolled students" (header da tabela) e, por *num_classes* iterações, imprime-se o nome da turma (obtido por getClassName) e o número de estudantes incritos (obtido por getNumberOfEnrolledStudents) da turma na posição de classIt. A cada iteração, o valor de classIt aumenta, iterando por sortedByOccupancy no sentido positivo.
     if (num_classes <= int(sortedByOccupancy.size()) && num_classes > 0) {
         std::cout << left << setw(7) << "Class" << " | " << "Enrolled students" << std::endl;
         for (int i = 0; i < num_classes; i++, classIt++) {
             std::cout << left << setw(7) << classIt->getClassName() << " | "  << classIt->getNumberOfEnrolledStudents() << std::endl;
         }
     }
+
+        ///Se *num_classes* não for válido, imprime-se "There's only <número de estudantes na turma (tamanho de sortedByOccupancy)> classes, please choose a smaller number" .
     else {
         std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
     }
 }
 
 void Script::consultYearOccupancy(int year) {
+    ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
         cout << "That's not a valid year " << endl;
         return;
     }
+
+    ///Caso contrário,
     set<Student> temp_student;
     set<Student> student_union;
     for (const auto & classIt : leic_class_years_[year-1]) {
