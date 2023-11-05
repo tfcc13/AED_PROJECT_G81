@@ -20,6 +20,19 @@
 
 using namespace std;
 
+
+///@struct DataBaseState
+///
+///@brief Estrutura que guarda o estado da base de dados numa da altura
+
+struct DataBaseState {
+
+    set<LeicClass>  all_classes;
+    set<UC_class> all_UCs;
+    set<Student> all_students;
+};
+
+
 class Script {
 
 public:
@@ -113,6 +126,11 @@ public:
     void consultClassesWithMinNStudents(int year, int number);
     void consultClassesWithMaxNStudents(int year, int number);
 
+
+    void captureState();
+    void restoreState(DataBaseState& previous_state);
+    void undoLastAction();
+
     void requestAddClass(int student_id, const string& class_code);
     void requestRemoveClassForAllUCs(int student_code, const string& class_code);
     void requestSwitchUC();
@@ -136,7 +154,7 @@ private:
     std::vector<set<UC_class>> UC_years_;
     std::string  database_;
     queue<string> requests_queue_;
-    stack<string> system_changes_record_;
+    stack<DataBaseState> system_changes_record_;
 
 };
 
