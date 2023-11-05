@@ -546,7 +546,7 @@ void displayRequestMenu(Script& script){
                 std::cout << "Insert the UC code to remove" << std::endl;
                 cin >> UC_code;
                 script.captureState();
-                script.requestRemoveUC(student_code, UC_code);
+                script.requestRemoveSingleUC(student_code, UC_code);
                 std::cout << std::endl;
                 break;
             case 6:
