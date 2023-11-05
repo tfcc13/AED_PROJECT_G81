@@ -60,6 +60,7 @@ public:
 
     /// Popula all_UCs_
     ///
+    /// \note Cada objeto em UC_class_, no final do processo, é uma junção de todas as turmas dessa UC.
     ///**Time Complexity:** O(n)
     /// \param filename Ficheiro que se irá usar para popular os sets
     void populateUcSet(const std::string& filename);
@@ -106,9 +107,21 @@ public:
     void consultStudentEnrolledClasses(int studentNumber);
 
 
+    ///Imprime o número de estudantes inscritos numa UC
     ///
+    ///**Time Complexity:** O(log n)
+    /// \param uc_name Nome da UC cujo número de estudantes inscritos se pretende imprimir
     void consultUCOccupancy(const string& uc_name);
+
+
+    ///Imprime os estudantes inscritos numa UC
+    ///
+    ///**Time Complexity:** O(log n)
+    /// \param uc_name Nome da UC cujos estudantes inscritos se pretende imprimir
     void consultUCEnrolledStudents(const string& uc_name);
+
+
+    ///
     void consultGreatestNumberOfStudentsUCs(int num);
     void consultSmallerNumberOfStudentsUCs(int num);
     void PrintWeekUCSchedule(const string& uc_name);

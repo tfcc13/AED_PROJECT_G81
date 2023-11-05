@@ -295,27 +295,31 @@ void Script::consultStudentEnrolledClasses(int studentNumber) {
 }
 
 void Script::consultUCOccupancy(const string& uc_name) {
+    ///A função procura em all_UCs_ a UC a partir de uc_name.
     auto UCClassIt = all_UCs_.find(UC_class(uc_name));
 
+    ///Caso não seja encontrado, "UC not found" é impresso e sai-se da função.
     if(UCClassIt == all_UCs_.end()) {
         cout << "UC not found" << std::endl;
         return;
     }
 
+    ///Caso contrário, imprime-se o número de estudantes inscritos na UC, obtido através da sua função getNumberOfEnrolledStudents.
     std::cout << UCClassIt->getNumberOfEnrolledStudents() << std::endl;
 }
 
 void Script::consultUCEnrolledStudents(const string& uc_name) {
-    auto UCClassIt = all_UCs_.find(uc_name);
+    ///A função procura em all_UCs_ a UC a partir de uc_name.
+    auto UCClassIt = all_UCs_.find(UC_class(uc_name));
 
+    ///Caso não seja encontrado, "UC not found" é impresso e sai-se da função.
     if(UCClassIt == all_UCs_.end()) {
         cout << "UC not found" << std::endl;
         return;
     }
 
-
+    ///Caso contrário, imprime-se os estudantes inscritos na UC, através da sua função PrintEnrolledStudents.
     UCClassIt->PrintEnrolledStudents();
-
 }
 
 void Script::consultGreatestNumberOfStudentsUCs(int num) {
