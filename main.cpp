@@ -493,17 +493,21 @@ void displayRequestMenu(Script& script){
         switch (input) {
             case 1:
                 std::cout << "Adds a  class" << std::endl;
+                script.captureState();
                 break;
             case 2:
                 std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
                 std::cout << "Insert the class code to remove" << std::endl;
                 cin >> class_code;
+                script.captureState();
                 script.requestRemoveClassForAllUCs(student_code, class_code);
+                cout << endl;
                 break;
             case 3:
                 std::cout << "Switches a  class" << std::endl;
             case 4:
+                script.captureState();
                 std::cout << "Adds UC's" << std::endl;
                 std::cout << std::endl;
                 break;
@@ -512,11 +516,13 @@ void displayRequestMenu(Script& script){
                 cin >> student_code;
                 std::cout << "Insert the UC code to remove" << std::endl;
                 cin >> UC_code;
+                script.captureState();
                 script.requestRemoveUC(student_code, UC_code);
                 std::cout << std::endl;
                 break;
             case 6:
                 std::cout << "Switches UC's" << std::endl;
+                script.captureState();
                 std::cout << std::endl;
                 break;
             case 7:
@@ -576,6 +582,7 @@ void displayInterfaceMenu(Script& script) {
                 displayRequestMenu(script);
                 break;
             case 3:
+                script.undoLastAction();
                 std::cout << "Last action undone" << std::endl;
                 break;
             case 4:

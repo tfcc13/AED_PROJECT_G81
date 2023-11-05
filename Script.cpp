@@ -884,6 +884,36 @@ void Script::saveChangesToCsvFile(const string& filename) {
 
 }
 
+void Script::captureState() {
+    DataBaseState current_state;
+    current_state.all_students = all_students_;
+    current_state.all_classes = all_classes_;
+    current_state.all_UCs = all_UCs_;
+    system_changes_record_.push(current_state);
+}
+
+void Script::restoreState(DataBaseState& previous_state) {
+    all_classes_ = previous_state.all_classes;
+    all_UCs_ = previous_state.all_UCs;
+    all_students_ = previous_state.all_students;
+}
+
+
+void Script::undoLastAction() {
+    if(!system_changes_record_.empty()) {
+        DataBaseState previous_state = system_changes_record_.top();
+        system_changes_record_.pop();
+        restoreState(previous_state);
+        loadYear();
+        cout << "Last database state was restored" << endl;
+        cout << endl;
+    }
+    else {
+        cout << "There's nothing to undo" << endl;
+        cout << endl;
+    }
+}
+
 
 
 
