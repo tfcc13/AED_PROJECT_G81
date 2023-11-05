@@ -297,7 +297,7 @@ public:
 
     /// Troca a turma de uma UC de um estudante
     ///
-    ///**Time Complexity:**
+    ///**Time Complexity:** O(n)
     /// \param student_code Código do estudante
     /// \param new_class_code Código da nova turma
     /// \param UC_code Código da UC
@@ -309,6 +309,13 @@ public:
     /// \param UC_code UC cujo número de estudantes por turma se pretende saber
     /// \return Vetor de pares em que estão associados o nome da turma e o número de estudantes da UC nessa turma
     vector<pair<string, int>> getNumberOfEnrolledStudentsPerClassInUC(const string& UC_code) const;
+
+
+
+    ///Guarda alterações num ficheiro csv
+    ///
+    ///**Time Complexity:**
+    /// \param filename Ficheiro no qual se pretende guardar alterações
     void saveChangesToCsvFile(const string& filename);
 
 private:

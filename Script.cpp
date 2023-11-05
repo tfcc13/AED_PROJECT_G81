@@ -1245,11 +1245,12 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
         return;
     }
 
-    ///Obtém-se os números de estudantes da turma com menos estudantes e da turma com mais estudantes
+    ///Obtém-se os números de estudantes da turma com menos estudantes e da turma com mais estudantes.
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
     int min_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.begin()->second;
     int max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
 
+    ///Obtém-se também o número de estudantes da turma antiga e da turma nova.
     auto it_old = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
                            [old_class_code](const pair<string, int>& p) {
                                return p.first == old_class_code;
@@ -1260,8 +1261,10 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
                                    return p.first == new_class_code;
                                });
 
+    ///Se a diferença de alunos entre a turma com mais estudantes e a turma com menos for superior a 4, diz-se que não há equilíbrio.
     if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
         // Balance does not exist
+        ///Nesta situação, só são aprovadas trocas para turmas com menos alunos. Se a troca não for aprovada, a função imprime uma mensagem de erro, com uma lista de turmas para as quais seria possível trocar, e a funlão termina.
         if(it_old->second <= it_new->second){
             cout << "Request denied." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. To achieve balance, you should enroll in classes with fewer number of students compared to the current (" << it_old->second << "), which are:" << endl;
@@ -1272,10 +1275,12 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
                 }
             }
         } else{
+            ///Caso contrário, o pedido é aprovado e é impressa uma mensagem de confirmação da aprovação.
             cout << "Request approved." << endl;
             cout << "The balance of class occupation in this UC has not been reached yet. Your request will help achieve this balance." << endl;
         }
     } else{
+        ///Por outro lado, se existir equilíbrio, a troca é aceite se esta não quebrar o estado de equilíbrio.
         // Balance exists
         *it_old--;
         *it_new++;
@@ -1288,35 +1293,51 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
         max_number_of_enrolled_students_per_class_in_UC = number_of_enrolled_students_per_class_in_UC.end()->second;
 
         if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
+            ///Se for rejeitada, há uma mensagem de erro e a função termina.
             cout << "Request denied. This request disrupts class occupancy. The difference in the number of students enrolled in any class within the same UC must be less than or equal to 4." << endl;
             return;
         }
+        ///Se for aceite, há uma mensagem de confirmação de aprovação.
         cout << "Request approved." << endl;
         cout << "The balance between class occupation was not disturbed." << endl;
     }
 
     // Request aprovado
+
+    ///Se o pedido for aporvado, procura-se a UC em all_UCs_ a partir de UC_code e cria-se uma cópia
     auto UCIt = all_UCs_.find(UC_class(UC_code));
     auto temp_UC = *UCIt;
     // erases
+
+    ///O estudante, a turma antiga, a turma nova e a UC são eliminadas dos respetivos sets.
     all_students_.erase(original_student);
     all_classes_.erase(temp_LeicClass_old);
     all_classes_.erase(temp_LeicClass_new);
     all_UCs_.erase(temp_UC);
+
+    ///O estudante é removido da turma antiga e da UC.
     temp_UC_Class_old.eraseStudent(original_student);
     temp_UC.eraseStudent(original_student);
     // Alterações
+    ///O novo horário da turma da UC é adicionado ao horário do estudante.
     temp_student.addSchedule(new_class_code, UC_code, new_schedule);
     // inserts
+    ///O estudante é inserido na nova turma da UC.
     temp_UC_Class_new.insertStudent(temp_student);
+    ///A turma da UC antiga é inserida na turma antiga.
     temp_LeicClass_old.insertUcClass(temp_UC_Class_old);
+    ///A nova turma da UC é inserida na respetiva turma.
     temp_LeicClass_new.insertUcClass(temp_UC_Class_new);
+    ///O estudante é inserido na UC.
     temp_UC.insertStudent(temp_student);
+
+    ///Estando todos atualizados, o estudante é inserido em all_students, a turma antiga e a turma nova são inseridas em all_classes_ e a UC é inserida em all_UCs_.
     all_students_.insert(temp_student);
     all_classes_.insert(temp_LeicClass_new);
     all_classes_.insert(temp_LeicClass_old);
     all_UCs_.insert(temp_UC);
 
+    ///Por fim, há uma mensagem de confirmação da troca.
     cout << "(" << UC_code << ", "  << old_class_code << ") was switched to " << "(" << UC_code << ", "  << new_class_code << ") added." << std::endl;
 
 }
@@ -1341,23 +1362,26 @@ vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClassInUC(const 
 }
 
 void Script::saveChangesToCsvFile(const string& filename) {
+    ///A função obtém o diretório de input, guardando-o na string sourceDirectory
     std::string sourceDirectory = __FILE__;
     sourceDirectory = sourceDirectory.substr(0, sourceDirectory.find_last_of("/\\"));
 
-
+    ///Constrói também um caminho para o dirétorio de output
     std::string output_directory = sourceDirectory + "/output/";
     std::string csv_filename = output_directory + filename +".csv";
 
     std::filesystem::create_directories(output_directory);
 
-    // Open the CSV file in write mode and clear its contents if it already exists
+    ///Abre o ficheiro de output em modo de edição e limpa os conteúdos deste.
     std::ofstream outputFile(csv_filename, std::ios::out | std::ios::trunc);
 
+    ///Se a abertura falhar, há uma mensagem de erro e a função termina.
     if (!outputFile.is_open()) {
         std::cerr << "Failed to open the CSV file for writing." << std::endl;
         return;
     }
 
+    ///Caso contrário, os conteúdos que se pretende guardar são escritos no ficheiro CSV.
     char  delim = ',';
     outputFile << "StudentCode" << delim << "StudentName" << delim << "UcCode" << delim << "ClassCode" << '\r' << '\n';
     for (const auto& studentIt : all_students_) {
@@ -1367,6 +1391,7 @@ void Script::saveChangesToCsvFile(const string& filename) {
         }
     }
 
+    ///Por fim, fecha-se o ficheiro e imprime-se uma mensagem de confirmação.
     // Close the CSV file
     outputFile.close();
 
