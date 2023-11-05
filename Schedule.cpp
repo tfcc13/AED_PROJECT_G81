@@ -1,9 +1,4 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #include "Schedule.h"
-
 
 ///Overload do operador de igualdade de dayScheduleEntry
 ///

@@ -1,7 +1,3 @@
-//
-// Created by tiago on 28-10-2023.
-//
-
 #ifndef AED_PROJECT_STUDENT_H
 #define AED_PROJECT_STUDENT_H
 
@@ -47,7 +43,6 @@ public:
     ///
     ///O estudante não está inscrito em quaisquer UC's ou turmas, logo o set st_enrolled_UC_and_classes_ é criado vazio, st_number_of_UCs_ = 0 e o horário, representado por st_schedule_, está vazio.
     Student(int id_number, const std::string& st_name);
-
 
     ///Copy Constructor de Student
     ///
@@ -139,13 +134,6 @@ public:
     /// \param s Horário cuja conflituosidade com o horário do estudante se pretende verificar
     /// \return *True* se houver conflito, *False* caso contrário
     bool checkScheduleConflict(const Schedule& s) const;
-
-    //void addUCAndClass(const pair<string, string> UC_and_Class);
-    //void removeUCAndClass(const pair<string, string> UC_and_Class);
-    //void switchUCAndClass(const pair<string, string> old_UC_and_Class, const pair<string, string> new_UC_and_Class);
-    //void insertUcCode(const std::string& UcCode);
-    // const set<string>& getUcCodes() const;
-
 };
 
 #endif //AED_PROJECT_STUDENT_H

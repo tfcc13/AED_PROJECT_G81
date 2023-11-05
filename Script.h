@@ -1,7 +1,3 @@
-//
-// Created by tiago on 30-10-2023.
-//
-
 #ifndef AED_PROJECT_SCRIPT_H
 #define AED_PROJECT_SCRIPT_H
 
@@ -19,7 +15,6 @@
 #include "UC_class.h"
 
 using namespace std;
-
 
 ///@struct DataBaseState
 ///
@@ -84,14 +79,11 @@ public:
     /// \param studentNumber Número do estudante cujo horário se pretende imprimir
     void PrintWeekStudentSchedule(int studentNumber);
 
-
     ///Imprime o horário semanal de uma turma
     ///
     ///**Time Complexity:** O(log n)
     /// \param class_name Nome da turma cujo horário se pretende imprimir
     void PrintWeekScheduleClass(const string& class_name);
-
-
 
     ///Imprime as UC's em que um estudante está inscrito
     ///
@@ -99,13 +91,11 @@ public:
     /// \param studentNumber Número do estudante cujas UC's se pretende imprimir
     void consultStudentEnrolledUCs(int studentNumber);
 
-
     ///Imprime as turmas em que um estudante está inscrito
     ///
     ///**Time Complexity:** O(log n)
     /// \param studentNumber Número do estudante cujas UC's se pretende imprimir
     void consultStudentEnrolledClasses(int studentNumber);
-
 
     ///Imprime o número de estudantes inscritos numa UC
     ///
@@ -113,13 +103,11 @@ public:
     /// \param uc_name Nome da UC cujo número de estudantes inscritos se pretende imprimir
     void consultUCOccupancy(const string& uc_name);
 
-
     ///Imprime os estudantes inscritos numa UC
     ///
     ///**Time Complexity:** O(log n)
     /// \param uc_name Nome da UC cujos estudantes inscritos se pretende imprimir
     void consultUCEnrolledStudents(const string& uc_name);
-
 
     ///Imprime o nome e o número de alunos das *num* UC's com mais estudantes.
     ///
@@ -127,20 +115,17 @@ public:
     /// \param num Número de UC's que se pretende imprimir
     void consultGreatestNumberOfStudentsUCs(int num);
 
-
     ///Imprime o nome e número de alunos das *num* UC's com menos estudantes.
     ///
     ///**Time Complexity:** O(n * log n)
     /// \param num Número de UC's que se pretende imprimir.
     void consultSmallerNumberOfStudentsUCs(int num);
 
-
     ///Imprime o horário semanal de uma UC.
     ///
     ///**Time Complexity:** O(log n)
     /// \param uc_name Nome da UC cujo hprário se pretende imprimir
     void PrintWeekUCSchedule(const string& uc_name);
-
 
     ///Imprime o horário semanal de uma UC numa turma específica
     ///
@@ -149,13 +134,11 @@ public:
     /// \param uc_code Código da UC pretendida
     void PrintUCClassSchedule(const string& class_code, const string& uc_code);
 
-
     ///Imprime o número de estudantes inscritos numa turma
     ///
     ///**Time Complexity:** O(log n)
     /// \param class_code Código da turma cujo número de estudantes se pretende saber.
     void consultClassOccupancy(const string& class_code);
-
 
     ///Imprime o número de estudantes inscritos numa turma de uma UC
     ///
@@ -164,7 +147,6 @@ public:
     /// \param uc_code
     void consultUCCLassOccupancy(const string& class_code, const string& uc_code);
 
-
     ///Obtém o número de estudantes inscritos num determinado número de UC's
     ///
     ///**Time Complexity:** O(n)
@@ -172,13 +154,11 @@ public:
     /// \return número de estudantes inscritos nesse número de UC's
     int consultNumberOfStudentsRegisteredUCs(int numberOfUCs);
 
-
     ///Imprime os estudantes inscritos numa turma
     ///
     ///**Time Complexity:** O(log n)
     /// \param class_code Código da turma cujos alunos se pretende consultar
     void consultClassEnrolledStudents(const string& class_code);
-
 
     ///Imprime os estudantes inscrito numa turma duma UC
     ///
@@ -199,7 +179,6 @@ public:
     /// \param num_classes Número de turmas que se pretende imprimir
     void consultSmallestClasses(int num_classes);
 
-
     ///Imprime o número de estudantes de um ano.
     ///
     ///**Time Complexity:** O(n)
@@ -212,13 +191,11 @@ public:
     /// \param year Ano cujos estudantes se pretende consultar
     void consultEnrolledStudentsYear(int year);
 
-
     ///Imprime as UC's de um ano.
     ///
     ///**Time Complexity:** O(n)
     /// \param year Ano cujas UC's se pretende consultar
     void consultUCsByYear(int year);
-
 
     ///Imprime as UC's de um ano por ordem crescente de número de alunos inscritos
     ///
@@ -232,14 +209,12 @@ public:
     /// \param year Ano cujas UC's se pretende consultar
     void consultUCsByYearByDescendingOccupancy(int year);
 
-
     ///Imprime as UC's com um número de estudantes igual ou superior a um determinado número, num determinado ano.
     ///
     ///**Time Complexity:** O(n)
     /// \param year Ano que se pretende analisar
     /// \param number Número mínimo de estudantes
     void consultUCsWithMinNStudents(int year, int number);
-
 
     ///Imprime as UC's com um número de estudantes igual ou inferior a um determinado número, num determinado ano.
     ///
@@ -248,13 +223,11 @@ public:
     /// \param number Número máximo de estudantes
     void consultUCsWithMaxNStudents(int year, int number);
 
-
     ///Imprime as turmas de um ano
     ///
     ///**Time Complexity:** O(n)
     /// \param year Ano cujas turmas se pretende analisar
     void consultClassesInaYear(int year);
-
 
     ///Imprime as turmas de um ano por ordem crescente de número de alunos inscritos
     ///
@@ -267,7 +240,6 @@ public:
     ///**Time Complexity:** O(n * log n)
     /// \param year Ano cujas turmas se pretende consultar
     void consultClassesInaYearByDescendingOccupancy(int year);
-
 
     ///Imprime as turmas com um número de estudantes igual ou superior a um determinado número, num determinado ano.
     ///
@@ -282,7 +254,6 @@ public:
     /// \param year Ano que se pretende analisar
     /// \param number Número máximo de estudantes
     void consultClassesWithMaxNStudents(int year, int number);
-
 
     ///Guarda o estado atual dos estudantes, turmas e anos
     ///
@@ -307,7 +278,6 @@ public:
     /// \param class_code Código da turma
     /// \param UC_code Código da UC
     void requestAddUCInClass(int student_code, const string& class_code, const string& UC_code);
-
 
     ///Remove a inscrição de um aluno numa UC
     ///
@@ -337,6 +307,5 @@ private:
     stack<DataBaseState> system_changes_record_;
 
 };
-
 
 #endif //AED_PROJECT_SCRIPT_H

@@ -48,7 +48,6 @@ void Script::populateUcSet(const string &filename) {
         duration = std::stod(temp2);
         std::getline(ss, type, spacer);
 
-
         ///O ano é obtido através do primeiro carater
         int year = classCode.at(0)-'0';
 
@@ -148,7 +147,6 @@ void Script::populateLeicSet(const string &filename) {
 
         ///Por fim, após todas as linhas serem interpretadas, o ficheiro de input é fechado.
         dataFile.close();
-
 }
 
 void Script::populateStudentSet(const string &filename) {
@@ -391,7 +389,6 @@ void Script::PrintWeekUCSchedule(const string& uc_name){
     itUC->PrintUcWeekSchedule();
 }
 
-
 void Script::consultClassOccupancy(const string& class_code) {
     ///Procura-se em all_classes_ a turma cujo número de estudantes se pretende consultar.
     auto classIt = all_classes_.find(LeicClass(class_code));
@@ -427,7 +424,6 @@ void Script::consultUCCLassOccupancy(const string& class_code, const string& uc_
 
     ///Caso contrário, imprime-se "The UC <uc_code> in class <class_code> has <número de estudantes inscritos> students". O número de estudantes inscritos obtém-se através da função getNumberOfEnrolledStudents de UC_temp.
     std::cout << "The UC " << uc_code << " in class " << class_code << " has " << UC_temp.getNumberOfEnrolledStudents() << " students" << std::endl;
-
 }
 
 void Script::PrintUCClassSchedule(const string& class_code, const string& uc_code){
@@ -512,7 +508,6 @@ void Script::consultUCCLassEnrolledStudents(const string& class_code, const stri
     UC_temp.PrintEnrolledStudents();
 }
 
-
 void Script::consultGreatestClasses(int num_classes){
     ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class_a e class_b, respetivamente.
     ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class_a for menor que em class_b e retorna *false* caso contrário.
@@ -539,9 +534,8 @@ void Script::consultGreatestClasses(int num_classes){
     else {
         std::cout << "Theres only " << sortedByOccupancy.size() << " classes, please choose a smaller number" << std::endl;
     }
-
-
 }
+
 void Script::consultSmallestClasses(int num_classes){
     ///A função cria uma função lambda compareNumberOfStudents, cujos parâmetros são dois objetos LeicClass, class_a e class_b, respetivamente.
     ///Esta retorna *true* se o número de estudantes incritos, obtidos a partir da função getNumberOfEnrolledStudents, em class_a for menor que em class_b e retorna *false* caso contrário.
@@ -641,7 +635,6 @@ void Script::consultUCsByYear(int year){
     }
 }
 
-
 void Script::consultUCsByYearByAscendingOccupancy(int year) {
     ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(UC_years_.size()) || year < 1) {
@@ -688,7 +681,6 @@ void Script::consultUCsByYearByDescendingOccupancy(int year) {
     for (const auto& uc:sortedByOccupancy) {
         std::cout << left << setw(8) << uc.getUcName() << " | "  << uc.getNumberOfEnrolledStudents() << std::endl;
     }
-
 }
 
 void Script::consultUCsWithMinNStudents(int year, int number) {
@@ -763,7 +755,6 @@ void Script::consultClassesInaYear(int year) {
     for (const auto & classIt : leic_class_years_[year-1]) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
-
 }
 
 void Script::consultClassesInaYearByAscendingOccupancy(int year) {
@@ -791,7 +782,6 @@ void Script::consultClassesInaYearByAscendingOccupancy(int year) {
 
 }
 
-
 void Script::consultClassesInaYearByDescendingOccupancy(int year) {
     ///Se year for um ano inválido, a função imprime "That's not a valid year " e termina.
     if(year > int(leic_class_years_.size()) || year < 1) {
@@ -815,8 +805,6 @@ void Script::consultClassesInaYearByDescendingOccupancy(int year) {
     for (const auto & classIt : sortedByOccupancy) {
         cout << left << setw(10) << classIt.getClassName() << " | " << classIt.getNumberOfEnrolledStudents() <<  std::endl;
     }
-
-
 }
 
 void Script::consultClassesWithMinNStudents(int year, int number) {
@@ -918,7 +906,7 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
     ///Caso contrário, guarda-se no objeto do tipo UC_class temp_UC_Class a turma da UC, obtida por UC_code, da turma pretendida.
     UC_class temp_UC_Class = temp_LeicClass.getUCClass(UC_code);
     ///Se esta turma da UC não existir, o pedido é rejeitado e a função termina.
-    if (!(temp_UC_Class != UC_class("Nao existe"))) {
+    if (temp_UC_Class.getUcName() == "Nao existe") {
         cout << "Request denied." << endl;
         cout << "UC not found in the class code under consideration. Please enter a valid UC code." << endl;
         return;
@@ -931,7 +919,6 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         return;
     }
 
-
     ///Se a função continuar, verifica-se se o horário de temp_UC_class, obtido por getUCClassSchedule, é compatíve
     Schedule schedule_to_add = temp_UC_Class.getUCClassSchedule();
     // Verifica se o horário da UC_class é compatível com o horário do estudante
@@ -942,7 +929,6 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
              << " of UC " << UC_code << "." << endl;
         return;
     }
-
 
     /// Guarda-se o vetor de pares com nome das turmas e o número de estudantes da UC definida por UC_code nessa turma, a partir da função getNumberOfEnrolledStudentsPerClassInUC.
     auto number_of_enrolled_students_per_class_in_UC = this->getNumberOfEnrolledStudentsPerClassInUC(UC_code);
@@ -998,7 +984,6 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
         cout << "The balance between class occupation was not disturbed." << endl;
 
     }
-
 
     ///Se o pedido foi aprovado, os sets all_students_, all_classes_ e allUCs_ apagam as informações do estudante, da turma e da UC, respetivamente.
     // Request aprovado
@@ -1189,7 +1174,7 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
 
     // Verificação de UC_class_new
     UC_class temp_UC_Class_new = temp_LeicClass_new.getUCClass(UC_code);
-    if (!(temp_UC_Class_new != UC_class("Nao existe"))) {
+    if (temp_UC_Class_new.getUcName() == "Nao existe") {
         cout << "Request denied." << endl;
         cout << "UC not found in the new class code under consideration. Please enter a valid UC code." << endl;
         return;
@@ -1201,7 +1186,7 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
     }
     Schedule new_schedule = temp_UC_Class_new.getUCClassSchedule();
 
-    // Verificação de LeicClass_old
+    // LeicClass_old
     auto classIt_old = all_classes_.find(LeicClass(old_class_code));
     LeicClass temp_LeicClass_old = *classIt_old;
 
@@ -1229,18 +1214,18 @@ void Script::requestSwitchSingleUCtoClass(int student_code, const string& new_cl
                            });
 
     auto it_new = std::find_if(number_of_enrolled_students_per_class_in_UC.begin(), number_of_enrolled_students_per_class_in_UC.end(),
-                               [old_class_code](const pair<string, int>& p) {
-                                   return p.first == old_class_code;
+                               [new_class_code](const pair<string, int>& p) {
+                                   return p.first == new_class_code;
                                });
 
     if(abs(max_number_of_enrolled_students_per_class_in_UC - min_number_of_enrolled_students_per_class_in_UC) > 4){
         // Balance does not exist
         if(it_old->second <= it_new->second){
             cout << "Request denied." << endl;
-            cout << "The balance of class occupation in this UC has not been reached yet. To achieve balance, you should enroll in classes with fewer number of students compared to the current (" << max_number_of_enrolled_students_per_class_in_UC << "), which are:" << endl;
+            cout << "The balance of class occupation in this UC has not been reached yet. To achieve balance, you should enroll in classes with fewer number of students compared to the current (" << it_old->second << "), which are:" << endl;
             for(const auto& elem : number_of_enrolled_students_per_class_in_UC){
                 if(it_old->second > elem.second){
-                    cout << elem.first << " (" << elem.second << ") students enrolled" << endl;
+                    cout << elem.first << ": " << elem.second << " students enrolled" << endl;
                     return;
                 }
             }
@@ -1299,9 +1284,9 @@ vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClassInUC(const 
     vector<pair<string, int>> number_of_enrolled_students_per_class_in_UC;
     ///Para cada turma em all_classes_, se a UC obtida a partir de UC_code existir, o par constituído pelo nome da turma (obtido por getClassName) e pelo número de estudantes inscritos na UC (obtido por getNumberOfEnrolledStudents) é colocado em number_of_enrolled_students_per_class_in_UC.
     for(const LeicClass& current_class : all_classes_){
-        auto itUCClass = current_class.getUCClass(UC_code);
-        if(itUCClass != UC_class("Não existe")){
-            number_of_enrolled_students_per_class_in_UC.emplace_back(current_class.getClassName(), itUCClass.getNumberOfEnrolledStudents());
+        auto UCClass = current_class.getUCClass(UC_code);
+        if(UCClass.getUcName() != "Nao existe"){
+            number_of_enrolled_students_per_class_in_UC.emplace_back(make_pair(current_class.getClassName(), UCClass.getNumberOfEnrolledStudents()));
         }
     }
     ///No fim desse processo, number_of_enrolled_students_per_class_in_UC é ordenado por ordem crescente de estudantes inscritos.
@@ -1314,8 +1299,6 @@ vector<pair<string, int>> Script::getNumberOfEnrolledStudentsPerClassInUC(const 
 }
 
 void Script::saveChangesToCsvFile(const string& filename) {
-
-
     std::string sourceDirectory = __FILE__;
     sourceDirectory = sourceDirectory.substr(0, sourceDirectory.find_last_of("/\\"));
 
@@ -1367,7 +1350,6 @@ void Script::restoreState(DataBaseState& previous_state) {
     all_students_ = previous_state.all_students;
 }
 
-
 void Script::undoLastAction() {
     ///Se o registo de estados anteriores não estiver vazio, guarda-se o objeto no topo da stack system_changes_record no objeto previous_state.
     if(!system_changes_record_.empty()) {
@@ -1388,9 +1370,6 @@ void Script::undoLastAction() {
         cout << endl;
     }
 }
-
-
-
 
 void Script::loadData(const std::string& filename_1, const std::string& filename_2, const std::string& filename_3) {
     populateLeicSet(filename_2);
@@ -1415,7 +1394,6 @@ void Script::loadYear() {
             leic_class_years_.at(2).insert(classIt);
         }
     }
-
 
     ///Cada UC_Class em all_UCs_ é inserida num set do vetor UC_years_ .
     ///O set em que é inserido é determinado pelo ano da UC, obtido pela função getUCYear .

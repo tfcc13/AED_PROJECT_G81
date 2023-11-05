@@ -42,20 +42,20 @@ void displayStudentMenu(Script& script){
         }
         switch (input) {
             case 1:
-                std::cout << "Insert student number;" << std::endl;
+                std::cout << "Insert student number:" << std::endl;
                 std::cin >> studentNumber;
                 std::cout <<  std::endl;
                 script.PrintWeekStudentSchedule(studentNumber);
                 break;
             case 2:
-                std::cout << "Insert student number;" << std::endl;
+                std::cout << "Insert student number:" << std::endl;
                 std::cin >> studentNumber;
                 std::cout <<  std::endl;
                 script.consultStudentEnrolledUCs(studentNumber);
                 std::cout << std::endl;
                 break;
             case 3:
-                std::cout << "Insert student number;" << std::endl;
+                std::cout << "Insert student number:" << std::endl;
                 std::cin >> studentNumber;
                 std::cout <<  std::endl;
                 script.consultStudentEnrolledClasses(studentNumber);
@@ -84,7 +84,6 @@ void displayStudentMenu(Script& script){
 
         }
     }
-
 }
 
 void displayUcMenu(Script& script){
@@ -272,7 +271,6 @@ void displayClassMenu(Script& script){
                 break;
         }
     }
-
 }
 
 void displayYearMenu(Script& script){
@@ -541,9 +539,9 @@ void displayRequestMenu(Script& script){
             case 4:
                 std::cout << "Insert student code" << std::endl;
                 cin >> student_code;
-                std::cout << "Enter the new class code to enroll" << std::endl;
-                cin >> UC_code;
                 std::cout << "Enter the UC code where the class switch will occur." << std::endl;
+                cin >> UC_code;
+                std::cout << "Enter the new class code to enroll" << std::endl;
                 cin >> class_code;
                 cout << endl;
                 script.captureState();
