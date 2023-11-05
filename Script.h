@@ -35,7 +35,7 @@ public:
     ///
     ///Isto acontece através das funções populateUcSet , populateLeicSet e populateStudentSet, respetivamente.
     ///
-    /// **Time Complexity:**
+    /// **Time Complexity:** O(n)
     /// \param filename_1 Ficheiro que se irá usar para popular all_UCs_
     /// \param filename_2 Ficheiro que se irá usar para popular all_classes_
     /// \param filename_3 Ficheiro que se irá usar para popular all_students_
@@ -68,8 +68,24 @@ public:
     ///**Time Complexity:** O(n)
     /// \param filename Ficheiro que se irá usar para popular o set
     void populateStudentSet(const std::string& filename);
+
+
+    ///Imprime o horário semanal de um estudante
+    ///
+    ///**Time Complexity:** O(log n)
+    /// \param studentNumber Número de estudante do estudante cujo horário se pretende imprimir
     void PrintWeekStudentSchedule(int studentNumber);
+
+
+    ///Imprime o horário semanal de uma turma
+    ///
+    ///**Time Complexity:** O(log n)
+    /// \param class_name Nome da turma cujo horário se pretende imprimir
     void PrintWeekScheduleClass(const string& class_name);
+
+
+
+
     void consultStudentEnrolledUCs(int studentNumber);
     void consultStudentEnrolledClasses(int studentNumber);
     void consultUCOccupancy(const string& uc_name);
