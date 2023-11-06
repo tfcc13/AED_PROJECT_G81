@@ -991,6 +991,10 @@ void Script::requestAddUCInClass(int student_code, const string& class_code, con
     all_students_.insert(temp_student);
     all_classes_.insert(temp_LeicClass);
     all_UCs_.insert(temp_UC);
+
+    ///Por fim, chama-se a função loadYear para atualizar a divisão por ano das turmas e das UC's.
+    loadYear();
+
     // Retorno
     ///Por fim, a função imprime "(<UC>, <turma>) added."
     cout << "(" << UC_code << ", "  << class_code << ") added." << std::endl;
@@ -1067,6 +1071,9 @@ void Script::requestRemoveSingleUC(int student_code, const string& UC_code){
 
     ///Por fim, a função imprime a mensagem "UC removed.".
     cout << "UC removed." << std::endl;
+
+    ///Por fim, chama-se a função loadYear para atualizar a divisão por ano das turmas e das UC's.
+    loadYear();
 }
 
 void Script::requestRemoveClassForAllUCs(int student_code, const std::string& class_code) {
@@ -1397,6 +1404,8 @@ void Script::saveChangesToCsvFile(const string& filename) {
 
     std::cout << "CSV file created or cleared successfully in the output directory." << std::endl;
 
+    ///Por fim, chama-se a função loadYear para atualizar a divisão por ano das turmas e das UC's.
+    loadYear();
 }
 
 void Script::captureState() {
